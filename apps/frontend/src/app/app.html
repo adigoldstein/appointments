@@ -1,2 +1,18 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<div class="app-shell">
+  <header class="app-header">
+    <a class="app-logo" routerLink="/auth" aria-label="Appointments home">
+      Appointments
+    </a>
+
+    <nav class="app-nav" aria-label="Primary navigation">
+      <a routerLink="/auth" routerLinkActive="app-nav-link--active" class="app-nav-link">Auth</a>
+      <a routerLink="/admin" routerLinkActive="app-nav-link--active" class="app-nav-link">Admin</a>
+      <a routerLink="/customer" routerLinkActive="app-nav-link--active" class="app-nav-link">Customer</a>
+      <a routerLink="/client-portal" routerLinkActive="app-nav-link--active" class="app-nav-link">Client portal</a>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -8,12 +8,29 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "baseUrl": ".",
     "target": "es2015",
     "module": "esnext",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "paths": {}
+    "paths": {
+      "@app/design-system": ["libs/design-system/src/index.ts"],
+      "@app/feature-admin": ["libs/feature-admin/src/index.ts"],
+      "@app/feature-auth": ["libs/feature-auth/src/index.ts"],
+      "@app/feature-client-portal": [
+        "libs/feature-client-portal/src/index.ts"
+      ],
+      "@app/feature-customer": ["libs/feature-customer/src/index.ts"],
+      "@app/shared/api": ["libs/shared/api/src/index.ts"],
+      "@app/shared/types": ["libs/shared/types/src/index.ts"],
+      "@app/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@app/ui/button": ["libs/ui/button/src/index.ts"],
+      "@app/ui/card": ["libs/ui/card/src/index.ts"],
+      "@app/ui/date-picker": ["libs/ui/date-picker/src/index.ts"],
+      "@app/ui/input": ["libs/ui/input/src/index.ts"],
+      "@app/ui/modal": ["libs/ui/modal/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

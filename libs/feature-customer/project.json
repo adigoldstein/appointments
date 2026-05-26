@@ -1,0 +1,12 @@
+{
+  "name": "feature-customer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/feature-customer/src",
+  "tags": ["scope:frontend", "type:feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

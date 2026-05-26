@@ -1,0 +1,19 @@
+@use "../settings/breakpoints" as breakpoints;
+
+@mixin respond($size) {
+  $breakpoint: map-get(breakpoints.$breakpoints, $size);
+
+  @if $breakpoint == null {
+    @error "Unknown breakpoint `#{$size}`.";
+  }
+
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
+}

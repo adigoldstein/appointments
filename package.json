@@ -9,20 +9,26 @@
     "start:backend": "nx serve backend",
     "build": "nx run-many --targets=build --all",
     "lint": "nx run-many --targets=lint --all",
-    "test": "nx run-many --targets=test --all"
+    "test": "nx run-many --targets=test --all",
+    "storybook": "nx run frontend:storybook",
+    "build:storybook": "nx run frontend:build-storybook"
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "~21.2.0",
+    "@angular/cdk": "~21.2.0",
     "@angular/common": "~21.2.0",
     "@angular/compiler": "~21.2.0",
     "@angular/core": "~21.2.0",
     "@angular/forms": "~21.2.0",
+    "@angular/material": "~21.2.0",
     "@angular/platform-browser": "~21.2.0",
     "@angular/router": "~21.2.0",
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
     "axios": "^1.6.0",
+    "date-fns": "^4.3.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0"
   },
@@ -43,10 +49,13 @@
     "@nx/js": "22.7.3",
     "@nx/nest": "^22.7.3",
     "@nx/node": "22.7.3",
+    "@nx/storybook": "^22.7.3",
     "@nx/web": "22.7.3",
     "@nx/webpack": "22.7.3",
     "@nx/workspace": "22.7.3",
     "@schematics/angular": "~21.2.0",
+    "@storybook/addon-docs": "^10.4.1",
+    "@storybook/angular": "^10.4.1",
     "@swc-node/register": "~1.11.1",
     "@swc/core": "~1.15.5",
     "@swc/helpers": "~0.5.18",
@@ -57,9 +66,11 @@
     "eslint-config-prettier": "^10.0.0",
     "nx": "22.7.3",
     "prettier": "~3.6.2",
+    "storybook": "^10.4.1",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0",
+    "webpack": "^5.105.2",
     "webpack-cli": "^5.1.4"
   }
 }
