@@ -1,0 +1,29 @@
+import type { StringValue } from 'ms';
+
+export const ENV_KEYS = {
+  PORT: 'PORT',
+  DB_HOST: 'DB_HOST',
+  DB_PORT: 'DB_PORT',
+  DB_USERNAME: 'DB_USERNAME',
+  DB_PASSWORD: 'DB_PASSWORD',
+  DB_DATABASE: 'DB_DATABASE',
+  JWT_ACCESS_SECRET: 'JWT_ACCESS_SECRET',
+  JWT_ACCESS_EXPIRES_IN: 'JWT_ACCESS_EXPIRES_IN',
+  JWT_REFRESH_SECRET: 'JWT_REFRESH_SECRET',
+  JWT_REFRESH_EXPIRES_IN: 'JWT_REFRESH_EXPIRES_IN',
+  BCRYPT_SALT_ROUNDS: 'BCRYPT_SALT_ROUNDS',
+} as const;
+
+export interface EnvironmentVariables {
+  PORT?: number;
+  DB_HOST: string;
+  DB_PORT: number;
+  DB_USERNAME: string;
+  DB_PASSWORD: string;
+  DB_DATABASE: string;
+  JWT_ACCESS_SECRET: string;
+  JWT_ACCESS_EXPIRES_IN: StringValue;
+  JWT_REFRESH_SECRET: string;
+  JWT_REFRESH_EXPIRES_IN: StringValue;
+  BCRYPT_SALT_ROUNDS: number;
+}

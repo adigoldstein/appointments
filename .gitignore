@@ -33,6 +33,9 @@ node_modules
 npm-debug.log
 yarn-error.log
 testem.log
+.env
+.env.*
+!.env.example
 /typings
 
 # System Files
@@ -45,3 +48,6 @@ Thumbs.db
 .claude/settings.local.json
 
 .angular
+
+# users.md
+users.md
