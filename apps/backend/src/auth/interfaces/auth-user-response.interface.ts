@@ -6,4 +6,6 @@ export interface AuthUserResponse {
   firstName: string;
   lastName: string;
   role: Role;
+  /** Set when role is CLIENT and the user was created under a provider */
+  providerId: string | null;
 }

@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -33,6 +35,20 @@ export class User {
   })
   role: Role;
 
+  @Column({ name: 'provider_id', type: 'uuid', nullable: true })
+  providerId: string | null;
+
+  @ManyToOne(() => User, (user) => user.clients, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'provider_id' })
+  provider: User | null;
+
+  @OneToMany(() => User, (user) => user.provider)
+  clients: User[];
+
+  // user can have multiple refresh tokens (several sessions, mobile, desktop, etc.)
   @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.user)
   refreshTokens: RefreshToken[];
 

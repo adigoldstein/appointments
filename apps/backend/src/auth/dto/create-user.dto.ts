@@ -2,7 +2,9 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -36,4 +38,9 @@ export class CreateUserDto {
 
   @IsEnum(Role)
   role: Role;
+
+  /** Required when an admin creates a CLIENT; ignored when a provider creates a CLIENT (server uses the logged-in provider). */
+  @IsOptional()
+  @IsUUID('4', { message: 'providerId must be a valid UUID' })
+  providerId?: string;
 }
