@@ -5,6 +5,7 @@ body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-md);
   line-height: var(--line-height-base);
+  font-variant-numeric: tabular-nums;
 }
 
 a {
@@ -12,6 +13,6 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-focus-ring);
-  outline-offset: 2px;
+  outline: var(--outline-width-focus-visible) solid var(--color-focus-ring);
+  outline-offset: var(--outline-offset-focus);
 }

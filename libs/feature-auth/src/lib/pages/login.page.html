@@ -1,0 +1,31 @@
+<div class="login-layout">
+  <div class="login-brand">
+    <span class="login-brand__mark">Schedula</span>
+    <p class="login-brand__tagline">ניהול תורים פשוט ונעים, בלי כאב ראש.</p>
+  </div>
+
+  <ui-card class="login-card" title="התחברות" subtitle="הזינו את הפרטים שלכם כדי להמשיך">
+    <form class="login-page__form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <ui-input
+        formControlName="email"
+        label="אימייל"
+        type="email"
+        autocomplete="email"
+        placeholder="הזינו את כתובת האימייל שלכם"
+        [error]="emailError()"
+      />
+      <ui-input
+        formControlName="password"
+        label="סיסמה"
+        type="password"
+        autocomplete="current-password"
+        placeholder="הזינו את הסיסמה שלכם"
+        [error]="passwordError()"
+      />
+      @if (loginError()) {
+        <p class="login-page__alert" role="alert">{{ loginError() }}</p>
+      }
+      <ui-button type="submit" [loading]="submitting()">כניסה</ui-button>
+    </form>
+  </ui-card>
+</div>

@@ -1,28 +1,44 @@
 :root {
-  --color-primary: #1295ee;
-  --color-primary-hover: #0b83d9;
+  --color-primary: #171512;
+  --color-primary-hover: #33302b;
   --color-primary-contrast: #ffffff;
-  --color-primary-soft: #e8f5ff;
-  --color-primary-soft-strong: #cfeaff;
-  --color-secondary: #1f2937;
-  --color-secondary-hover: #111827;
-  --color-success: #12b76a;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
-  --color-info: #1295ee;
-  --color-surface: #ffffff;
-  --color-surface-muted: #fafbfc;
+
+  --color-accent: #3f5d45;
+  --color-accent-hover: #32492f;
+  --color-accent-contrast: #ffffff;
+  --color-accent-soft: #e9eee8;
+  --color-accent-soft-strong: #cfdbcd;
+
+  --color-success: #3f5d45;
+  --color-warning: #956400;
+  --color-danger: #9f2f2d;
+  --color-info: #1f6c9f;
+
+  --color-surface: #fbfbfa;
+  --color-surface-muted: #f4f3f0;
   --color-surface-raised: #ffffff;
-  --color-border: #edf0f4;
-  --color-border-strong: #d9e0e8;
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
-  --color-text-subtle: #9ca3af;
+  --color-border: #eaeaea;
+  --color-border-strong: #d9d5ce;
+
+  --color-text: #1a1816;
+  --color-text-muted: #787774;
+  --color-text-subtle: #a39e96;
   --color-text-inverse: #ffffff;
-  --color-focus-ring: rgba(18, 149, 238, 0.28);
-  --color-backdrop: rgba(17, 24, 39, 0.42);
-  --color-appointment-available: #1295ee;
-  --color-appointment-partial: #cfeaff;
-  --color-appointment-blocked: #e5e7eb;
-  --color-appointment-blocked-text: #374151;
+
+  --color-focus-ring: rgba(63, 93, 69, 0.28);
+  --color-backdrop: rgba(23, 21, 18, 0.45);
+
+  --color-appointment-available: #3f5d45;
+  --color-appointment-partial: #e9eee8;
+  --color-appointment-blocked: #e3e1dc;
+  --color-appointment-blocked-text: #57534e;
+
+  --color-pastel-red-bg: #fdebec;
+  --color-pastel-red-text: #9f2f2d;
+  --color-pastel-blue-bg: #e1f3fe;
+  --color-pastel-blue-text: #1f6c9f;
+  --color-pastel-green-bg: #edf3ec;
+  --color-pastel-green-text: #346538;
+  --color-pastel-yellow-bg: #fbf3db;
+  --color-pastel-yellow-text: #956400;
 }

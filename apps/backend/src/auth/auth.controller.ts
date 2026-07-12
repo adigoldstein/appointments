@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { Role } from '@app/shared/types';
+import type { AuthUser } from '@app/shared/types';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { Roles } from './decorators/roles.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -22,7 +23,6 @@ import { LoginThrottlerGuard } from './guards/login-throttler.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { AuthService } from './auth.service';
 import {
-  AuthUserResponse,
   LoginResponse,
   LogoutResponse,
   RefreshResponse,
@@ -39,7 +39,7 @@ export class AuthController {
   createUser(
     @Body() createUserDto: CreateUserDto,
     @CurrentUser() actor: AuthenticatedUserPayload,
-  ): Promise<AuthUserResponse> {
+  ): Promise<AuthUser> {
     return this.authService.createUser(createUserDto, actor);
   }
 
@@ -64,7 +64,7 @@ export class AuthController {
   @Get('profile')
   getProfile(
     @CurrentUser() actor: AuthenticatedUserPayload,
-  ): Promise<AuthUserResponse> {
+  ): Promise<AuthUser> {
     return this.authService.getProfile(actor);
   }
 
@@ -74,7 +74,7 @@ export class AuthController {
     @Param('userId', ParseUUIDPipe) userId: string,
     @Body() updateUserDto: UpdateUserDto,
     @CurrentUser() actor: AuthenticatedUserPayload,
-  ): Promise<AuthUserResponse> {
+  ): Promise<AuthUser> {
     return this.authService.updateUser(userId, updateUserDto, actor);
   }
 

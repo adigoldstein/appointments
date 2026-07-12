@@ -13,7 +13,7 @@
 }
 
 @mixin focus-ring {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--color-focus-ring);
+  outline: var(--outline-width-focus) solid transparent;
+  outline-offset: var(--outline-offset-focus);
+  box-shadow: 0 0 0 var(--focus-ring-spread) var(--color-focus-ring);
 }

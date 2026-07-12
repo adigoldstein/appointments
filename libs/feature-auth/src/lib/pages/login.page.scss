@@ -1,0 +1,82 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.login-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin: 0 auto;
+  max-width: 26rem;
+  width: 100%;
+}
+
+.login-brand {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+  text-align: center;
+}
+
+.login-brand__mark {
+  color: var(--color-text);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.login-brand__tagline {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.login-page__form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.login-page__alert {
+  background: var(--color-pastel-red-bg);
+  border-radius: var(--radius-sm);
+  color: var(--color-pastel-red-text);
+  font-size: var(--font-size-sm);
+  padding: var(--space-3);
+}
+
+@media (min-width: 900px) {
+  .login-layout {
+    align-items: stretch;
+    flex-direction: row;
+    gap: var(--space-10);
+    max-width: 56rem;
+  }
+
+  .login-brand {
+    align-content: center;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(23, 21, 18, 0.06) 1px, transparent 0) 0 0 / 16px 16px,
+      radial-gradient(circle at 30% 15%, var(--color-accent-soft-strong), transparent 55%),
+      var(--color-accent-soft);
+    border-radius: var(--radius-xl);
+    flex: 1 1 45%;
+    gap: var(--space-3);
+    justify-items: start;
+    padding: var(--space-12);
+    text-align: start;
+  }
+
+  .login-brand__mark {
+    font-size: var(--font-size-3xl);
+  }
+
+  .login-brand__tagline {
+    font-size: var(--font-size-lg);
+    max-width: 20ch;
+  }
+
+  .login-card {
+    align-self: center;
+    flex: 1 1 55%;
+  }
+}

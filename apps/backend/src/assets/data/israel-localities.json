@@ -1,0 +1,6362 @@
+[
+    {
+        "cityId": 1,
+        "englishName": "ABU JUWEI'ID",
+        "hebrewName": "אבו ג'ווייעד )שבט("
+    },
+    {
+        "cityId": 2,
+        "englishName": "ABU GHOSH",
+        "hebrewName": "אבו גוש"
+    },
+    {
+        "cityId": 3,
+        "englishName": "ABU SINAN",
+        "hebrewName": "אבו סנאן"
+    },
+    {
+        "cityId": 4,
+        "englishName": "ABU SUREIHAN",
+        "hebrewName": "אבו סריחאן )שבט("
+    },
+    {
+        "cityId": 5,
+        "englishName": "ABU  ABDUN",
+        "hebrewName": "אבו עבדון )שבט("
+    },
+    {
+        "cityId": 6,
+        "englishName": "ABU  AMMAR",
+        "hebrewName": "אבו עמאר )שבט("
+    },
+    {
+        "cityId": 7,
+        "englishName": "ABU  AMRE",
+        "hebrewName": "אבו עמרה )שבט("
+    },
+    {
+        "cityId": 8,
+        "englishName": "ABU QUREINAT",
+        "hebrewName": "אבו קורינאת )שבט("
+    },
+    {
+        "cityId": 9,
+        "englishName": "ABU QUREINAT",
+        "hebrewName": "אבו קרינאת )יישוב("
+    },
+    {
+        "cityId": 10,
+        "englishName": "ABU RUBEI'A",
+        "hebrewName": "אבו רובייעה )שבט("
+    },
+    {
+        "cityId": 11,
+        "englishName": "ABU RUQAYYEQ",
+        "hebrewName": "אבו רוקייק )שבט("
+    },
+    {
+        "cityId": 12,
+        "englishName": "ABU TULUL",
+        "hebrewName": "אבו תלול"
+    },
+    {
+        "cityId": 13,
+        "englishName": "IBTIN",
+        "hebrewName": "אבטין"
+    },
+    {
+        "cityId": 14,
+        "englishName": "AVTALYON",
+        "hebrewName": "אבטליון"
+    },
+    {
+        "cityId": 15,
+        "englishName": "AVI'EL",
+        "hebrewName": "אביאל"
+    },
+    {
+        "cityId": 16,
+        "englishName": "AVIVIM",
+        "hebrewName": "אביבים"
+    },
+    {
+        "cityId": 17,
+        "englishName": "AVIGEDOR",
+        "hebrewName": "אביגדור"
+    },
+    {
+        "cityId": 18,
+        "englishName": "AVIHAYIL",
+        "hebrewName": "אביחיל"
+    },
+    {
+        "cityId": 19,
+        "englishName": "AVITAL",
+        "hebrewName": "אביטל"
+    },
+    {
+        "cityId": 20,
+        "englishName": "AVI'EZER",
+        "hebrewName": "אביעזר"
+    },
+    {
+        "cityId": 21,
+        "englishName": "ABBIRIM",
+        "hebrewName": "אבירים"
+    },
+    {
+        "cityId": 22,
+        "englishName": "EVEN YEHUDA",
+        "hebrewName": "אבן יהודה"
+    },
+    {
+        "cityId": 23,
+        "englishName": "EVEN MENAHEM",
+        "hebrewName": "אבן מנחם"
+    },
+    {
+        "cityId": 24,
+        "englishName": "EVEN SAPPIR",
+        "hebrewName": "אבן ספיר"
+    },
+    {
+        "cityId": 25,
+        "englishName": "EVEN SHEMU'EL",
+        "hebrewName": "אבן שמואל"
+    },
+    {
+        "cityId": 26,
+        "englishName": "AVNE ETAN",
+        "hebrewName": "אבני איתן"
+    },
+    {
+        "cityId": 27,
+        "englishName": "AVNE HEFEZ",
+        "hebrewName": "אבני חפץ"
+    },
+    {
+        "cityId": 28,
+        "englishName": "AVENAT",
+        "hebrewName": "אבנת"
+    },
+    {
+        "cityId": 29,
+        "englishName": "AVSHALOM",
+        "hebrewName": "אבשלום"
+    },
+    {
+        "cityId": 30,
+        "englishName": "ADORA",
+        "hebrewName": "אדורה"
+    },
+    {
+        "cityId": 31,
+        "englishName": "ADDIRIM",
+        "hebrewName": "אדירים"
+    },
+    {
+        "cityId": 32,
+        "englishName": "ADAMIT",
+        "hebrewName": "אדמית"
+    },
+    {
+        "cityId": 33,
+        "englishName": "ADDERET",
+        "hebrewName": "אדרת"
+    },
+    {
+        "cityId": 34,
+        "englishName": "UDIM",
+        "hebrewName": "אודים"
+    },
+    {
+        "cityId": 35,
+        "englishName": "ODEM",
+        "hebrewName": "אודם"
+    },
+    {
+        "cityId": 36,
+        "englishName": "OHAD",
+        "hebrewName": "אוהד"
+    },
+    {
+        "cityId": 37,
+        "englishName": "UMM AL-FAHM",
+        "hebrewName": "אום אל-פחם"
+    },
+    {
+        "cityId": 38,
+        "englishName": "UMM AL-QUTUF",
+        "hebrewName": "אום אל-קוטוף"
+    },
+    {
+        "cityId": 39,
+        "englishName": "UMM BATIN",
+        "hebrewName": "אום בטין"
+    },
+    {
+        "cityId": 40,
+        "englishName": "OMEN",
+        "hebrewName": "אומן"
+    },
+    {
+        "cityId": 41,
+        "englishName": "OMEZ",
+        "hebrewName": "אומץ"
+    },
+    {
+        "cityId": 42,
+        "englishName": "OFAQIM",
+        "hebrewName": "אופקים"
+    },
+    {
+        "cityId": 43,
+        "englishName": "OR HAGANUZ",
+        "hebrewName": "אור הגנוז"
+    },
+    {
+        "cityId": 44,
+        "englishName": "OR HANER",
+        "hebrewName": "אור הנר"
+    },
+    {
+        "cityId": 45,
+        "englishName": "OR YEHUDA",
+        "hebrewName": "אור יהודה"
+    },
+    {
+        "cityId": 46,
+        "englishName": "OR AQIVA",
+        "hebrewName": "אור עקיבא"
+    },
+    {
+        "cityId": 47,
+        "englishName": "ORA",
+        "hebrewName": "אורה"
+    },
+    {
+        "cityId": 48,
+        "englishName": "OROT",
+        "hebrewName": "אורות"
+    },
+    {
+        "cityId": 49,
+        "englishName": "ORTAL",
+        "hebrewName": "אורטל"
+    },
+    {
+        "cityId": 50,
+        "englishName": "URIM",
+        "hebrewName": "אורים"
+    },
+    {
+        "cityId": 51,
+        "englishName": "ORANIM",
+        "hebrewName": "אורנים"
+    },
+    {
+        "cityId": 52,
+        "englishName": "ORANIT",
+        "hebrewName": "אורנית"
+    },
+    {
+        "cityId": 53,
+        "englishName": "USHA",
+        "hebrewName": "אושה"
+    },
+    {
+        "cityId": 54,
+        "englishName": "AZOR",
+        "hebrewName": "אזור"
+    },
+    {
+        "cityId": 55,
+        "englishName": "AHAWA",
+        "hebrewName": "אחווה"
+    },
+    {
+        "cityId": 56,
+        "englishName": "AHUZZAM",
+        "hebrewName": "אחוזם"
+    },
+    {
+        "cityId": 57,
+        "englishName": "AHUZZAT BARAQ",
+        "hebrewName": "אחוזת ברק"
+    },
+    {
+        "cityId": 58,
+        "englishName": "AHIHUD",
+        "hebrewName": "אחיהוד"
+    },
+    {
+        "cityId": 59,
+        "englishName": "AHITUV",
+        "hebrewName": "אחיטוב"
+    },
+    {
+        "cityId": 60,
+        "englishName": "AHISAMAKH",
+        "hebrewName": "אחיסמך"
+    },
+    {
+        "cityId": 61,
+        "englishName": "AHI'EZER",
+        "hebrewName": "אחיעזר"
+    },
+    {
+        "cityId": 62,
+        "englishName": "ATRASH",
+        "hebrewName": "אטרש )שבט("
+    },
+    {
+        "cityId": 63,
+        "englishName": "IBBIM",
+        "hebrewName": "איבים"
+    },
+    {
+        "cityId": 64,
+        "englishName": "EYAL",
+        "hebrewName": "אייל"
+    },
+    {
+        "cityId": 65,
+        "englishName": "AYYELET HASHAHAR",
+        "hebrewName": "איילת השחר"
+    },
+    {
+        "cityId": 66,
+        "englishName": "ELON",
+        "hebrewName": "אילון"
+    },
+    {
+        "cityId": 67,
+        "englishName": "ELOT",
+        "hebrewName": "אילות"
+    },
+    {
+        "cityId": 68,
+        "englishName": "ILANIYYA",
+        "hebrewName": "אילניה"
+    },
+    {
+        "cityId": 69,
+        "englishName": "ELAT",
+        "hebrewName": "אילת"
+    },
+    {
+        "cityId": 70,
+        "englishName": "IRUS",
+        "hebrewName": "אירוס"
+    },
+    {
+        "cityId": 71,
+        "englishName": "ITAMAR",
+        "hebrewName": "איתמר"
+    },
+    {
+        "cityId": 72,
+        "englishName": "ETAN",
+        "hebrewName": "איתן"
+    },
+    {
+        "cityId": 73,
+        "englishName": "ETANIM",
+        "hebrewName": "איתנים"
+    },
+    {
+        "cityId": 74,
+        "englishName": "IKSAL",
+        "hebrewName": "אכסאל"
+    },
+    {
+        "cityId": 75,
+        "englishName": "AL SAYYID",
+        "hebrewName": "אל סייד"
+    },
+    {
+        "cityId": 76,
+        "englishName": "AL-AZY",
+        "hebrewName": "אל-עזי"
+    },
+    {
+        "cityId": 77,
+        "englishName": "AL-ARYAN",
+        "hebrewName": "אל-עריאן"
+    },
+    {
+        "cityId": 78,
+        "englishName": "EL-ROM",
+        "hebrewName": "אל-רום"
+    },
+    {
+        "cityId": 79,
+        "englishName": "ALUMMA",
+        "hebrewName": "אלומה"
+    },
+    {
+        "cityId": 80,
+        "englishName": "ALUMMOT",
+        "hebrewName": "אלומות"
+    },
+    {
+        "cityId": 81,
+        "englishName": "ALLON HAGALIL",
+        "hebrewName": "אלון הגליל"
+    },
+    {
+        "cityId": 82,
+        "englishName": "ELON MORE",
+        "hebrewName": "אלון מורה"
+    },
+    {
+        "cityId": 83,
+        "englishName": "ALLON SHEVUT",
+        "hebrewName": "אלון שבות"
+    },
+    {
+        "cityId": 84,
+        "englishName": "ALLONE ABBA",
+        "hebrewName": "אלוני אבא"
+    },
+    {
+        "cityId": 85,
+        "englishName": "ALLONE HABASHAN",
+        "hebrewName": "אלוני הבשן"
+    },
+    {
+        "cityId": 86,
+        "englishName": "ALLONE YIZHAQ",
+        "hebrewName": "אלוני יצחק"
+    },
+    {
+        "cityId": 87,
+        "englishName": "ALLONIM",
+        "hebrewName": "אלונים"
+    },
+    {
+        "cityId": 88,
+        "englishName": "ELI AL",
+        "hebrewName": "אלי-עד"
+    },
+    {
+        "cityId": 89,
+        "englishName": "ELIAV",
+        "hebrewName": "אליאב"
+    },
+    {
+        "cityId": 90,
+        "englishName": "ELYAKHIN",
+        "hebrewName": "אליכין"
+    },
+    {
+        "cityId": 91,
+        "englishName": "ELIFAZ",
+        "hebrewName": "אליפז"
+    },
+    {
+        "cityId": 92,
+        "englishName": "ELIFELET",
+        "hebrewName": "אליפלט"
+    },
+    {
+        "cityId": 93,
+        "englishName": "ELYAQIM",
+        "hebrewName": "אליקים"
+    },
+    {
+        "cityId": 94,
+        "englishName": "ELYASHIV",
+        "hebrewName": "אלישיב"
+    },
+    {
+        "cityId": 95,
+        "englishName": "ELISHAMA",
+        "hebrewName": "אלישמע"
+    },
+    {
+        "cityId": 96,
+        "englishName": "ALMAGOR",
+        "hebrewName": "אלמגור"
+    },
+    {
+        "cityId": 97,
+        "englishName": "ALMOG",
+        "hebrewName": "אלמוג"
+    },
+    {
+        "cityId": 98,
+        "englishName": "EL'AD",
+        "hebrewName": "אלעד"
+    },
+    {
+        "cityId": 99,
+        "englishName": "EL'AZAR",
+        "hebrewName": "אלעזר"
+    },
+    {
+        "cityId": 100,
+        "englishName": "ALFE MENASHE",
+        "hebrewName": "אלפי מנשה"
+    },
+    {
+        "cityId": 101,
+        "englishName": "ELQOSH",
+        "hebrewName": "אלקוש"
+    },
+    {
+        "cityId": 102,
+        "englishName": "ELQANA",
+        "hebrewName": "אלקנה"
+    },
+    {
+        "cityId": 103,
+        "englishName": "EMUNIM",
+        "hebrewName": "אמונים"
+    },
+    {
+        "cityId": 104,
+        "englishName": "AMIRIM",
+        "hebrewName": "אמירים"
+    },
+    {
+        "cityId": 105,
+        "englishName": "AMNUN",
+        "hebrewName": "אמנון"
+    },
+    {
+        "cityId": 106,
+        "englishName": "AMAZYA",
+        "hebrewName": "אמציה"
+    },
+    {
+        "cityId": 107,
+        "englishName": "ANI'AM",
+        "hebrewName": "אניעם"
+    },
+    {
+        "cityId": 108,
+        "englishName": "ASAD",
+        "hebrewName": "אסד )שבט("
+    },
+    {
+        "cityId": 109,
+        "englishName": "ASEFAR",
+        "hebrewName": "אספר"
+    },
+    {
+        "cityId": 110,
+        "englishName": "I'BILLIN",
+        "hebrewName": "אעבלין"
+    },
+    {
+        "cityId": 111,
+        "englishName": "A'SAM",
+        "hebrewName": "אעצם )שבט("
+    },
+    {
+        "cityId": 112,
+        "englishName": "AFEINISH",
+        "hebrewName": "אפיניש )שבט("
+    },
+    {
+        "cityId": 113,
+        "englishName": "AFIQ",
+        "hebrewName": "אפיק"
+    },
+    {
+        "cityId": 114,
+        "englishName": "AFIQIM",
+        "hebrewName": "אפיקים"
+    },
+    {
+        "cityId": 115,
+        "englishName": "AFEQ",
+        "hebrewName": "אפק"
+    },
+    {
+        "cityId": 116,
+        "englishName": "EFRAT",
+        "hebrewName": "אפרת"
+    },
+    {
+        "cityId": 117,
+        "englishName": "ARBEL",
+        "hebrewName": "ארבל"
+    },
+    {
+        "cityId": 118,
+        "englishName": "ARGAMAN",
+        "hebrewName": "ארגמן"
+    },
+    {
+        "cityId": 119,
+        "englishName": "EREZ",
+        "hebrewName": "ארז"
+    },
+    {
+        "cityId": 120,
+        "englishName": "ARI'EL",
+        "hebrewName": "אריאל"
+    },
+    {
+        "cityId": 121,
+        "englishName": "ARSUF",
+        "hebrewName": "ארסוף"
+    },
+    {
+        "cityId": 122,
+        "englishName": "ESHBOL",
+        "hebrewName": "אשבול"
+    },
+    {
+        "cityId": 123,
+        "englishName": "NAHAL ESHBAL",
+        "hebrewName": "אשבל"
+    },
+    {
+        "cityId": 124,
+        "englishName": "ASHDOD",
+        "hebrewName": "אשדוד"
+    },
+    {
+        "cityId": 125,
+        "englishName": "ASHDOT YA'AQOV(IHUD)",
+        "hebrewName": "אשדות יעקב  )איחוד("
+    },
+    {
+        "cityId": 126,
+        "englishName": "ASHDOT YA'AQOV(ME'UH",
+        "hebrewName": "אשדות יעקב  )מאוחד("
+    },
+    {
+        "cityId": 127,
+        "englishName": "ESHHAR",
+        "hebrewName": "אשחר"
+    },
+    {
+        "cityId": 128,
+        "englishName": "ESHKOLOT",
+        "hebrewName": "אשכולות"
+    },
+    {
+        "cityId": 129,
+        "englishName": "ESHEL HANASI",
+        "hebrewName": "אשל הנשיא"
+    },
+    {
+        "cityId": 130,
+        "englishName": "ASHALIM",
+        "hebrewName": "אשלים"
+    },
+    {
+        "cityId": 131,
+        "englishName": "ASHQELON",
+        "hebrewName": "אשקלון"
+    },
+    {
+        "cityId": 132,
+        "englishName": "ASHERAT",
+        "hebrewName": "אשרת"
+    },
+    {
+        "cityId": 133,
+        "englishName": "ESHTA'OL",
+        "hebrewName": "אשתאול"
+    },
+    {
+        "cityId": 134,
+        "englishName": "ETGAR",
+        "hebrewName": "אתגר"
+    },
+    {
+        "cityId": 135,
+        "englishName": "BAQA AL-GHARBIYYE",
+        "hebrewName": "באקה אל-גרביה"
+    },
+    {
+        "cityId": 136,
+        "englishName": "BE'ER ORA",
+        "hebrewName": "באר אורה"
+    },
+    {
+        "cityId": 137,
+        "englishName": "BEER GANNIM",
+        "hebrewName": "באר גנים"
+    },
+    {
+        "cityId": 138,
+        "englishName": "BE'ER TUVEYA",
+        "hebrewName": "באר טוביה"
+    },
+    {
+        "cityId": 139,
+        "englishName": "BE'ER YA'AQOV",
+        "hebrewName": "באר יעקב"
+    },
+    {
+        "cityId": 140,
+        "englishName": "BE'ER MILKA",
+        "hebrewName": "באר מילכה"
+    },
+    {
+        "cityId": 141,
+        "englishName": "BE'ER SHEVA",
+        "hebrewName": "באר שבע"
+    },
+    {
+        "cityId": 142,
+        "englishName": "BE'EROT YIZHAQ",
+        "hebrewName": "בארות יצחק"
+    },
+    {
+        "cityId": 143,
+        "englishName": "BE'EROTAYIM",
+        "hebrewName": "בארותיים"
+    },
+    {
+        "cityId": 144,
+        "englishName": "BE'ERI",
+        "hebrewName": "בארי"
+    },
+    {
+        "cityId": 145,
+        "englishName": "BUSTAN HAGALIL",
+        "hebrewName": "בוסתן הגליל"
+    },
+    {
+        "cityId": 146,
+        "englishName": "BU'EINE-NUJEIDAT",
+        "hebrewName": "בועיינה-נוג'ידאת"
+    },
+    {
+        "cityId": 147,
+        "englishName": "BUQ'ATA",
+        "hebrewName": "בוקעאתא"
+    },
+    {
+        "cityId": 148,
+        "englishName": "BURGETA",
+        "hebrewName": "בורגתה"
+    },
+    {
+        "cityId": 149,
+        "englishName": "BAHAN",
+        "hebrewName": "בחן"
+    },
+    {
+        "cityId": 150,
+        "englishName": "BITHA",
+        "hebrewName": "בטחה"
+    },
+    {
+        "cityId": 151,
+        "englishName": "BIZZARON",
+        "hebrewName": "ביצרון"
+    },
+    {
+        "cityId": 152,
+        "englishName": "BIR EL-MAKSUR",
+        "hebrewName": "ביר אל-מכסור"
+    },
+    {
+        "cityId": 153,
+        "englishName": "BIR HADAGE",
+        "hebrewName": "ביר הדאג'"
+    },
+    {
+        "cityId": 154,
+        "englishName": "BIRIYYA",
+        "hebrewName": "ביריה"
+    },
+    {
+        "cityId": 155,
+        "englishName": "BET OREN",
+        "hebrewName": "בית אורן"
+    },
+    {
+        "cityId": 156,
+        "englishName": "BET EL",
+        "hebrewName": "בית אל"
+    },
+    {
+        "cityId": 157,
+        "englishName": "BET EL'AZARI",
+        "hebrewName": "בית אלעזרי"
+    },
+    {
+        "cityId": 158,
+        "englishName": "BET ALFA",
+        "hebrewName": "בית אלפא"
+    },
+    {
+        "cityId": 159,
+        "englishName": "BET ARYE",
+        "hebrewName": "בית אריה"
+    },
+    {
+        "cityId": 160,
+        "englishName": "BET BERL",
+        "hebrewName": "בית ברל"
+    },
+    {
+        "cityId": 161,
+        "englishName": "BEIT JANN",
+        "hebrewName": "בית ג'ן"
+    },
+    {
+        "cityId": 162,
+        "englishName": "BET GUVRIN",
+        "hebrewName": "בית גוברין"
+    },
+    {
+        "cityId": 163,
+        "englishName": "BET GAMLI'EL",
+        "hebrewName": "בית גמליאל"
+    },
+    {
+        "cityId": 164,
+        "englishName": "BET DAGAN",
+        "hebrewName": "בית דגן"
+    },
+    {
+        "cityId": 165,
+        "englishName": "BET HAGADDI",
+        "hebrewName": "בית הגדי"
+    },
+    {
+        "cityId": 166,
+        "englishName": "BET HALEVI",
+        "hebrewName": "בית הלוי"
+    },
+    {
+        "cityId": 167,
+        "englishName": "BET HILLEL",
+        "hebrewName": "בית הלל"
+    },
+    {
+        "cityId": 168,
+        "englishName": "BET HAEMEQ",
+        "hebrewName": "בית העמק"
+    },
+    {
+        "cityId": 169,
+        "englishName": "BET HAARAVA",
+        "hebrewName": "בית הערבה"
+    },
+    {
+        "cityId": 170,
+        "englishName": "BET HASHITTA",
+        "hebrewName": "בית השיטה"
+    },
+    {
+        "cityId": 171,
+        "englishName": "BET ZEID",
+        "hebrewName": "בית זיד"
+    },
+    {
+        "cityId": 172,
+        "englishName": "BET ZAYIT",
+        "hebrewName": "בית זית"
+    },
+    {
+        "cityId": 173,
+        "englishName": "BET ZERA",
+        "hebrewName": "בית זרע"
+    },
+    {
+        "cityId": 174,
+        "englishName": "BET HORON",
+        "hebrewName": "בית חורון"
+    },
+    {
+        "cityId": 175,
+        "englishName": "BET HERUT",
+        "hebrewName": "בית חירות"
+    },
+    {
+        "cityId": 176,
+        "englishName": "BET HILQIYYA",
+        "hebrewName": "בית חלקיה"
+    },
+    {
+        "cityId": 177,
+        "englishName": "BET HANAN",
+        "hebrewName": "בית חנן"
+    },
+    {
+        "cityId": 178,
+        "englishName": "BET HANANYA",
+        "hebrewName": "בית חנניה"
+    },
+    {
+        "cityId": 179,
+        "englishName": "BET HASHMONAY",
+        "hebrewName": "בית חשמונאי"
+    },
+    {
+        "cityId": 180,
+        "englishName": "BET YEHOSHUA",
+        "hebrewName": "בית יהושע"
+    },
+    {
+        "cityId": 181,
+        "englishName": "BET YOSEF",
+        "hebrewName": "בית יוסף"
+    },
+    {
+        "cityId": 182,
+        "englishName": "BET YANNAY",
+        "hebrewName": "בית ינאי"
+    },
+    {
+        "cityId": 183,
+        "englishName": "BET YIZHAQ-SH. HEFER",
+        "hebrewName": "בית יצחק-שער חפר"
+    },
+    {
+        "cityId": 184,
+        "englishName": "BET LEHEM HAGELILIT",
+        "hebrewName": "בית לחם הגלילית"
+    },
+    {
+        "cityId": 185,
+        "englishName": "BET ME'IR",
+        "hebrewName": "בית מאיר"
+    },
+    {
+        "cityId": 186,
+        "englishName": "BET NEHEMYA",
+        "hebrewName": "בית נחמיה"
+    },
+    {
+        "cityId": 187,
+        "englishName": "BET NIR",
+        "hebrewName": "בית ניר"
+    },
+    {
+        "cityId": 188,
+        "englishName": "BET NEQOFA",
+        "hebrewName": "בית נקופה"
+    },
+    {
+        "cityId": 189,
+        "englishName": "BET OVED",
+        "hebrewName": "בית עובד"
+    },
+    {
+        "cityId": 190,
+        "englishName": "BET UZZI'EL",
+        "hebrewName": "בית עוזיאל"
+    },
+    {
+        "cityId": 191,
+        "englishName": "BET EZRA",
+        "hebrewName": "בית עזרא"
+    },
+    {
+        "cityId": 192,
+        "englishName": "BET ARIF",
+        "hebrewName": "בית עריף"
+    },
+    {
+        "cityId": 193,
+        "englishName": "BET ZEVI",
+        "hebrewName": "בית צבי"
+    },
+    {
+        "cityId": 194,
+        "englishName": "BET QAMA",
+        "hebrewName": "בית קמה"
+    },
+    {
+        "cityId": 195,
+        "englishName": "BET QESHET",
+        "hebrewName": "בית קשת"
+    },
+    {
+        "cityId": 196,
+        "englishName": "BET RABBAN",
+        "hebrewName": "בית רבן"
+    },
+    {
+        "cityId": 197,
+        "englishName": "BET RIMMON",
+        "hebrewName": "בית רימון"
+    },
+    {
+        "cityId": 198,
+        "englishName": "BET SHE'AN",
+        "hebrewName": "בית שאן"
+    },
+    {
+        "cityId": 199,
+        "englishName": "BET SHEMESH",
+        "hebrewName": "בית שמש"
+    },
+    {
+        "cityId": 200,
+        "englishName": "BET SHE'ARIM",
+        "hebrewName": "בית שערים"
+    },
+    {
+        "cityId": 201,
+        "englishName": "BET SHIQMA",
+        "hebrewName": "בית שקמה"
+    },
+    {
+        "cityId": 202,
+        "englishName": "BITAN AHARON",
+        "hebrewName": "ביתן אהרן"
+    },
+    {
+        "cityId": 203,
+        "englishName": "BETAR ILLIT",
+        "hebrewName": "ביתר עילית"
+    },
+    {
+        "cityId": 204,
+        "englishName": "BALFURIYYA",
+        "hebrewName": "בלפוריה"
+    },
+    {
+        "cityId": 205,
+        "englishName": "BEN ZAKKAY",
+        "hebrewName": "בן זכאי"
+    },
+    {
+        "cityId": 206,
+        "englishName": "BEN AMMI",
+        "hebrewName": "בן עמי"
+    },
+    {
+        "cityId": 207,
+        "englishName": "BEN SHEMEN(K.NO'AR)",
+        "hebrewName": "בן שמן )כפר נוער("
+    },
+    {
+        "cityId": 208,
+        "englishName": "BEN SHEMEN (MOSHAV)",
+        "hebrewName": "בן שמן )מושב("
+    },
+    {
+        "cityId": 209,
+        "englishName": "BENE BERAQ",
+        "hebrewName": "בני ברק"
+    },
+    {
+        "cityId": 210,
+        "englishName": "BNE DKALIM",
+        "hebrewName": "בני דקלים"
+    },
+    {
+        "cityId": 211,
+        "englishName": "BENE DAROM",
+        "hebrewName": "בני דרום"
+    },
+    {
+        "cityId": 212,
+        "englishName": "BENE DEROR",
+        "hebrewName": "בני דרור"
+    },
+    {
+        "cityId": 213,
+        "englishName": "BENE YEHUDA",
+        "hebrewName": "בני יהודה"
+    },
+    {
+        "cityId": 214,
+        "englishName": "BENE NEZARIM",
+        "hebrewName": "בני נצרים"
+    },
+    {
+        "cityId": 215,
+        "englishName": "BENE ATAROT",
+        "hebrewName": "בני עטרות"
+    },
+    {
+        "cityId": 216,
+        "englishName": "BENE AYISH",
+        "hebrewName": "בני עי\"ש"
+    },
+    {
+        "cityId": 217,
+        "englishName": "BENE ZIYYON",
+        "hebrewName": "בני ציון"
+    },
+    {
+        "cityId": 218,
+        "englishName": "BENE RE'EM",
+        "hebrewName": "בני ראם"
+    },
+    {
+        "cityId": 219,
+        "englishName": "BENAYA",
+        "hebrewName": "בניה"
+    },
+    {
+        "cityId": 220,
+        "englishName": "BINYAMINA",
+        "hebrewName": "בנימינה-גבעת עדה"
+    },
+    {
+        "cityId": 221,
+        "englishName": "BASMA",
+        "hebrewName": "בסמ\"ה"
+    },
+    {
+        "cityId": 222,
+        "englishName": "BASMAT TAB'UN",
+        "hebrewName": "בסמת טבעון"
+    },
+    {
+        "cityId": 223,
+        "englishName": "BI NE",
+        "hebrewName": "בענה"
+    },
+    {
+        "cityId": 224,
+        "englishName": "BAZRA",
+        "hebrewName": "בצרה"
+    },
+    {
+        "cityId": 225,
+        "englishName": "BEZET",
+        "hebrewName": "בצת"
+    },
+    {
+        "cityId": 226,
+        "englishName": "BEQOA",
+        "hebrewName": "בקוע"
+    },
+    {
+        "cityId": 227,
+        "englishName": "BEQA'OT",
+        "hebrewName": "בקעות"
+    },
+    {
+        "cityId": 228,
+        "englishName": "BAR GIYYORA",
+        "hebrewName": "בר גיורא"
+    },
+    {
+        "cityId": 229,
+        "englishName": "BAR YOHAY",
+        "hebrewName": "בר יוחאי"
+    },
+    {
+        "cityId": 230,
+        "englishName": "BRUKHIN",
+        "hebrewName": "ברוכין"
+    },
+    {
+        "cityId": 231,
+        "englishName": "BEROR HAYIL",
+        "hebrewName": "ברור חיל"
+    },
+    {
+        "cityId": 232,
+        "englishName": "BEROSH",
+        "hebrewName": "ברוש"
+    },
+    {
+        "cityId": 233,
+        "englishName": "BERAKHA",
+        "hebrewName": "ברכה"
+    },
+    {
+        "cityId": 234,
+        "englishName": "BEREKHYA",
+        "hebrewName": "ברכיה"
+    },
+    {
+        "cityId": 235,
+        "englishName": "BAR'AM",
+        "hebrewName": "ברעם"
+    },
+    {
+        "cityId": 236,
+        "englishName": "BARAQ",
+        "hebrewName": "ברק"
+    },
+    {
+        "cityId": 237,
+        "englishName": "BARQAY",
+        "hebrewName": "ברקאי"
+    },
+    {
+        "cityId": 238,
+        "englishName": "BARQAN",
+        "hebrewName": "ברקן"
+    },
+    {
+        "cityId": 239,
+        "englishName": "BAREQET",
+        "hebrewName": "ברקת"
+    },
+    {
+        "cityId": 240,
+        "englishName": "BAT HADAR",
+        "hebrewName": "בת הדר"
+    },
+    {
+        "cityId": 241,
+        "englishName": "BAT HEN",
+        "hebrewName": "בת חן"
+    },
+    {
+        "cityId": 242,
+        "englishName": "BAT HEFER",
+        "hebrewName": "בת חפר"
+    },
+    {
+        "cityId": 243,
+        "englishName": "BAT HAZOR",
+        "hebrewName": "בת חצור"
+    },
+    {
+        "cityId": 244,
+        "englishName": "BAT YAM",
+        "hebrewName": "בת ים"
+    },
+    {
+        "cityId": 245,
+        "englishName": "BAT AYIN",
+        "hebrewName": "בת עין"
+    },
+    {
+        "cityId": 246,
+        "englishName": "BAT SHELOMO",
+        "hebrewName": "בת שלמה"
+    },
+    {
+        "cityId": 247,
+        "englishName": "JUDEIDE-MAKER",
+        "hebrewName": "ג'דיידה-מכר"
+    },
+    {
+        "cityId": 248,
+        "englishName": "JULIS",
+        "hebrewName": "ג'ולס"
+    },
+    {
+        "cityId": 249,
+        "englishName": "JALJULYE",
+        "hebrewName": "ג'לג'וליה"
+    },
+    {
+        "cityId": 250,
+        "englishName": "JUNNABIB",
+        "hebrewName": "ג'נאביב )שבט("
+    },
+    {
+        "cityId": 251,
+        "englishName": "JISR AZ-ZARQA",
+        "hebrewName": "ג'סר א-זרקא"
+    },
+    {
+        "cityId": 252,
+        "englishName": "JISH(GUSH HALAV)",
+        "hebrewName": "ג'ש )גוש חלב("
+    },
+    {
+        "cityId": 253,
+        "englishName": "JAAT",
+        "hebrewName": "ג'ת"
+    },
+    {
+        "cityId": 254,
+        "englishName": "GE'ULE TEMAN",
+        "hebrewName": "גאולי תימן"
+    },
+    {
+        "cityId": 255,
+        "englishName": "GE'ULIM",
+        "hebrewName": "גאולים"
+    },
+    {
+        "cityId": 256,
+        "englishName": "GE'ALYA",
+        "hebrewName": "גאליה"
+    },
+    {
+        "cityId": 257,
+        "englishName": "GEVULOT",
+        "hebrewName": "גבולות"
+    },
+    {
+        "cityId": 258,
+        "englishName": "GEVIM",
+        "hebrewName": "גבים"
+    },
+    {
+        "cityId": 259,
+        "englishName": "GEVA",
+        "hebrewName": "גבע"
+    },
+    {
+        "cityId": 260,
+        "englishName": "GEVA BINYAMIN",
+        "hebrewName": "גבע בנימין"
+    },
+    {
+        "cityId": 261,
+        "englishName": "GEVA  KARMEL",
+        "hebrewName": "גבע כרמל"
+    },
+    {
+        "cityId": 262,
+        "englishName": "GIV'OLIM",
+        "hebrewName": "גבעולים"
+    },
+    {
+        "cityId": 263,
+        "englishName": "GIV'ON HAHADASHA",
+        "hebrewName": "גבעון החדשה"
+    },
+    {
+        "cityId": 264,
+        "englishName": "GEVA'OT BAR",
+        "hebrewName": "גבעות בר"
+    },
+    {
+        "cityId": 265,
+        "englishName": "GIV'AT AVNI",
+        "hebrewName": "גבעת אבני"
+    },
+    {
+        "cityId": 266,
+        "englishName": "GIV'AT ELA",
+        "hebrewName": "גבעת אלה"
+    },
+    {
+        "cityId": 267,
+        "englishName": "GIV'AT BRENNER",
+        "hebrewName": "גבעת ברנר"
+    },
+    {
+        "cityId": 268,
+        "englishName": "GIV'AT HASHELOSHA",
+        "hebrewName": "גבעת השלושה"
+    },
+    {
+        "cityId": 269,
+        "englishName": "GIV'AT ZE'EV",
+        "hebrewName": "גבעת זאב"
+    },
+    {
+        "cityId": 270,
+        "englishName": "GIV'AT HEN",
+        "hebrewName": "גבעת ח\"ן"
+    },
+    {
+        "cityId": 271,
+        "englishName": "GIV'AT HAYYIM (IHUD)",
+        "hebrewName": "גבעת חיים )איחוד("
+    },
+    {
+        "cityId": 272,
+        "englishName": "GIV'AT HAYYIM(ME'UHA",
+        "hebrewName": "גבעת חיים )מאוחד("
+    },
+    {
+        "cityId": 273,
+        "englishName": "GIV'AT YO'AV",
+        "hebrewName": "גבעת יואב"
+    },
+    {
+        "cityId": 274,
+        "englishName": "GIV'AT YE'ARIM",
+        "hebrewName": "גבעת יערים"
+    },
+    {
+        "cityId": 275,
+        "englishName": "GIV'AT YESHA'YAHU",
+        "hebrewName": "גבעת ישעיהו"
+    },
+    {
+        "cityId": 276,
+        "englishName": "GIV'AT KOAH",
+        "hebrewName": "גבעת כ\"ח"
+    },
+    {
+        "cityId": 277,
+        "englishName": "GIV'AT NILI",
+        "hebrewName": "גבעת ניל\"י"
+    },
+    {
+        "cityId": 278,
+        "englishName": "GIV'AT OZ",
+        "hebrewName": "גבעת עוז"
+    },
+    {
+        "cityId": 279,
+        "englishName": "GIV'AT SHEMU'EL",
+        "hebrewName": "גבעת שמואל"
+    },
+    {
+        "cityId": 280,
+        "englishName": "GIV'AT SHEMESH",
+        "hebrewName": "גבעת שמש"
+    },
+    {
+        "cityId": 281,
+        "englishName": "GIV'AT SHAPPIRA",
+        "hebrewName": "גבעת שפירא"
+    },
+    {
+        "cityId": 282,
+        "englishName": "GIV'ATI",
+        "hebrewName": "גבעתי"
+    },
+    {
+        "cityId": 283,
+        "englishName": "GIV'ATAYIM",
+        "hebrewName": "גבעתיים"
+    },
+    {
+        "cityId": 284,
+        "englishName": "GEVAR'AM",
+        "hebrewName": "גברעם"
+    },
+    {
+        "cityId": 285,
+        "englishName": "GEVAT",
+        "hebrewName": "גבת"
+    },
+    {
+        "cityId": 286,
+        "englishName": "GADOT",
+        "hebrewName": "גדות"
+    },
+    {
+        "cityId": 287,
+        "englishName": "GADISH",
+        "hebrewName": "גדיש"
+    },
+    {
+        "cityId": 288,
+        "englishName": "GID'ONA",
+        "hebrewName": "גדעונה"
+    },
+    {
+        "cityId": 289,
+        "englishName": "GEDERA",
+        "hebrewName": "גדרה"
+    },
+    {
+        "cityId": 290,
+        "englishName": "GONEN",
+        "hebrewName": "גונן"
+    },
+    {
+        "cityId": 291,
+        "englishName": "GOREN",
+        "hebrewName": "גורן"
+    },
+    {
+        "cityId": 292,
+        "englishName": "GORNOT HAGALIL",
+        "hebrewName": "גורנות הגליל"
+    },
+    {
+        "cityId": 293,
+        "englishName": "GAZIT",
+        "hebrewName": "גזית"
+    },
+    {
+        "cityId": 294,
+        "englishName": "GEZER",
+        "hebrewName": "גזר"
+    },
+    {
+        "cityId": 295,
+        "englishName": "GE'A",
+        "hebrewName": "גיאה"
+    },
+    {
+        "cityId": 296,
+        "englishName": "GIBBETON",
+        "hebrewName": "גיבתון"
+    },
+    {
+        "cityId": 297,
+        "englishName": "GIZO",
+        "hebrewName": "גיזו"
+    },
+    {
+        "cityId": 298,
+        "englishName": "GILON",
+        "hebrewName": "גילון"
+    },
+    {
+        "cityId": 299,
+        "englishName": "GILAT",
+        "hebrewName": "גילת"
+    },
+    {
+        "cityId": 300,
+        "englishName": "GINNOSAR",
+        "hebrewName": "גינוסר"
+    },
+    {
+        "cityId": 301,
+        "englishName": "GINNEGAR",
+        "hebrewName": "גיניגר"
+    },
+    {
+        "cityId": 302,
+        "englishName": "GINNATON",
+        "hebrewName": "גינתון"
+    },
+    {
+        "cityId": 303,
+        "englishName": "GITTA",
+        "hebrewName": "גיתה"
+    },
+    {
+        "cityId": 304,
+        "englishName": "GITTIT",
+        "hebrewName": "גיתית"
+    },
+    {
+        "cityId": 305,
+        "englishName": "GAL'ON",
+        "hebrewName": "גלאון"
+    },
+    {
+        "cityId": 306,
+        "englishName": "GILGAL",
+        "hebrewName": "גלגל"
+    },
+    {
+        "cityId": 307,
+        "englishName": "GELIL YAM",
+        "hebrewName": "גליל ים"
+    },
+    {
+        "cityId": 308,
+        "englishName": "EVEN YIZHAQ(GAL'ED)",
+        "hebrewName": "גלעד )אבן יצחק("
+    },
+    {
+        "cityId": 309,
+        "englishName": "GIMZO",
+        "hebrewName": "גמזו"
+    },
+    {
+        "cityId": 310,
+        "englishName": "GAN HADAROM",
+        "hebrewName": "גן הדרום"
+    },
+    {
+        "cityId": 311,
+        "englishName": "GAN HASHOMERON",
+        "hebrewName": "גן השומרון"
+    },
+    {
+        "cityId": 312,
+        "englishName": "GAN HAYYIM",
+        "hebrewName": "גן חיים"
+    },
+    {
+        "cityId": 313,
+        "englishName": "GAN YOSHIYYA",
+        "hebrewName": "גן יאשיה"
+    },
+    {
+        "cityId": 314,
+        "englishName": "GAN YAVNE",
+        "hebrewName": "גן יבנה"
+    },
+    {
+        "cityId": 315,
+        "englishName": "GAN NER",
+        "hebrewName": "גן נר"
+    },
+    {
+        "cityId": 316,
+        "englishName": "GAN SOREQ",
+        "hebrewName": "גן שורק"
+    },
+    {
+        "cityId": 317,
+        "englishName": "GAN SHELOMO",
+        "hebrewName": "גן שלמה"
+    },
+    {
+        "cityId": 318,
+        "englishName": "GAN SHEMU'EL",
+        "hebrewName": "גן שמואל"
+    },
+    {
+        "cityId": 319,
+        "englishName": "GANNOT",
+        "hebrewName": "גנות"
+    },
+    {
+        "cityId": 320,
+        "englishName": "GANNOT HADAR",
+        "hebrewName": "גנות הדר"
+    },
+    {
+        "cityId": 321,
+        "englishName": "GANNE HADAR",
+        "hebrewName": "גני הדר"
+    },
+    {
+        "cityId": 322,
+        "englishName": "GANNE TAL",
+        "hebrewName": "גני טל"
+    },
+    {
+        "cityId": 323,
+        "englishName": "GANNE YOHANAN",
+        "hebrewName": "גני יוחנן"
+    },
+    {
+        "cityId": 324,
+        "englishName": "GANNE MODIIN",
+        "hebrewName": "גני מודיעין"
+    },
+    {
+        "cityId": 325,
+        "englishName": "GANNE AM",
+        "hebrewName": "גני עם"
+    },
+    {
+        "cityId": 326,
+        "englishName": "GANNE TIQWA",
+        "hebrewName": "גני תקווה"
+    },
+    {
+        "cityId": 327,
+        "englishName": "GA'ASH",
+        "hebrewName": "געש"
+    },
+    {
+        "cityId": 328,
+        "englishName": "GA'TON",
+        "hebrewName": "געתון"
+    },
+    {
+        "cityId": 329,
+        "englishName": "GEFEN",
+        "hebrewName": "גפן"
+    },
+    {
+        "cityId": 330,
+        "englishName": "GEROFIT",
+        "hebrewName": "גרופית"
+    },
+    {
+        "cityId": 331,
+        "englishName": "GESHUR",
+        "hebrewName": "גשור"
+    },
+    {
+        "cityId": 332,
+        "englishName": "GESHER",
+        "hebrewName": "גשר"
+    },
+    {
+        "cityId": 333,
+        "englishName": "GESHER HAZIW",
+        "hebrewName": "גשר הזיו"
+    },
+    {
+        "cityId": 334,
+        "englishName": "GAT(QIBBUZ)",
+        "hebrewName": "גת )קיבוץ("
+    },
+    {
+        "cityId": 335,
+        "englishName": "GAT RIMMON",
+        "hebrewName": "גת רימון"
+    },
+    {
+        "cityId": 336,
+        "englishName": "DALIYAT AL-KARMEL",
+        "hebrewName": "דאלית אל-כרמל"
+    },
+    {
+        "cityId": 337,
+        "englishName": "DEVORA",
+        "hebrewName": "דבורה"
+    },
+    {
+        "cityId": 338,
+        "englishName": "DABBURYE",
+        "hebrewName": "דבוריה"
+    },
+    {
+        "cityId": 339,
+        "englishName": "DEVIRA",
+        "hebrewName": "דבירה"
+    },
+    {
+        "cityId": 340,
+        "englishName": "DAVERAT",
+        "hebrewName": "דברת"
+    },
+    {
+        "cityId": 341,
+        "englishName": "DEGANYA ALEF",
+        "hebrewName": "דגניה א'"
+    },
+    {
+        "cityId": 342,
+        "englishName": "DEGANYA BET",
+        "hebrewName": "דגניה ב'"
+    },
+    {
+        "cityId": 343,
+        "englishName": "DOVEV",
+        "hebrewName": "דוב\"ב"
+    },
+    {
+        "cityId": 344,
+        "englishName": "DOLEV",
+        "hebrewName": "דולב"
+    },
+    {
+        "cityId": 345,
+        "englishName": "DOR",
+        "hebrewName": "דור"
+    },
+    {
+        "cityId": 346,
+        "englishName": "DOROT",
+        "hebrewName": "דורות"
+    },
+    {
+        "cityId": 347,
+        "englishName": "DAHI",
+        "hebrewName": "דחי"
+    },
+    {
+        "cityId": 348,
+        "englishName": "DEIR AL-ASAD",
+        "hebrewName": "דייר אל-אסד"
+    },
+    {
+        "cityId": 349,
+        "englishName": "DEIR HANNA",
+        "hebrewName": "דייר חנא"
+    },
+    {
+        "cityId": 350,
+        "englishName": "DEIR RAFAT",
+        "hebrewName": "דייר ראפאת"
+    },
+    {
+        "cityId": 351,
+        "englishName": "DIMONA",
+        "hebrewName": "דימונה"
+    },
+    {
+        "cityId": 352,
+        "englishName": "DISHON",
+        "hebrewName": "דישון"
+    },
+    {
+        "cityId": 353,
+        "englishName": "DALIYYA",
+        "hebrewName": "דליה"
+    },
+    {
+        "cityId": 354,
+        "englishName": "DALTON",
+        "hebrewName": "דלתון"
+    },
+    {
+        "cityId": 355,
+        "englishName": "DEMEIDE",
+        "hebrewName": "דמיידה"
+    },
+    {
+        "cityId": 356,
+        "englishName": "DAN",
+        "hebrewName": "דן"
+    },
+    {
+        "cityId": 357,
+        "englishName": "DAFNA",
+        "hebrewName": "דפנה"
+    },
+    {
+        "cityId": 358,
+        "englishName": "DEQEL",
+        "hebrewName": "דקל"
+    },
+    {
+        "cityId": 359,
+        "englishName": "DERIG'AT",
+        "hebrewName": "דריג'את"
+    },
+    {
+        "cityId": 360,
+        "englishName": "HAON",
+        "hebrewName": "האון"
+    },
+    {
+        "cityId": 361,
+        "englishName": "HABONIM",
+        "hebrewName": "הבונים"
+    },
+    {
+        "cityId": 362,
+        "englishName": "HAGOSHERIM",
+        "hebrewName": "הגושרים"
+    },
+    {
+        "cityId": 363,
+        "englishName": "HADAR AM",
+        "hebrewName": "הדר עם"
+    },
+    {
+        "cityId": 364,
+        "englishName": "HOD HASHARON",
+        "hebrewName": "הוד השרון"
+    },
+    {
+        "cityId": 365,
+        "englishName": "HODIYYA",
+        "hebrewName": "הודיה"
+    },
+    {
+        "cityId": 366,
+        "englishName": "HODAYOT",
+        "hebrewName": "הודיות"
+    },
+    {
+        "cityId": 367,
+        "englishName": "HAWASHLA",
+        "hebrewName": "הוואשלה )שבט("
+    },
+    {
+        "cityId": 368,
+        "englishName": "HUZAYYEL",
+        "hebrewName": "הוזייל )שבט("
+    },
+    {
+        "cityId": 369,
+        "englishName": "HOSHA'AYA",
+        "hebrewName": "הושעיה"
+    },
+    {
+        "cityId": 370,
+        "englishName": "HAZOREA",
+        "hebrewName": "הזורע"
+    },
+    {
+        "cityId": 371,
+        "englishName": "HAZORE'IM",
+        "hebrewName": "הזורעים"
+    },
+    {
+        "cityId": 372,
+        "englishName": "HAHOTERIM",
+        "hebrewName": "החותרים"
+    },
+    {
+        "cityId": 373,
+        "englishName": "HAYOGEV",
+        "hebrewName": "היוגב"
+    },
+    {
+        "cityId": 374,
+        "englishName": "HILLA",
+        "hebrewName": "הילה"
+    },
+    {
+        "cityId": 375,
+        "englishName": "HAMA'PIL",
+        "hebrewName": "המעפיל"
+    },
+    {
+        "cityId": 376,
+        "englishName": "HASOLELIM",
+        "hebrewName": "הסוללים"
+    },
+    {
+        "cityId": 377,
+        "englishName": "HAOGEN",
+        "hebrewName": "העוגן"
+    },
+    {
+        "cityId": 378,
+        "englishName": "HAR ADAR",
+        "hebrewName": "הר אדר"
+    },
+    {
+        "cityId": 379,
+        "englishName": "HAR GILLO",
+        "hebrewName": "הר גילה"
+    },
+    {
+        "cityId": 380,
+        "englishName": "HAR AMASA",
+        "hebrewName": "הר עמשא"
+    },
+    {
+        "cityId": 381,
+        "englishName": "HAR'EL",
+        "hebrewName": "הראל"
+    },
+    {
+        "cityId": 382,
+        "englishName": "HARDUF",
+        "hebrewName": "הרדוף"
+    },
+    {
+        "cityId": 383,
+        "englishName": "HERZELIYYA",
+        "hebrewName": "הרצליה"
+    },
+    {
+        "cityId": 384,
+        "englishName": "HARARIT",
+        "hebrewName": "הררית"
+    },
+    {
+        "cityId": 385,
+        "englishName": "WERED YERIHO",
+        "hebrewName": "ורד יריחו"
+    },
+    {
+        "cityId": 386,
+        "englishName": "WARDON",
+        "hebrewName": "ורדון"
+    },
+    {
+        "cityId": 387,
+        "englishName": "ZABARGA",
+        "hebrewName": "זבארגה )שבט("
+    },
+    {
+        "cityId": 388,
+        "englishName": "ZAVDI'EL",
+        "hebrewName": "זבדיאל"
+    },
+    {
+        "cityId": 389,
+        "englishName": "ZOHAR",
+        "hebrewName": "זוהר"
+    },
+    {
+        "cityId": 390,
+        "englishName": "ZIQIM",
+        "hebrewName": "זיקים"
+    },
+    {
+        "cityId": 391,
+        "englishName": "ZETAN",
+        "hebrewName": "זיתן"
+    },
+    {
+        "cityId": 392,
+        "englishName": "ZIKHRON YA'AQOV",
+        "hebrewName": "זכרון יעקב"
+    },
+    {
+        "cityId": 393,
+        "englishName": "ZEKHARYA",
+        "hebrewName": "זכריה"
+    },
+    {
+        "cityId": 394,
+        "englishName": "ZEMER",
+        "hebrewName": "זמר"
+    },
+    {
+        "cityId": 395,
+        "englishName": "ZIMRAT",
+        "hebrewName": "זמרת"
+    },
+    {
+        "cityId": 396,
+        "englishName": "ZANOAH",
+        "hebrewName": "זנוח"
+    },
+    {
+        "cityId": 397,
+        "englishName": "ZERU'A",
+        "hebrewName": "זרועה"
+    },
+    {
+        "cityId": 398,
+        "englishName": "ZARZIR",
+        "hebrewName": "זרזיר"
+    },
+    {
+        "cityId": 399,
+        "englishName": "ZERAHYA",
+        "hebrewName": "זרחיה"
+    },
+    {
+        "cityId": 400,
+        "englishName": "KHAWALED",
+        "hebrewName": "ח'ואלד"
+    },
+    {
+        "cityId": 401,
+        "englishName": "KHAWALED",
+        "hebrewName": "ח'ואלד )שבט("
+    },
+    {
+        "cityId": 402,
+        "englishName": "HAVAZZELET HASHARON",
+        "hebrewName": "חבצלת השרון"
+    },
+    {
+        "cityId": 403,
+        "englishName": "HEVER",
+        "hebrewName": "חבר"
+    },
+    {
+        "cityId": 404,
+        "englishName": "",
+        "hebrewName": "חברון"
+    },
+    {
+        "cityId": 405,
+        "englishName": "HAGOR",
+        "hebrewName": "חגור"
+    },
+    {
+        "cityId": 406,
+        "englishName": "HAGGAI",
+        "hebrewName": "חגי"
+    },
+    {
+        "cityId": 407,
+        "englishName": "HOGLA",
+        "hebrewName": "חגלה"
+    },
+    {
+        "cityId": 408,
+        "englishName": "HAD-NES",
+        "hebrewName": "חד-נס"
+    },
+    {
+        "cityId": 409,
+        "englishName": "HADID",
+        "hebrewName": "חדיד"
+    },
+    {
+        "cityId": 410,
+        "englishName": "HADERA",
+        "hebrewName": "חדרה"
+    },
+    {
+        "cityId": 411,
+        "englishName": "HUJEIRAT (DAHRA)",
+        "hebrewName": "חוג'ייראת )ד'הרה("
+    },
+    {
+        "cityId": 412,
+        "englishName": "HULDA",
+        "hebrewName": "חולדה"
+    },
+    {
+        "cityId": 413,
+        "englishName": "HOLON",
+        "hebrewName": "חולון"
+    },
+    {
+        "cityId": 414,
+        "englishName": "HOLIT",
+        "hebrewName": "חולית"
+    },
+    {
+        "cityId": 415,
+        "englishName": "HULATA",
+        "hebrewName": "חולתה"
+    },
+    {
+        "cityId": 416,
+        "englishName": "HOSEN",
+        "hebrewName": "חוסן"
+    },
+    {
+        "cityId": 417,
+        "englishName": "HUSSNIYYA",
+        "hebrewName": "חוסנייה"
+    },
+    {
+        "cityId": 418,
+        "englishName": "HOFIT",
+        "hebrewName": "חופית"
+    },
+    {
+        "cityId": 419,
+        "englishName": "HUQOQ",
+        "hebrewName": "חוקוק"
+    },
+    {
+        "cityId": 420,
+        "englishName": "HURA",
+        "hebrewName": "חורה"
+    },
+    {
+        "cityId": 421,
+        "englishName": "HURFEISH",
+        "hebrewName": "חורפיש"
+    },
+    {
+        "cityId": 422,
+        "englishName": "HORESHIM",
+        "hebrewName": "חורשים"
+    },
+    {
+        "cityId": 423,
+        "englishName": "HAZON",
+        "hebrewName": "חזון"
+    },
+    {
+        "cityId": 424,
+        "englishName": "HIBBAT ZIYYON",
+        "hebrewName": "חיבת ציון"
+    },
+    {
+        "cityId": 425,
+        "englishName": "HINNANIT",
+        "hebrewName": "חיננית"
+    },
+    {
+        "cityId": 426,
+        "englishName": "HAIFA",
+        "hebrewName": "חיפה"
+    },
+    {
+        "cityId": 427,
+        "englishName": "HERUT",
+        "hebrewName": "חירות"
+    },
+    {
+        "cityId": 428,
+        "englishName": "HALUZ",
+        "hebrewName": "חלוץ"
+    },
+    {
+        "cityId": 429,
+        "englishName": "HELEZ",
+        "hebrewName": "חלץ"
+    },
+    {
+        "cityId": 430,
+        "englishName": "HAMAM",
+        "hebrewName": "חמאם"
+    },
+    {
+        "cityId": 431,
+        "englishName": "HEMED",
+        "hebrewName": "חמד"
+    },
+    {
+        "cityId": 432,
+        "englishName": "HAMADYA",
+        "hebrewName": "חמדיה"
+    },
+    {
+        "cityId": 433,
+        "englishName": "NAHAL HEMDAT",
+        "hebrewName": "חמדת"
+    },
+    {
+        "cityId": 434,
+        "englishName": "HAMRA",
+        "hebrewName": "חמרה"
+    },
+    {
+        "cityId": 435,
+        "englishName": "HANNI'EL",
+        "hebrewName": "חניאל"
+    },
+    {
+        "cityId": 436,
+        "englishName": "HANITA",
+        "hebrewName": "חניתה"
+    },
+    {
+        "cityId": 437,
+        "englishName": "HANNATON",
+        "hebrewName": "חנתון"
+    },
+    {
+        "cityId": 438,
+        "englishName": "HASPIN",
+        "hebrewName": "חספין"
+    },
+    {
+        "cityId": 439,
+        "englishName": "HAFEZ HAYYIM",
+        "hebrewName": "חפץ חיים"
+    },
+    {
+        "cityId": 440,
+        "englishName": "HEFZI-BAH",
+        "hebrewName": "חפצי-בה"
+    },
+    {
+        "cityId": 441,
+        "englishName": "HAZAV",
+        "hebrewName": "חצב"
+    },
+    {
+        "cityId": 442,
+        "englishName": "HAZEVA",
+        "hebrewName": "חצבה"
+    },
+    {
+        "cityId": 443,
+        "englishName": "HAZOR HAGELILIT",
+        "hebrewName": "חצור הגלילית"
+    },
+    {
+        "cityId": 444,
+        "englishName": "HAZOR-ASHDOD",
+        "hebrewName": "חצור-אשדוד"
+    },
+    {
+        "cityId": 445,
+        "englishName": "HAZAR BE'EROTAYIM",
+        "hebrewName": "חצר בארותיים"
+    },
+    {
+        "cityId": 446,
+        "englishName": "HAZROT HULDA",
+        "hebrewName": "חצרות חולדה"
+    },
+    {
+        "cityId": 447,
+        "englishName": "HAZROT YASAF",
+        "hebrewName": "חצרות יסף"
+    },
+    {
+        "cityId": 448,
+        "englishName": "HAZROT KOAH",
+        "hebrewName": "חצרות כ\"ח"
+    },
+    {
+        "cityId": 449,
+        "englishName": "HAZERIM",
+        "hebrewName": "חצרים"
+    },
+    {
+        "cityId": 450,
+        "englishName": "HEREV LE'ET",
+        "hebrewName": "חרב לאת"
+    },
+    {
+        "cityId": 451,
+        "englishName": "HARUZIM",
+        "hebrewName": "חרוצים"
+    },
+    {
+        "cityId": 452,
+        "englishName": "HARISH",
+        "hebrewName": "חריש"
+    },
+    {
+        "cityId": 453,
+        "englishName": "HERMESH",
+        "hebrewName": "חרמש"
+    },
+    {
+        "cityId": 454,
+        "englishName": "HARASHIM",
+        "hebrewName": "חרשים"
+    },
+    {
+        "cityId": 455,
+        "englishName": "HASHMONA'IM",
+        "hebrewName": "חשמונאים"
+    },
+    {
+        "cityId": 456,
+        "englishName": "TIBERIAS",
+        "hebrewName": "טבריה"
+    },
+    {
+        "cityId": 457,
+        "englishName": "TUBA-ZANGARIYYE",
+        "hebrewName": "טובא-זנגריה"
+    },
+    {
+        "cityId": 458,
+        "englishName": "TUR'AN",
+        "hebrewName": "טורעאן"
+    },
+    {
+        "cityId": 459,
+        "englishName": "TAYIBE",
+        "hebrewName": "טייבה"
+    },
+    {
+        "cityId": 460,
+        "englishName": "TAYIBE(BAEMEQ)",
+        "hebrewName": "טייבה )בעמק("
+    },
+    {
+        "cityId": 461,
+        "englishName": "TIRE",
+        "hebrewName": "טירה"
+    },
+    {
+        "cityId": 462,
+        "englishName": "TIRAT YEHUDA",
+        "hebrewName": "טירת יהודה"
+    },
+    {
+        "cityId": 463,
+        "englishName": "TIRAT KARMEL",
+        "hebrewName": "טירת כרמל"
+    },
+    {
+        "cityId": 464,
+        "englishName": "TIRAT ZEVI",
+        "hebrewName": "טירת צבי"
+    },
+    {
+        "cityId": 465,
+        "englishName": "TAL SHAHAR",
+        "hebrewName": "טל שחר"
+    },
+    {
+        "cityId": 466,
+        "englishName": "TAL-EL",
+        "hebrewName": "טל-אל"
+    },
+    {
+        "cityId": 467,
+        "englishName": "TELALIM",
+        "hebrewName": "טללים"
+    },
+    {
+        "cityId": 468,
+        "englishName": "TALMON",
+        "hebrewName": "טלמון"
+    },
+    {
+        "cityId": 469,
+        "englishName": "TAMRA",
+        "hebrewName": "טמרה"
+    },
+    {
+        "cityId": 470,
+        "englishName": "TAMRA (YIZRE'EL)",
+        "hebrewName": "טמרה )יזרעאל("
+    },
+    {
+        "cityId": 471,
+        "englishName": "TENE",
+        "hebrewName": "טנא"
+    },
+    {
+        "cityId": 472,
+        "englishName": "TEFAHOT",
+        "hebrewName": "טפחות"
+    },
+    {
+        "cityId": 473,
+        "englishName": "YANUH-JAT",
+        "hebrewName": "יאנוח-ג'ת"
+    },
+    {
+        "cityId": 474,
+        "englishName": "YEVUL",
+        "hebrewName": "יבול"
+    },
+    {
+        "cityId": 475,
+        "englishName": "YAVNE'EL",
+        "hebrewName": "יבנאל"
+    },
+    {
+        "cityId": 476,
+        "englishName": "YAVNE",
+        "hebrewName": "יבנה"
+    },
+    {
+        "cityId": 477,
+        "englishName": "YAGUR",
+        "hebrewName": "יגור"
+    },
+    {
+        "cityId": 478,
+        "englishName": "YAGEL",
+        "hebrewName": "יגל"
+    },
+    {
+        "cityId": 479,
+        "englishName": "YAD BINYAMIN",
+        "hebrewName": "יד בנימין"
+    },
+    {
+        "cityId": 480,
+        "englishName": "YAD HASHEMONA",
+        "hebrewName": "יד השמונה"
+    },
+    {
+        "cityId": 481,
+        "englishName": "YAD HANNA",
+        "hebrewName": "יד חנה"
+    },
+    {
+        "cityId": 482,
+        "englishName": "YAD MORDEKHAY",
+        "hebrewName": "יד מרדכי"
+    },
+    {
+        "cityId": 483,
+        "englishName": "YAD NATAN",
+        "hebrewName": "יד נתן"
+    },
+    {
+        "cityId": 484,
+        "englishName": "YAD RAMBAM",
+        "hebrewName": "יד רמב\"ם"
+    },
+    {
+        "cityId": 485,
+        "englishName": "YEDIDA",
+        "hebrewName": "ידידה"
+    },
+    {
+        "cityId": 486,
+        "englishName": "YEHUD-MONOSON",
+        "hebrewName": "יהוד-מונוסון"
+    },
+    {
+        "cityId": 487,
+        "englishName": "YAHEL",
+        "hebrewName": "יהל"
+    },
+    {
+        "cityId": 488,
+        "englishName": "YUVAL",
+        "hebrewName": "יובל"
+    },
+    {
+        "cityId": 489,
+        "englishName": "YUVALIM",
+        "hebrewName": "יובלים"
+    },
+    {
+        "cityId": 490,
+        "englishName": "YODEFAT",
+        "hebrewName": "יודפת"
+    },
+    {
+        "cityId": 491,
+        "englishName": "YONATAN",
+        "hebrewName": "יונתן"
+    },
+    {
+        "cityId": 492,
+        "englishName": "YOSHIVYA",
+        "hebrewName": "יושיביה"
+    },
+    {
+        "cityId": 493,
+        "englishName": "YIZRE'EL",
+        "hebrewName": "יזרעאל"
+    },
+    {
+        "cityId": 494,
+        "englishName": "YEHI'AM",
+        "hebrewName": "יחיעם"
+    },
+    {
+        "cityId": 495,
+        "englishName": "YOTVATA",
+        "hebrewName": "יטבתה"
+    },
+    {
+        "cityId": 496,
+        "englishName": "YITAV",
+        "hebrewName": "ייט\"ב"
+    },
+    {
+        "cityId": 497,
+        "englishName": "YAKHINI",
+        "hebrewName": "יכיני"
+    },
+    {
+        "cityId": 498,
+        "englishName": "YANUV",
+        "hebrewName": "ינוב"
+    },
+    {
+        "cityId": 499,
+        "englishName": "YINNON",
+        "hebrewName": "ינון"
+    },
+    {
+        "cityId": 500,
+        "englishName": "YESUD HAMA'ALA",
+        "hebrewName": "יסוד המעלה"
+    },
+    {
+        "cityId": 501,
+        "englishName": "YESODOT",
+        "hebrewName": "יסודות"
+    },
+    {
+        "cityId": 502,
+        "englishName": "YAS'UR",
+        "hebrewName": "יסעור"
+    },
+    {
+        "cityId": 503,
+        "englishName": "YA'AD",
+        "hebrewName": "יעד"
+    },
+    {
+        "cityId": 504,
+        "englishName": "YA'EL",
+        "hebrewName": "יעל"
+    },
+    {
+        "cityId": 505,
+        "englishName": "YE'AF",
+        "hebrewName": "יעף"
+    },
+    {
+        "cityId": 506,
+        "englishName": "YA'ARA",
+        "hebrewName": "יערה"
+    },
+    {
+        "cityId": 507,
+        "englishName": "YAFI",
+        "hebrewName": "יפיע"
+    },
+    {
+        "cityId": 508,
+        "englishName": "YAFIT",
+        "hebrewName": "יפית"
+    },
+    {
+        "cityId": 509,
+        "englishName": "YIF'AT",
+        "hebrewName": "יפעת"
+    },
+    {
+        "cityId": 510,
+        "englishName": "YIFTAH",
+        "hebrewName": "יפתח"
+    },
+    {
+        "cityId": 511,
+        "englishName": "YIZHAR",
+        "hebrewName": "יצהר"
+    },
+    {
+        "cityId": 512,
+        "englishName": "YAZIZ",
+        "hebrewName": "יציץ"
+    },
+    {
+        "cityId": 513,
+        "englishName": "YAQUM",
+        "hebrewName": "יקום"
+    },
+    {
+        "cityId": 514,
+        "englishName": "YAQIR",
+        "hebrewName": "יקיר"
+    },
+    {
+        "cityId": 515,
+        "englishName": "YOQNE'AM(MOSHAVA)",
+        "hebrewName": "יקנעם )מושבה("
+    },
+    {
+        "cityId": 516,
+        "englishName": "YOQNE'AM ILLIT",
+        "hebrewName": "יקנעם עילית"
+    },
+    {
+        "cityId": 517,
+        "englishName": "YIR'ON",
+        "hebrewName": "יראון"
+    },
+    {
+        "cityId": 518,
+        "englishName": "YARDENA",
+        "hebrewName": "ירדנה"
+    },
+    {
+        "cityId": 519,
+        "englishName": "YEROHAM",
+        "hebrewName": "ירוחם"
+    },
+    {
+        "cityId": 520,
+        "englishName": "JERUSALEM",
+        "hebrewName": "ירושלים"
+    },
+    {
+        "cityId": 521,
+        "englishName": "YARHIV",
+        "hebrewName": "ירחיב"
+    },
+    {
+        "cityId": 522,
+        "englishName": "YIRKA",
+        "hebrewName": "ירכא"
+    },
+    {
+        "cityId": 523,
+        "englishName": "YARQONA",
+        "hebrewName": "ירקונה"
+    },
+    {
+        "cityId": 524,
+        "englishName": "YESHA",
+        "hebrewName": "ישע"
+    },
+    {
+        "cityId": 525,
+        "englishName": "YISH'I",
+        "hebrewName": "ישעי"
+    },
+    {
+        "cityId": 526,
+        "englishName": "YASHRESH",
+        "hebrewName": "ישרש"
+    },
+    {
+        "cityId": 527,
+        "englishName": "YATED",
+        "hebrewName": "יתד"
+    },
+    {
+        "cityId": 528,
+        "englishName": "",
+        "hebrewName": "יתיר"
+    },
+    {
+        "cityId": 529,
+        "englishName": "KABUL",
+        "hebrewName": "כאבול"
+    },
+    {
+        "cityId": 530,
+        "englishName": "KAOKAB ABU AL-HIJA",
+        "hebrewName": "כאוכב אבו אל-היג'א"
+    },
+    {
+        "cityId": 531,
+        "englishName": "KABRI",
+        "hebrewName": "כברי"
+    },
+    {
+        "cityId": 532,
+        "englishName": "KADOORIE",
+        "hebrewName": "כדורי"
+    },
+    {
+        "cityId": 533,
+        "englishName": "KADDITA",
+        "hebrewName": "כדיתה"
+    },
+    {
+        "cityId": 534,
+        "englishName": "KOKHAV HASHAHAR",
+        "hebrewName": "כוכב השחר"
+    },
+    {
+        "cityId": 535,
+        "englishName": "KOKHAV YA'IR",
+        "hebrewName": "כוכב יאיר"
+    },
+    {
+        "cityId": 536,
+        "englishName": "KOKHAV YA'AQOV",
+        "hebrewName": "כוכב יעקב"
+    },
+    {
+        "cityId": 537,
+        "englishName": "KOKHAV MIKHA'EL",
+        "hebrewName": "כוכב מיכאל"
+    },
+    {
+        "cityId": 538,
+        "englishName": "KORAZIM",
+        "hebrewName": "כורזים"
+    },
+    {
+        "cityId": 539,
+        "englishName": "KAHAL",
+        "hebrewName": "כחל"
+    },
+    {
+        "cityId": 540,
+        "englishName": "KOCHLEA",
+        "hebrewName": "כחלה"
+    },
+    {
+        "cityId": 541,
+        "englishName": "KISSUFIM",
+        "hebrewName": "כיסופים"
+    },
+    {
+        "cityId": 542,
+        "englishName": "KISHOR",
+        "hebrewName": "כישור"
+    },
+    {
+        "cityId": 543,
+        "englishName": "KELIL",
+        "hebrewName": "כליל"
+    },
+    {
+        "cityId": 544,
+        "englishName": "KALLANIT",
+        "hebrewName": "כלנית"
+    },
+    {
+        "cityId": 545,
+        "englishName": "",
+        "hebrewName": "כמאנה"
+    },
+    {
+        "cityId": 546,
+        "englishName": "KEMEHIN",
+        "hebrewName": "כמהין"
+    },
+    {
+        "cityId": 547,
+        "englishName": "KAMMON",
+        "hebrewName": "כמון"
+    },
+    {
+        "cityId": 548,
+        "englishName": "KANNOT",
+        "hebrewName": "כנות"
+    },
+    {
+        "cityId": 549,
+        "englishName": "KANAF",
+        "hebrewName": "כנף"
+    },
+    {
+        "cityId": 550,
+        "englishName": "KINNERET(MOSHAVA)",
+        "hebrewName": "כנרת )מושבה("
+    },
+    {
+        "cityId": 551,
+        "englishName": "KINNERET(QEVUZA)",
+        "hebrewName": "כנרת )קבוצה("
+    },
+    {
+        "cityId": 552,
+        "englishName": "KUSEIFE",
+        "hebrewName": "כסיפה"
+    },
+    {
+        "cityId": 553,
+        "englishName": "KESALON",
+        "hebrewName": "כסלון"
+    },
+    {
+        "cityId": 554,
+        "englishName": "KISRA-SUMEI",
+        "hebrewName": "כסרא-סמיע"
+    },
+    {
+        "cityId": 555,
+        "englishName": "KA'ABIYYE-TABBASH-HA",
+        "hebrewName": "כעביה-טבאש-חג'אג'רה"
+    },
+    {
+        "cityId": 556,
+        "englishName": "KEFAR AVIV",
+        "hebrewName": "כפר אביב"
+    },
+    {
+        "cityId": 557,
+        "englishName": "KEFAR ADUMMIM",
+        "hebrewName": "כפר אדומים"
+    },
+    {
+        "cityId": 558,
+        "englishName": "KEFAR URIYYA",
+        "hebrewName": "כפר אוריה"
+    },
+    {
+        "cityId": 559,
+        "englishName": "KEFAR AHIM",
+        "hebrewName": "כפר אחים"
+    },
+    {
+        "cityId": 560,
+        "englishName": "KEFAR BIALIK",
+        "hebrewName": "כפר ביאליק"
+    },
+    {
+        "cityId": 561,
+        "englishName": "KEFAR BILU",
+        "hebrewName": "כפר ביל\"ו"
+    },
+    {
+        "cityId": 562,
+        "englishName": "KEFAR BLUM",
+        "hebrewName": "כפר בלום"
+    },
+    {
+        "cityId": 563,
+        "englishName": "KEFAR BIN NUN",
+        "hebrewName": "כפר בן נון"
+    },
+    {
+        "cityId": 564,
+        "englishName": "KAFAR BARA",
+        "hebrewName": "כפר ברא"
+    },
+    {
+        "cityId": 565,
+        "englishName": "KEFAR BARUKH",
+        "hebrewName": "כפר ברוך"
+    },
+    {
+        "cityId": 566,
+        "englishName": "KEFAR GID'ON",
+        "hebrewName": "כפר גדעון"
+    },
+    {
+        "cityId": 567,
+        "englishName": "KEFAR GALLIM",
+        "hebrewName": "כפר גלים"
+    },
+    {
+        "cityId": 568,
+        "englishName": "KEFAR GLIKSON",
+        "hebrewName": "כפר גליקסון"
+    },
+    {
+        "cityId": 569,
+        "englishName": "KEFAR GIL'ADI",
+        "hebrewName": "כפר גלעדי"
+    },
+    {
+        "cityId": 570,
+        "englishName": "KEFAR DANIYYEL",
+        "hebrewName": "כפר דניאל"
+    },
+    {
+        "cityId": 571,
+        "englishName": "KEFAR HAORANIM",
+        "hebrewName": "כפר האורנים"
+    },
+    {
+        "cityId": 572,
+        "englishName": "KEFAR HAHORESH",
+        "hebrewName": "כפר החורש"
+    },
+    {
+        "cityId": 573,
+        "englishName": "KEFAR HAMAKKABI",
+        "hebrewName": "כפר המכבי"
+    },
+    {
+        "cityId": 574,
+        "englishName": "KEFAR HANAGID",
+        "hebrewName": "כפר הנגיד"
+    },
+    {
+        "cityId": 575,
+        "englishName": "KEFAR HANO'AR HADATI",
+        "hebrewName": "כפר הנוער הדתי"
+    },
+    {
+        "cityId": 576,
+        "englishName": "KEFAR HANASI",
+        "hebrewName": "כפר הנשיא"
+    },
+    {
+        "cityId": 577,
+        "englishName": "KEFAR HESS",
+        "hebrewName": "כפר הס"
+    },
+    {
+        "cityId": 578,
+        "englishName": "KEFAR HARO'E",
+        "hebrewName": "כפר הרא\"ה"
+    },
+    {
+        "cityId": 579,
+        "englishName": "KEFAR HARIF",
+        "hebrewName": "כפר הרי\"ף"
+    },
+    {
+        "cityId": 580,
+        "englishName": "KEFAR VITKIN",
+        "hebrewName": "כפר ויתקין"
+    },
+    {
+        "cityId": 581,
+        "englishName": "KEFAR WARBURG",
+        "hebrewName": "כפר ורבורג"
+    },
+    {
+        "cityId": 582,
+        "englishName": "KEFAR WERADIM",
+        "hebrewName": "כפר ורדים"
+    },
+    {
+        "cityId": 583,
+        "englishName": "KEFAR ZOHARIM",
+        "hebrewName": "כפר זוהרים"
+    },
+    {
+        "cityId": 584,
+        "englishName": "KEFAR ZETIM",
+        "hebrewName": "כפר זיתים"
+    },
+    {
+        "cityId": 585,
+        "englishName": "KEFAR HABAD",
+        "hebrewName": "כפר חב\"ד"
+    },
+    {
+        "cityId": 586,
+        "englishName": "KEFAR HOSHEN",
+        "hebrewName": "כפר חושן"
+    },
+    {
+        "cityId": 587,
+        "englishName": "KEFAR HITTIM",
+        "hebrewName": "כפר חיטים"
+    },
+    {
+        "cityId": 588,
+        "englishName": "KEFAR HAYYIM",
+        "hebrewName": "כפר חיים"
+    },
+    {
+        "cityId": 589,
+        "englishName": "KEFAR HANANYA",
+        "hebrewName": "כפר חנניה"
+    },
+    {
+        "cityId": 590,
+        "englishName": "KEFAR HASIDIM ALEF",
+        "hebrewName": "כפר חסידים א'"
+    },
+    {
+        "cityId": 591,
+        "englishName": "KEFAR HASIDIM BET",
+        "hebrewName": "כפר חסידים ב'"
+    },
+    {
+        "cityId": 592,
+        "englishName": "KEFAR HARUV",
+        "hebrewName": "כפר חרוב"
+    },
+    {
+        "cityId": 593,
+        "englishName": "KEFAR TRUMAN",
+        "hebrewName": "כפר טרומן"
+    },
+    {
+        "cityId": 594,
+        "englishName": "KAFAR YASIF",
+        "hebrewName": "כפר יאסיף"
+    },
+    {
+        "cityId": 595,
+        "englishName": "YEDIDYA",
+        "hebrewName": "כפר ידידיה"
+    },
+    {
+        "cityId": 596,
+        "englishName": "KEFAR YEHOSHUA",
+        "hebrewName": "כפר יהושע"
+    },
+    {
+        "cityId": 597,
+        "englishName": "KEFAR YONA",
+        "hebrewName": "כפר יונה"
+    },
+    {
+        "cityId": 598,
+        "englishName": "KEFAR YEHEZQEL",
+        "hebrewName": "כפר יחזקאל"
+    },
+    {
+        "cityId": 599,
+        "englishName": "KEFAR YA'BEZ",
+        "hebrewName": "כפר יעבץ"
+    },
+    {
+        "cityId": 600,
+        "englishName": "KAFAR KAMA",
+        "hebrewName": "כפר כמא"
+    },
+    {
+        "cityId": 601,
+        "englishName": "KAFAR KANNA",
+        "hebrewName": "כפר כנא"
+    },
+    {
+        "cityId": 602,
+        "englishName": "KEFAR MONASH",
+        "hebrewName": "כפר מונש"
+    },
+    {
+        "cityId": 603,
+        "englishName": "KEFAR MAYMON",
+        "hebrewName": "כפר מימון"
+    },
+    {
+        "cityId": 604,
+        "englishName": "KEFAR MALAL",
+        "hebrewName": "כפר מל\"ל"
+    },
+    {
+        "cityId": 605,
+        "englishName": "KAFAR MANDA",
+        "hebrewName": "כפר מנדא"
+    },
+    {
+        "cityId": 606,
+        "englishName": "KEFAR MENAHEM",
+        "hebrewName": "כפר מנחם"
+    },
+    {
+        "cityId": 607,
+        "englishName": "KEFAR MASARYK",
+        "hebrewName": "כפר מסריק"
+    },
+    {
+        "cityId": 608,
+        "englishName": "KAFAR MISR",
+        "hebrewName": "כפר מצר"
+    },
+    {
+        "cityId": 609,
+        "englishName": "KEFAR MORDEKHAY",
+        "hebrewName": "כפר מרדכי"
+    },
+    {
+        "cityId": 610,
+        "englishName": "KEFAR NETTER",
+        "hebrewName": "כפר נטר"
+    },
+    {
+        "cityId": 611,
+        "englishName": "KEFAR SZOLD",
+        "hebrewName": "כפר סאלד"
+    },
+    {
+        "cityId": 612,
+        "englishName": "KEFAR SAVA",
+        "hebrewName": "כפר סבא"
+    },
+    {
+        "cityId": 613,
+        "englishName": "KEFAR SILVER",
+        "hebrewName": "כפר סילבר"
+    },
+    {
+        "cityId": 614,
+        "englishName": "KEFAR SIRKIN",
+        "hebrewName": "כפר סירקין"
+    },
+    {
+        "cityId": 615,
+        "englishName": "KEFAR AVODA",
+        "hebrewName": "כפר עבודה"
+    },
+    {
+        "cityId": 616,
+        "englishName": "KEFAR AZZA",
+        "hebrewName": "כפר עזה"
+    },
+    {
+        "cityId": 617,
+        "englishName": "KEFAR EZYON",
+        "hebrewName": "כפר עציון"
+    },
+    {
+        "cityId": 618,
+        "englishName": "KEFAR PINES",
+        "hebrewName": "כפר פינס"
+    },
+    {
+        "cityId": 619,
+        "englishName": "KAFAR QASEM",
+        "hebrewName": "כפר קאסם"
+    },
+    {
+        "cityId": 620,
+        "englishName": "KEFAR KISH",
+        "hebrewName": "כפר קיש"
+    },
+    {
+        "cityId": 621,
+        "englishName": "KAFAR QARA",
+        "hebrewName": "כפר קרע"
+    },
+    {
+        "cityId": 622,
+        "englishName": "KEFAR ROSH HANIQRA",
+        "hebrewName": "כפר ראש הנקרה"
+    },
+    {
+        "cityId": 623,
+        "englishName": "KEFAR ROZENWALD(ZAR.",
+        "hebrewName": "כפר רוזנואלד )זרעית("
+    },
+    {
+        "cityId": 624,
+        "englishName": "KEFAR RUPPIN",
+        "hebrewName": "כפר רופין"
+    },
+    {
+        "cityId": 625,
+        "englishName": "KEFAR RUT",
+        "hebrewName": "כפר רות"
+    },
+    {
+        "cityId": 626,
+        "englishName": "KEFAR SHAMMAY",
+        "hebrewName": "כפר שמאי"
+    },
+    {
+        "cityId": 627,
+        "englishName": "KEFAR SHEMU'EL",
+        "hebrewName": "כפר שמואל"
+    },
+    {
+        "cityId": 628,
+        "englishName": "KEFAR SHEMARYAHU",
+        "hebrewName": "כפר שמריהו"
+    },
+    {
+        "cityId": 629,
+        "englishName": "KEFAR TAVOR",
+        "hebrewName": "כפר תבור"
+    },
+    {
+        "cityId": 630,
+        "englishName": "KEFAR TAPPUAH",
+        "hebrewName": "כפר תפוח"
+    },
+    {
+        "cityId": 631,
+        "englishName": "KARE DESHE",
+        "hebrewName": "כרי דשא"
+    },
+    {
+        "cityId": 632,
+        "englishName": "KARKOM",
+        "hebrewName": "כרכום"
+    },
+    {
+        "cityId": 633,
+        "englishName": "KEREM BEN ZIMRA",
+        "hebrewName": "כרם בן זמרה"
+    },
+    {
+        "cityId": 634,
+        "englishName": "KEREM BEN SHEMEN",
+        "hebrewName": "כרם בן שמן"
+    },
+    {
+        "cityId": 635,
+        "englishName": "KEREM YAVNE(YESHIVA)",
+        "hebrewName": "כרם יבנה )ישיבה("
+    },
+    {
+        "cityId": 636,
+        "englishName": "KEREM MAHARAL",
+        "hebrewName": "כרם מהר\"ל"
+    },
+    {
+        "cityId": 637,
+        "englishName": "KEREM SHALOM",
+        "hebrewName": "כרם שלום"
+    },
+    {
+        "cityId": 638,
+        "englishName": "KARME YOSEF",
+        "hebrewName": "כרמי יוסף"
+    },
+    {
+        "cityId": 639,
+        "englishName": "KARME ZUR",
+        "hebrewName": "כרמי צור"
+    },
+    {
+        "cityId": 640,
+        "englishName": "KARME QATIF",
+        "hebrewName": "כרמי קטיף"
+    },
+    {
+        "cityId": 641,
+        "englishName": "KARMI'EL",
+        "hebrewName": "כרמיאל"
+    },
+    {
+        "cityId": 642,
+        "englishName": "KARMIYYA",
+        "hebrewName": "כרמיה"
+    },
+    {
+        "cityId": 643,
+        "englishName": "KERAMIM",
+        "hebrewName": "כרמים"
+    },
+    {
+        "cityId": 644,
+        "englishName": "KARMEL",
+        "hebrewName": "כרמל"
+    },
+    {
+        "cityId": 645,
+        "englishName": "",
+        "hebrewName": "לא רשום"
+    },
+    {
+        "cityId": 646,
+        "englishName": "LAVON",
+        "hebrewName": "לבון"
+    },
+    {
+        "cityId": 647,
+        "englishName": "LAVI",
+        "hebrewName": "לביא"
+    },
+    {
+        "cityId": 648,
+        "englishName": "LIVNIM",
+        "hebrewName": "לבנים"
+    },
+    {
+        "cityId": 649,
+        "englishName": "LAHAV",
+        "hebrewName": "להב"
+    },
+    {
+        "cityId": 650,
+        "englishName": "LAHAVOT HABASHAN",
+        "hebrewName": "להבות הבשן"
+    },
+    {
+        "cityId": 651,
+        "englishName": "LAHAVOT HAVIVA",
+        "hebrewName": "להבות חביבה"
+    },
+    {
+        "cityId": 652,
+        "englishName": "LEHAVIM",
+        "hebrewName": "להבים"
+    },
+    {
+        "cityId": 653,
+        "englishName": "LOD",
+        "hebrewName": "לוד"
+    },
+    {
+        "cityId": 654,
+        "englishName": "LUZIT",
+        "hebrewName": "לוזית"
+    },
+    {
+        "cityId": 655,
+        "englishName": "LOHAME HAGETA'OT",
+        "hebrewName": "לוחמי הגיטאות"
+    },
+    {
+        "cityId": 656,
+        "englishName": "LOTEM",
+        "hebrewName": "לוטם"
+    },
+    {
+        "cityId": 657,
+        "englishName": "LOTAN",
+        "hebrewName": "לוטן"
+    },
+    {
+        "cityId": 658,
+        "englishName": "LIMAN",
+        "hebrewName": "לימן"
+    },
+    {
+        "cityId": 659,
+        "englishName": "LAKHISH",
+        "hebrewName": "לכיש"
+    },
+    {
+        "cityId": 660,
+        "englishName": "LAPPID",
+        "hebrewName": "לפיד"
+    },
+    {
+        "cityId": 661,
+        "englishName": "LAPPIDOT",
+        "hebrewName": "לפידות"
+    },
+    {
+        "cityId": 662,
+        "englishName": "LAQYE",
+        "hebrewName": "לקיה"
+    },
+    {
+        "cityId": 663,
+        "englishName": "MA'OR",
+        "hebrewName": "מאור"
+    },
+    {
+        "cityId": 664,
+        "englishName": "ME'IR SHEFEYA",
+        "hebrewName": "מאיר שפיה"
+    },
+    {
+        "cityId": 665,
+        "englishName": "MEVO BETAR",
+        "hebrewName": "מבוא ביתר"
+    },
+    {
+        "cityId": 666,
+        "englishName": "MEVO DOTAN",
+        "hebrewName": "מבוא דותן"
+    },
+    {
+        "cityId": 667,
+        "englishName": "MEVO HORON",
+        "hebrewName": "מבוא חורון"
+    },
+    {
+        "cityId": 668,
+        "englishName": "MEVO HAMMA",
+        "hebrewName": "מבוא חמה"
+    },
+    {
+        "cityId": 669,
+        "englishName": "MEVO MODI'IM",
+        "hebrewName": "מבוא מודיעים"
+    },
+    {
+        "cityId": 670,
+        "englishName": "MEVO'OT YAM",
+        "hebrewName": "מבואות ים"
+    },
+    {
+        "cityId": 671,
+        "englishName": "MABBU'IM",
+        "hebrewName": "מבועים"
+    },
+    {
+        "cityId": 672,
+        "englishName": "MIVTAHIM",
+        "hebrewName": "מבטחים"
+    },
+    {
+        "cityId": 673,
+        "englishName": "MAVQI'IM",
+        "hebrewName": "מבקיעים"
+    },
+    {
+        "cityId": 674,
+        "englishName": "MEVASSERET ZIYYON",
+        "hebrewName": "מבשרת ציון"
+    },
+    {
+        "cityId": 675,
+        "englishName": "MAJD AL-KURUM",
+        "hebrewName": "מג'ד אל-כרום"
+    },
+    {
+        "cityId": 676,
+        "englishName": "MAJDAL SHAMS",
+        "hebrewName": "מג'דל שמס"
+    },
+    {
+        "cityId": 677,
+        "englishName": "MUGHAR",
+        "hebrewName": "מגאר"
+    },
+    {
+        "cityId": 678,
+        "englishName": "MEGADIM",
+        "hebrewName": "מגדים"
+    },
+    {
+        "cityId": 679,
+        "englishName": "MIGDAL",
+        "hebrewName": "מגדל"
+    },
+    {
+        "cityId": 680,
+        "englishName": "MIGDAL HAEMEQ",
+        "hebrewName": "מגדל העמק"
+    },
+    {
+        "cityId": 681,
+        "englishName": "MIGDAL OZ",
+        "hebrewName": "מגדל עוז"
+    },
+    {
+        "cityId": 682,
+        "englishName": "MIGDALIM",
+        "hebrewName": "מגדלים"
+    },
+    {
+        "cityId": 683,
+        "englishName": "MEGIDDO",
+        "hebrewName": "מגידו"
+    },
+    {
+        "cityId": 684,
+        "englishName": "MAGGAL",
+        "hebrewName": "מגל"
+    },
+    {
+        "cityId": 685,
+        "englishName": "MAGEN",
+        "hebrewName": "מגן"
+    },
+    {
+        "cityId": 686,
+        "englishName": "MAGEN SHA'UL",
+        "hebrewName": "מגן שאול"
+    },
+    {
+        "cityId": 687,
+        "englishName": "MAGSHIMIM",
+        "hebrewName": "מגשימים"
+    },
+    {
+        "cityId": 688,
+        "englishName": "MIDRAKH OZ",
+        "hebrewName": "מדרך עוז"
+    },
+    {
+        "cityId": 689,
+        "englishName": "MIDRESHET BEN GURION",
+        "hebrewName": "מדרשת בן גוריון"
+    },
+    {
+        "cityId": 690,
+        "englishName": "MIDRESHET RUPPIN",
+        "hebrewName": "מדרשת רופין"
+    },
+    {
+        "cityId": 691,
+        "englishName": "MODI'IN ILLIT",
+        "hebrewName": "מודיעין עילית"
+    },
+    {
+        "cityId": 692,
+        "englishName": "MODI'IN-MAKKABBIM-RE",
+        "hebrewName": "מודיעין-מכבים-רעות"
+    },
+    {
+        "cityId": 693,
+        "englishName": "MOLEDET",
+        "hebrewName": "מולדת"
+    },
+    {
+        "cityId": 694,
+        "englishName": "MOZA ILLIT",
+        "hebrewName": "מוצא עילית"
+    },
+    {
+        "cityId": 695,
+        "englishName": "MUQEIBLE",
+        "hebrewName": "מוקייבלה"
+    },
+    {
+        "cityId": 696,
+        "englishName": "MORAN",
+        "hebrewName": "מורן"
+    },
+    {
+        "cityId": 697,
+        "englishName": "MORESHET",
+        "hebrewName": "מורשת"
+    },
+    {
+        "cityId": 698,
+        "englishName": "MAZOR",
+        "hebrewName": "מזור"
+    },
+    {
+        "cityId": 699,
+        "englishName": "MAZKERET BATYA",
+        "hebrewName": "מזכרת בתיה"
+    },
+    {
+        "cityId": 700,
+        "englishName": "MIZRA",
+        "hebrewName": "מזרע"
+    },
+    {
+        "cityId": 701,
+        "englishName": "MAZRA'A",
+        "hebrewName": "מזרעה"
+    },
+    {
+        "cityId": 702,
+        "englishName": "MEHOLA",
+        "hebrewName": "מחולה"
+    },
+    {
+        "cityId": 703,
+        "englishName": "MAHANE HILLA",
+        "hebrewName": "מחנה הילה"
+    },
+    {
+        "cityId": 704,
+        "englishName": "MAHANE TALI",
+        "hebrewName": "מחנה טלי"
+    },
+    {
+        "cityId": 705,
+        "englishName": "MAHANE YEHUDIT",
+        "hebrewName": "מחנה יהודית"
+    },
+    {
+        "cityId": 706,
+        "englishName": "MAHANE YOKHVED",
+        "hebrewName": "מחנה יוכבד"
+    },
+    {
+        "cityId": 707,
+        "englishName": "MAHANE YAFA",
+        "hebrewName": "מחנה יפה"
+    },
+    {
+        "cityId": 708,
+        "englishName": "MAHANE YATTIR",
+        "hebrewName": "מחנה יתיר"
+    },
+    {
+        "cityId": 709,
+        "englishName": "MAHANE MIRYAM",
+        "hebrewName": "מחנה מרים"
+    },
+    {
+        "cityId": 710,
+        "englishName": "MAHANE TEL NOF",
+        "hebrewName": "מחנה תל נוף"
+    },
+    {
+        "cityId": 711,
+        "englishName": "MAHANAYIM",
+        "hebrewName": "מחניים"
+    },
+    {
+        "cityId": 712,
+        "englishName": "MAHSEYA",
+        "hebrewName": "מחסיה"
+    },
+    {
+        "cityId": 713,
+        "englishName": "METULA",
+        "hebrewName": "מטולה"
+    },
+    {
+        "cityId": 714,
+        "englishName": "MATTA",
+        "hebrewName": "מטע"
+    },
+    {
+        "cityId": 715,
+        "englishName": "ME AMMI",
+        "hebrewName": "מי עמי"
+    },
+    {
+        "cityId": 716,
+        "englishName": "METAV",
+        "hebrewName": "מיטב"
+    },
+    {
+        "cityId": 717,
+        "englishName": "MEISER",
+        "hebrewName": "מייסר"
+    },
+    {
+        "cityId": 718,
+        "englishName": "MEZAR",
+        "hebrewName": "מיצר"
+    },
+    {
+        "cityId": 719,
+        "englishName": "MERAV",
+        "hebrewName": "מירב"
+    },
+    {
+        "cityId": 720,
+        "englishName": "MERON",
+        "hebrewName": "מירון"
+    },
+    {
+        "cityId": 721,
+        "englishName": "MESHAR",
+        "hebrewName": "מישר"
+    },
+    {
+        "cityId": 722,
+        "englishName": "METAR",
+        "hebrewName": "מיתר"
+    },
+    {
+        "cityId": 723,
+        "englishName": "MEKHORA",
+        "hebrewName": "מכורה"
+    },
+    {
+        "cityId": 724,
+        "englishName": "MAKCHUL",
+        "hebrewName": "מכחול"
+    },
+    {
+        "cityId": 725,
+        "englishName": "MIKHMORET",
+        "hebrewName": "מכמורת"
+    },
+    {
+        "cityId": 726,
+        "englishName": "MIKHMANNIM",
+        "hebrewName": "מכמנים"
+    },
+    {
+        "cityId": 727,
+        "englishName": "MELE'A",
+        "hebrewName": "מלאה"
+    },
+    {
+        "cityId": 728,
+        "englishName": "MELILOT",
+        "hebrewName": "מלילות"
+    },
+    {
+        "cityId": 729,
+        "englishName": "MALKIYYA",
+        "hebrewName": "מלכיה"
+    },
+    {
+        "cityId": 730,
+        "englishName": "MALKISHUA",
+        "hebrewName": "מלכישוע"
+    },
+    {
+        "cityId": 731,
+        "englishName": "MENUHA",
+        "hebrewName": "מנוחה"
+    },
+    {
+        "cityId": 732,
+        "englishName": "MANOF",
+        "hebrewName": "מנוף"
+    },
+    {
+        "cityId": 733,
+        "englishName": "MANOT",
+        "hebrewName": "מנות"
+    },
+    {
+        "cityId": 734,
+        "englishName": "MENAHEMYA",
+        "hebrewName": "מנחמיה"
+    },
+    {
+        "cityId": 735,
+        "englishName": "MENNARA",
+        "hebrewName": "מנרה"
+    },
+    {
+        "cityId": 736,
+        "englishName": "MANSHIYYET ZABDA",
+        "hebrewName": "מנשית זבדה"
+    },
+    {
+        "cityId": 737,
+        "englishName": "MASSAD",
+        "hebrewName": "מסד"
+    },
+    {
+        "cityId": 738,
+        "englishName": "MASSADA",
+        "hebrewName": "מסדה"
+    },
+    {
+        "cityId": 739,
+        "englishName": "MESILLOT",
+        "hebrewName": "מסילות"
+    },
+    {
+        "cityId": 740,
+        "englishName": "MESILLAT ZIYYON",
+        "hebrewName": "מסילת ציון"
+    },
+    {
+        "cityId": 741,
+        "englishName": "MASLUL",
+        "hebrewName": "מסלול"
+    },
+    {
+        "cityId": 742,
+        "englishName": "MAS'ADE",
+        "hebrewName": "מסעדה"
+    },
+    {
+        "cityId": 743,
+        "englishName": "MAS'UDIN AL-'AZAZME",
+        "hebrewName": "מסעודין אל-עזאזמה"
+    },
+    {
+        "cityId": 744,
+        "englishName": "MA'BAROT",
+        "hebrewName": "מעברות"
+    },
+    {
+        "cityId": 745,
+        "englishName": "MA'GALIM",
+        "hebrewName": "מעגלים"
+    },
+    {
+        "cityId": 746,
+        "englishName": "MA'AGAN",
+        "hebrewName": "מעגן"
+    },
+    {
+        "cityId": 747,
+        "englishName": "MA'AGAN MIKHA'EL",
+        "hebrewName": "מעגן מיכאל"
+    },
+    {
+        "cityId": 748,
+        "englishName": "MA'OZ HAYYIM",
+        "hebrewName": "מעוז חיים"
+    },
+    {
+        "cityId": 749,
+        "englishName": "MA'ON",
+        "hebrewName": "מעון"
+    },
+    {
+        "cityId": 750,
+        "englishName": "ME'ONA",
+        "hebrewName": "מעונה"
+    },
+    {
+        "cityId": 751,
+        "englishName": "MI'ELYA",
+        "hebrewName": "מעיליא"
+    },
+    {
+        "cityId": 752,
+        "englishName": "MA'YAN BARUKH",
+        "hebrewName": "מעין ברוך"
+    },
+    {
+        "cityId": 753,
+        "englishName": "MA'YAN ZEVI",
+        "hebrewName": "מעין צבי"
+    },
+    {
+        "cityId": 754,
+        "englishName": "MA'ALE ADUMMIM",
+        "hebrewName": "מעלה אדומים"
+    },
+    {
+        "cityId": 755,
+        "englishName": "MA'ALE EFRAYIM",
+        "hebrewName": "מעלה אפרים"
+    },
+    {
+        "cityId": 756,
+        "englishName": "MA'ALE GILBOA",
+        "hebrewName": "מעלה גלבוע"
+    },
+    {
+        "cityId": 757,
+        "englishName": "MA'ALE GAMLA",
+        "hebrewName": "מעלה גמלא"
+    },
+    {
+        "cityId": 758,
+        "englishName": "MA'ALE HAHAMISHA",
+        "hebrewName": "מעלה החמישה"
+    },
+    {
+        "cityId": 759,
+        "englishName": "MA'ALE LEVONA",
+        "hebrewName": "מעלה לבונה"
+    },
+    {
+        "cityId": 760,
+        "englishName": "MA'ALE MIKHMAS",
+        "hebrewName": "מעלה מכמש"
+    },
+    {
+        "cityId": 761,
+        "englishName": "MA'ALE IRON",
+        "hebrewName": "מעלה עירון"
+    },
+    {
+        "cityId": 762,
+        "englishName": "MA'ALE AMOS",
+        "hebrewName": "מעלה עמוס"
+    },
+    {
+        "cityId": 763,
+        "englishName": "MA'ALE SHOMERON",
+        "hebrewName": "מעלה שומרון"
+    },
+    {
+        "cityId": 764,
+        "englishName": "MA'ALOT-TARSHIHA",
+        "hebrewName": "מעלות-תרשיחא"
+    },
+    {
+        "cityId": 765,
+        "englishName": "MA'ANIT",
+        "hebrewName": "מענית"
+    },
+    {
+        "cityId": 766,
+        "englishName": "MA'AS",
+        "hebrewName": "מעש"
+    },
+    {
+        "cityId": 767,
+        "englishName": "MEFALLESIM",
+        "hebrewName": "מפלסים"
+    },
+    {
+        "cityId": 768,
+        "englishName": "MEZADOT YEHUDA",
+        "hebrewName": "מצדות יהודה"
+    },
+    {
+        "cityId": 769,
+        "englishName": "MAZZUVA",
+        "hebrewName": "מצובה"
+    },
+    {
+        "cityId": 770,
+        "englishName": "MAZLIAH",
+        "hebrewName": "מצליח"
+    },
+    {
+        "cityId": 771,
+        "englishName": "MIZPA",
+        "hebrewName": "מצפה"
+    },
+    {
+        "cityId": 772,
+        "englishName": "MIZPE AVIV",
+        "hebrewName": "מצפה אבי\"ב"
+    },
+    {
+        "cityId": 773,
+        "englishName": "MITSPE ILAN",
+        "hebrewName": "מצפה אילן"
+    },
+    {
+        "cityId": 774,
+        "englishName": "MIZPE YERIHO",
+        "hebrewName": "מצפה יריחו"
+    },
+    {
+        "cityId": 775,
+        "englishName": "MIZPE NETOFA",
+        "hebrewName": "מצפה נטופה"
+    },
+    {
+        "cityId": 776,
+        "englishName": "MIZPE RAMON",
+        "hebrewName": "מצפה רמון"
+    },
+    {
+        "cityId": 777,
+        "englishName": "MIZPE SHALEM",
+        "hebrewName": "מצפה שלם"
+    },
+    {
+        "cityId": 778,
+        "englishName": "MEZER",
+        "hebrewName": "מצר"
+    },
+    {
+        "cityId": 779,
+        "englishName": "MIQWE YISRA'EL",
+        "hebrewName": "מקווה ישראל"
+    },
+    {
+        "cityId": 780,
+        "englishName": "MARGALIYYOT",
+        "hebrewName": "מרגליות"
+    },
+    {
+        "cityId": 781,
+        "englishName": "MEROM GOLAN",
+        "hebrewName": "מרום גולן"
+    },
+    {
+        "cityId": 782,
+        "englishName": "MERHAV AM",
+        "hebrewName": "מרחב עם"
+    },
+    {
+        "cityId": 783,
+        "englishName": "MERHAVYA(MOSHAV)",
+        "hebrewName": "מרחביה )מושב("
+    },
+    {
+        "cityId": 784,
+        "englishName": "MERHAVYA(QIBBUZ)",
+        "hebrewName": "מרחביה )קיבוץ("
+    },
+    {
+        "cityId": 785,
+        "englishName": "MERKAZ SHAPPIRA",
+        "hebrewName": "מרכז שפירא"
+    },
+    {
+        "cityId": 786,
+        "englishName": "MASH'ABBE SADE",
+        "hebrewName": "משאבי שדה"
+    },
+    {
+        "cityId": 787,
+        "englishName": "MISGAV DOV",
+        "hebrewName": "משגב דב"
+    },
+    {
+        "cityId": 788,
+        "englishName": "MISGAV AM",
+        "hebrewName": "משגב עם"
+    },
+    {
+        "cityId": 789,
+        "englishName": "MESHHED",
+        "hebrewName": "משהד"
+    },
+    {
+        "cityId": 790,
+        "englishName": "MASSU'A",
+        "hebrewName": "משואה"
+    },
+    {
+        "cityId": 791,
+        "englishName": "MASSUOT YIZHAQ",
+        "hebrewName": "משואות יצחק"
+    },
+    {
+        "cityId": 792,
+        "englishName": "MASKIYYOT",
+        "hebrewName": "משכיות"
+    },
+    {
+        "cityId": 793,
+        "englishName": "MISHMAR AYYALON",
+        "hebrewName": "משמר איילון"
+    },
+    {
+        "cityId": 794,
+        "englishName": "MISHMAR DAWID",
+        "hebrewName": "משמר דוד"
+    },
+    {
+        "cityId": 795,
+        "englishName": "MISHMAR HAYARDEN",
+        "hebrewName": "משמר הירדן"
+    },
+    {
+        "cityId": 796,
+        "englishName": "MISHMAR HANEGEV",
+        "hebrewName": "משמר הנגב"
+    },
+    {
+        "cityId": 797,
+        "englishName": "MISHMAR HAEMEQ",
+        "hebrewName": "משמר העמק"
+    },
+    {
+        "cityId": 798,
+        "englishName": "MISHMAR HASHIV'A",
+        "hebrewName": "משמר השבעה"
+    },
+    {
+        "cityId": 799,
+        "englishName": "MISHMAR HASHARON",
+        "hebrewName": "משמר השרון"
+    },
+    {
+        "cityId": 800,
+        "englishName": "MISHMAROT",
+        "hebrewName": "משמרות"
+    },
+    {
+        "cityId": 801,
+        "englishName": "MISHMERET",
+        "hebrewName": "משמרת"
+    },
+    {
+        "cityId": 802,
+        "englishName": "MASH'EN",
+        "hebrewName": "משען"
+    },
+    {
+        "cityId": 803,
+        "englishName": "MATTAN",
+        "hebrewName": "מתן"
+    },
+    {
+        "cityId": 804,
+        "englishName": "MATTAT",
+        "hebrewName": "מתת"
+    },
+    {
+        "cityId": 805,
+        "englishName": "MATTITYAHU",
+        "hebrewName": "מתתיהו"
+    },
+    {
+        "cityId": 806,
+        "englishName": "NE'OT GOLAN",
+        "hebrewName": "נאות גולן"
+    },
+    {
+        "cityId": 807,
+        "englishName": "NE'OT HAKIKKAR",
+        "hebrewName": "נאות הכיכר"
+    },
+    {
+        "cityId": 808,
+        "englishName": "NE'OT MORDEKHAY",
+        "hebrewName": "נאות מרדכי"
+    },
+    {
+        "cityId": 809,
+        "englishName": "SHIZZAFON",
+        "hebrewName": "נאות סמדר"
+    },
+    {
+        "cityId": 810,
+        "englishName": "NA'URA",
+        "hebrewName": "נאעורה"
+    },
+    {
+        "cityId": 811,
+        "englishName": "NEVATIM",
+        "hebrewName": "נבטים"
+    },
+    {
+        "cityId": 812,
+        "englishName": "NEGBA",
+        "hebrewName": "נגבה"
+    },
+    {
+        "cityId": 813,
+        "englishName": "NEGOHOT",
+        "hebrewName": "נגוהות"
+    },
+    {
+        "cityId": 814,
+        "englishName": "NEHORA",
+        "hebrewName": "נהורה"
+    },
+    {
+        "cityId": 815,
+        "englishName": "NAHALAL",
+        "hebrewName": "נהלל"
+    },
+    {
+        "cityId": 816,
+        "englishName": "NAHARIYYA",
+        "hebrewName": "נהריה"
+    },
+    {
+        "cityId": 817,
+        "englishName": "NOV",
+        "hebrewName": "נוב"
+    },
+    {
+        "cityId": 818,
+        "englishName": "NOGAH",
+        "hebrewName": "נוגה"
+    },
+    {
+        "cityId": 819,
+        "englishName": "NEVE TSUF",
+        "hebrewName": "נוה צוף"
+    },
+    {
+        "cityId": 820,
+        "englishName": "NAVE",
+        "hebrewName": "נווה"
+    },
+    {
+        "cityId": 821,
+        "englishName": "NEWE AVOT",
+        "hebrewName": "נווה אבות"
+    },
+    {
+        "cityId": 822,
+        "englishName": "NEWE UR",
+        "hebrewName": "נווה אור"
+    },
+    {
+        "cityId": 823,
+        "englishName": "NEWE ATIV",
+        "hebrewName": "נווה אטי\"ב"
+    },
+    {
+        "cityId": 824,
+        "englishName": "NEWE ILAN",
+        "hebrewName": "נווה אילן"
+    },
+    {
+        "cityId": 825,
+        "englishName": "NEWE ETAN",
+        "hebrewName": "נווה איתן"
+    },
+    {
+        "cityId": 826,
+        "englishName": "NEWE DANIYYEL",
+        "hebrewName": "נווה דניאל"
+    },
+    {
+        "cityId": 827,
+        "englishName": "NEWE ZOHAR",
+        "hebrewName": "נווה זוהר"
+    },
+    {
+        "cityId": 828,
+        "englishName": "NEWE ZIV",
+        "hebrewName": "נווה זיו"
+    },
+    {
+        "cityId": 829,
+        "englishName": "NEWE HARIF",
+        "hebrewName": "נווה חריף"
+    },
+    {
+        "cityId": 830,
+        "englishName": "NEWE YAM",
+        "hebrewName": "נווה ים"
+    },
+    {
+        "cityId": 831,
+        "englishName": "NEWE YAMIN",
+        "hebrewName": "נווה ימין"
+    },
+    {
+        "cityId": 832,
+        "englishName": "NEWE YARAQ",
+        "hebrewName": "נווה ירק"
+    },
+    {
+        "cityId": 833,
+        "englishName": "NEWE MIVTAH",
+        "hebrewName": "נווה מבטח"
+    },
+    {
+        "cityId": 834,
+        "englishName": "NEWE MIKHA'EL",
+        "hebrewName": "נווה מיכאל"
+    },
+    {
+        "cityId": 835,
+        "englishName": "NEWE SHALOM",
+        "hebrewName": "נווה שלום"
+    },
+    {
+        "cityId": 836,
+        "englishName": "NO'AM",
+        "hebrewName": "נועם"
+    },
+    {
+        "cityId": 837,
+        "englishName": "NOF AYYALON",
+        "hebrewName": "נוף איילון"
+    },
+    {
+        "cityId": 838,
+        "englishName": "NOF HAGALIL",
+        "hebrewName": "נוף הגליל"
+    },
+    {
+        "cityId": 839,
+        "englishName": "NOFIM",
+        "hebrewName": "נופים"
+    },
+    {
+        "cityId": 840,
+        "englishName": "NOFIT",
+        "hebrewName": "נופית"
+    },
+    {
+        "cityId": 841,
+        "englishName": "NOFEKH",
+        "hebrewName": "נופך"
+    },
+    {
+        "cityId": 842,
+        "englishName": "NOQEDIM",
+        "hebrewName": "נוקדים"
+    },
+    {
+        "cityId": 843,
+        "englishName": "NORDIYYA",
+        "hebrewName": "נורדיה"
+    },
+    {
+        "cityId": 844,
+        "englishName": "NURIT",
+        "hebrewName": "נורית"
+    },
+    {
+        "cityId": 845,
+        "englishName": "NEHUSHA",
+        "hebrewName": "נחושה"
+    },
+    {
+        "cityId": 846,
+        "englishName": "NAHAL OZ",
+        "hebrewName": "נחל עוז"
+    },
+    {
+        "cityId": 847,
+        "englishName": "NAHALA",
+        "hebrewName": "נחלה"
+    },
+    {
+        "cityId": 848,
+        "englishName": "NAHALI'EL",
+        "hebrewName": "נחליאל"
+    },
+    {
+        "cityId": 849,
+        "englishName": "NEHALIM",
+        "hebrewName": "נחלים"
+    },
+    {
+        "cityId": 850,
+        "englishName": "NAHAM",
+        "hebrewName": "נחם"
+    },
+    {
+        "cityId": 851,
+        "englishName": "NAHEF",
+        "hebrewName": "נחף"
+    },
+    {
+        "cityId": 852,
+        "englishName": "NAHSHOLIM",
+        "hebrewName": "נחשולים"
+    },
+    {
+        "cityId": 853,
+        "englishName": "NAHSHON",
+        "hebrewName": "נחשון"
+    },
+    {
+        "cityId": 854,
+        "englishName": "NAHSHONIM",
+        "hebrewName": "נחשונים"
+    },
+    {
+        "cityId": 855,
+        "englishName": "NETU'A",
+        "hebrewName": "נטועה"
+    },
+    {
+        "cityId": 856,
+        "englishName": "NATUR",
+        "hebrewName": "נטור"
+    },
+    {
+        "cityId": 857,
+        "englishName": "NETA",
+        "hebrewName": "נטע"
+    },
+    {
+        "cityId": 858,
+        "englishName": "NETA'IM",
+        "hebrewName": "נטעים"
+    },
+    {
+        "cityId": 859,
+        "englishName": "NATAF",
+        "hebrewName": "נטף"
+    },
+    {
+        "cityId": 860,
+        "englishName": "NEIN",
+        "hebrewName": "ניין"
+    },
+    {
+        "cityId": 861,
+        "englishName": "NILI",
+        "hebrewName": "ניל\"י"
+    },
+    {
+        "cityId": 862,
+        "englishName": "NIZZAN",
+        "hebrewName": "ניצן"
+    },
+    {
+        "cityId": 863,
+        "englishName": "NIZZAN B",
+        "hebrewName": "ניצן ב'"
+    },
+    {
+        "cityId": 864,
+        "englishName": "NIZZANA (QEHILAT HIN",
+        "hebrewName": "ניצנה )קהילת חינוך("
+    },
+    {
+        "cityId": 865,
+        "englishName": "NIZZANE SINAY",
+        "hebrewName": "ניצני סיני"
+    },
+    {
+        "cityId": 866,
+        "englishName": "NIZZANE OZ",
+        "hebrewName": "ניצני עוז"
+    },
+    {
+        "cityId": 867,
+        "englishName": "NIZZANIM",
+        "hebrewName": "ניצנים"
+    },
+    {
+        "cityId": 868,
+        "englishName": "NIR ELIYYAHU",
+        "hebrewName": "ניר אליהו"
+    },
+    {
+        "cityId": 869,
+        "englishName": "NIR BANIM",
+        "hebrewName": "ניר בנים"
+    },
+    {
+        "cityId": 870,
+        "englishName": "NIR GALLIM",
+        "hebrewName": "ניר גלים"
+    },
+    {
+        "cityId": 871,
+        "englishName": "NIR DAWID (TEL AMAL)",
+        "hebrewName": "ניר דוד )תל עמל("
+    },
+    {
+        "cityId": 872,
+        "englishName": "NIR HEN",
+        "hebrewName": "ניר ח\"ן"
+    },
+    {
+        "cityId": 873,
+        "englishName": "NIR YAFE",
+        "hebrewName": "ניר יפה"
+    },
+    {
+        "cityId": 874,
+        "englishName": "NIR YIZHAQ",
+        "hebrewName": "ניר יצחק"
+    },
+    {
+        "cityId": 875,
+        "englishName": "NIR YISRA'EL",
+        "hebrewName": "ניר ישראל"
+    },
+    {
+        "cityId": 876,
+        "englishName": "NIR MOSHE",
+        "hebrewName": "ניר משה"
+    },
+    {
+        "cityId": 877,
+        "englishName": "NIR OZ",
+        "hebrewName": "ניר עוז"
+    },
+    {
+        "cityId": 878,
+        "englishName": "NIR AM",
+        "hebrewName": "ניר עם"
+    },
+    {
+        "cityId": 879,
+        "englishName": "NIR EZYON",
+        "hebrewName": "ניר עציון"
+    },
+    {
+        "cityId": 880,
+        "englishName": "NIR AQIVA",
+        "hebrewName": "ניר עקיבא"
+    },
+    {
+        "cityId": 881,
+        "englishName": "NIR ZEVI",
+        "hebrewName": "ניר צבי"
+    },
+    {
+        "cityId": 882,
+        "englishName": "NIRIM",
+        "hebrewName": "נירים"
+    },
+    {
+        "cityId": 883,
+        "englishName": "NIRIT",
+        "hebrewName": "נירית"
+    },
+    {
+        "cityId": 884,
+        "englishName": "NIMROD",
+        "hebrewName": "נמרוד"
+    },
+    {
+        "cityId": 885,
+        "englishName": "NES HARIM",
+        "hebrewName": "נס הרים"
+    },
+    {
+        "cityId": 886,
+        "englishName": "NES AMMIM",
+        "hebrewName": "נס עמים"
+    },
+    {
+        "cityId": 887,
+        "englishName": "NES ZIYYONA",
+        "hebrewName": "נס ציונה"
+    },
+    {
+        "cityId": 888,
+        "englishName": "NE'URIM",
+        "hebrewName": "נעורים"
+    },
+    {
+        "cityId": 889,
+        "englishName": "NA'ALE",
+        "hebrewName": "נעלה"
+    },
+    {
+        "cityId": 890,
+        "englishName": "NAAMA",
+        "hebrewName": "נעמ\"ה"
+    },
+    {
+        "cityId": 891,
+        "englishName": "NA'AN",
+        "hebrewName": "נען"
+    },
+    {
+        "cityId": 892,
+        "englishName": "NA'ARAN",
+        "hebrewName": "נערן"
+    },
+    {
+        "cityId": 893,
+        "englishName": "NASASRA",
+        "hebrewName": "נצאצרה )שבט("
+    },
+    {
+        "cityId": 894,
+        "englishName": "NEZER HAZZANI",
+        "hebrewName": "נצר חזני"
+    },
+    {
+        "cityId": 895,
+        "englishName": "NEZER SERENI",
+        "hebrewName": "נצר סרני"
+    },
+    {
+        "cityId": 896,
+        "englishName": "NAZARETH",
+        "hebrewName": "נצרת"
+    },
+    {
+        "cityId": 897,
+        "englishName": "NESHER",
+        "hebrewName": "נשר"
+    },
+    {
+        "cityId": 898,
+        "englishName": "NETIV HAGEDUD",
+        "hebrewName": "נתיב הגדוד"
+    },
+    {
+        "cityId": 899,
+        "englishName": "NETIV HALAMED-HE",
+        "hebrewName": "נתיב הל\"ה"
+    },
+    {
+        "cityId": 900,
+        "englishName": "NETIV HAASARA",
+        "hebrewName": "נתיב העשרה"
+    },
+    {
+        "cityId": 901,
+        "englishName": "NETIV HASHAYYARA",
+        "hebrewName": "נתיב השיירה"
+    },
+    {
+        "cityId": 902,
+        "englishName": "NETIVOT",
+        "hebrewName": "נתיבות"
+    },
+    {
+        "cityId": 903,
+        "englishName": "NETANYA",
+        "hebrewName": "נתניה"
+    },
+    {
+        "cityId": 904,
+        "englishName": "SAJUR",
+        "hebrewName": "סאג'ור"
+    },
+    {
+        "cityId": 905,
+        "englishName": "SASA",
+        "hebrewName": "סאסא"
+    },
+    {
+        "cityId": 906,
+        "englishName": "SAVYON",
+        "hebrewName": "סביון"
+    },
+    {
+        "cityId": 907,
+        "englishName": "SEGULA",
+        "hebrewName": "סגולה"
+    },
+    {
+        "cityId": 908,
+        "englishName": "SAWA'ID(HAMRIYYE)",
+        "hebrewName": "סואעד )חמרייה("
+    },
+    {
+        "cityId": 909,
+        "englishName": "SAWA'ID (KAMANE)",
+        "hebrewName": "סואעד )כמאנה( )שבט("
+    },
+    {
+        "cityId": 910,
+        "englishName": "SULAM",
+        "hebrewName": "סולם"
+    },
+    {
+        "cityId": 911,
+        "englishName": "SUSEYA",
+        "hebrewName": "סוסיה"
+    },
+    {
+        "cityId": 912,
+        "englishName": "SUFA",
+        "hebrewName": "סופה"
+    },
+    {
+        "cityId": 913,
+        "englishName": "SAKHNIN",
+        "hebrewName": "סח'נין"
+    },
+    {
+        "cityId": 914,
+        "englishName": "SAYYID",
+        "hebrewName": "סייד )שבט("
+    },
+    {
+        "cityId": 915,
+        "englishName": "SALLAMA",
+        "hebrewName": "סלמה"
+    },
+    {
+        "cityId": 916,
+        "englishName": "SAL'IT",
+        "hebrewName": "סלעית"
+    },
+    {
+        "cityId": 917,
+        "englishName": "SAMAR",
+        "hebrewName": "סמר"
+    },
+    {
+        "cityId": 918,
+        "englishName": "",
+        "hebrewName": "סנסנה"
+    },
+    {
+        "cityId": 919,
+        "englishName": "SA'AD",
+        "hebrewName": "סעד"
+    },
+    {
+        "cityId": 920,
+        "englishName": "SA'WA",
+        "hebrewName": "סעוה"
+    },
+    {
+        "cityId": 921,
+        "englishName": "SA'AR",
+        "hebrewName": "סער"
+    },
+    {
+        "cityId": 922,
+        "englishName": "SAPPIR",
+        "hebrewName": "ספיר"
+    },
+    {
+        "cityId": 923,
+        "englishName": "SITRIYYA",
+        "hebrewName": "סתריה"
+    },
+    {
+        "cityId": 924,
+        "englishName": "GHAJAR",
+        "hebrewName": "ע'ג'ר"
+    },
+    {
+        "cityId": 925,
+        "englishName": "AVDON",
+        "hebrewName": "עבדון"
+    },
+    {
+        "cityId": 926,
+        "englishName": "EVRON",
+        "hebrewName": "עברון"
+    },
+    {
+        "cityId": 927,
+        "englishName": "AGUR",
+        "hebrewName": "עגור"
+    },
+    {
+        "cityId": 928,
+        "englishName": "ADI",
+        "hebrewName": "עדי"
+    },
+    {
+        "cityId": 929,
+        "englishName": "ADANIM",
+        "hebrewName": "עדנים"
+    },
+    {
+        "cityId": 930,
+        "englishName": "UZA",
+        "hebrewName": "עוזה"
+    },
+    {
+        "cityId": 931,
+        "englishName": "UZEIR",
+        "hebrewName": "עוזייר"
+    },
+    {
+        "cityId": 932,
+        "englishName": "OLESH",
+        "hebrewName": "עולש"
+    },
+    {
+        "cityId": 933,
+        "englishName": "OMER",
+        "hebrewName": "עומר"
+    },
+    {
+        "cityId": 934,
+        "englishName": "OFER",
+        "hebrewName": "עופר"
+    },
+    {
+        "cityId": 935,
+        "englishName": "OFRA",
+        "hebrewName": "עופרה"
+    },
+    {
+        "cityId": 936,
+        "englishName": "OZEM",
+        "hebrewName": "עוצם"
+    },
+    {
+        "cityId": 937,
+        "englishName": "UQBI (BANU UQBA)",
+        "hebrewName": "עוקבי )בנו עוקבה("
+    },
+    {
+        "cityId": 938,
+        "englishName": "EZUZ",
+        "hebrewName": "עזוז"
+    },
+    {
+        "cityId": 939,
+        "englishName": "EZER",
+        "hebrewName": "עזר"
+    },
+    {
+        "cityId": 940,
+        "englishName": "AZRI'EL",
+        "hebrewName": "עזריאל"
+    },
+    {
+        "cityId": 941,
+        "englishName": "AZARYA",
+        "hebrewName": "עזריה"
+    },
+    {
+        "cityId": 942,
+        "englishName": "AZRIQAM",
+        "hebrewName": "עזריקם"
+    },
+    {
+        "cityId": 943,
+        "englishName": "ATAWNE",
+        "hebrewName": "עטאוונה )שבט("
+    },
+    {
+        "cityId": 944,
+        "englishName": "ATERET",
+        "hebrewName": "עטרת"
+    },
+    {
+        "cityId": 945,
+        "englishName": "IDDAN",
+        "hebrewName": "עידן"
+    },
+    {
+        "cityId": 946,
+        "englishName": "EILABUN",
+        "hebrewName": "עיילבון"
+    },
+    {
+        "cityId": 947,
+        "englishName": "AYANOT",
+        "hebrewName": "עיינות"
+    },
+    {
+        "cityId": 948,
+        "englishName": "ILUT",
+        "hebrewName": "עילוט"
+    },
+    {
+        "cityId": 949,
+        "englishName": "EN AYYALA",
+        "hebrewName": "עין איילה"
+    },
+    {
+        "cityId": 950,
+        "englishName": "EIN AL-ASAD",
+        "hebrewName": "עין אל-אסד"
+    },
+    {
+        "cityId": 951,
+        "englishName": "EN GEV",
+        "hebrewName": "עין גב"
+    },
+    {
+        "cityId": 952,
+        "englishName": "EN GEDI",
+        "hebrewName": "עין גדי"
+    },
+    {
+        "cityId": 953,
+        "englishName": "EN DOR",
+        "hebrewName": "עין דור"
+    },
+    {
+        "cityId": 954,
+        "englishName": "EN HABESOR",
+        "hebrewName": "עין הבשור"
+    },
+    {
+        "cityId": 955,
+        "englishName": "EN HOD",
+        "hebrewName": "עין הוד"
+    },
+    {
+        "cityId": 956,
+        "englishName": "EN HAHORESH",
+        "hebrewName": "עין החורש"
+    },
+    {
+        "cityId": 957,
+        "englishName": "EN HAMIFRAZ",
+        "hebrewName": "עין המפרץ"
+    },
+    {
+        "cityId": 958,
+        "englishName": "EN HANAZIV",
+        "hebrewName": "עין הנצי\"ב"
+    },
+    {
+        "cityId": 959,
+        "englishName": "EN HAEMEQ",
+        "hebrewName": "עין העמק"
+    },
+    {
+        "cityId": 960,
+        "englishName": "EN HASHOFET",
+        "hebrewName": "עין השופט"
+    },
+    {
+        "cityId": 961,
+        "englishName": "EN HASHELOSHA",
+        "hebrewName": "עין השלושה"
+    },
+    {
+        "cityId": 962,
+        "englishName": "EN WERED",
+        "hebrewName": "עין ורד"
+    },
+    {
+        "cityId": 963,
+        "englishName": "EN ZIWAN",
+        "hebrewName": "עין זיוון"
+    },
+    {
+        "cityId": 964,
+        "englishName": "EIN HOD",
+        "hebrewName": "עין חוד"
+    },
+    {
+        "cityId": 965,
+        "englishName": "EN HAZEVA",
+        "hebrewName": "עין חצבה"
+    },
+    {
+        "cityId": 966,
+        "englishName": "EN HAROD (IHUD)",
+        "hebrewName": "עין חרוד )איחוד("
+    },
+    {
+        "cityId": 967,
+        "englishName": "EN HAROD(ME'UHAD)",
+        "hebrewName": "עין חרוד )מאוחד("
+    },
+    {
+        "cityId": 968,
+        "englishName": "EN YAHAV",
+        "hebrewName": "עין יהב"
+    },
+    {
+        "cityId": 969,
+        "englishName": "EN YA'AQOV",
+        "hebrewName": "עין יעקב"
+    },
+    {
+        "cityId": 970,
+        "englishName": "EN KAREM-B.S.HAQLA'I",
+        "hebrewName": "עין כרם-בי\"ס חקלאי"
+    },
+    {
+        "cityId": 971,
+        "englishName": "EN KARMEL",
+        "hebrewName": "עין כרמל"
+    },
+    {
+        "cityId": 972,
+        "englishName": "EIN MAHEL",
+        "hebrewName": "עין מאהל"
+    },
+    {
+        "cityId": 973,
+        "englishName": "EIN NAQQUBA",
+        "hebrewName": "עין נקובא"
+    },
+    {
+        "cityId": 974,
+        "englishName": "EN IRON",
+        "hebrewName": "עין עירון"
+    },
+    {
+        "cityId": 975,
+        "englishName": "EN ZURIM",
+        "hebrewName": "עין צורים"
+    },
+    {
+        "cityId": 976,
+        "englishName": "EIN QINIYYE",
+        "hebrewName": "עין קנייא"
+    },
+    {
+        "cityId": 977,
+        "englishName": "EIN RAFA",
+        "hebrewName": "עין ראפה"
+    },
+    {
+        "cityId": 978,
+        "englishName": "EN SHEMER",
+        "hebrewName": "עין שמר"
+    },
+    {
+        "cityId": 979,
+        "englishName": "EN SARID",
+        "hebrewName": "עין שריד"
+    },
+    {
+        "cityId": 980,
+        "englishName": "EN TAMAR",
+        "hebrewName": "עין תמר"
+    },
+    {
+        "cityId": 981,
+        "englishName": "ENAT",
+        "hebrewName": "עינת"
+    },
+    {
+        "cityId": 982,
+        "englishName": "IR OVOT",
+        "hebrewName": "עיר אובות"
+    },
+    {
+        "cityId": 983,
+        "englishName": "AKKO",
+        "hebrewName": "עכו"
+    },
+    {
+        "cityId": 984,
+        "englishName": "ALUMIM",
+        "hebrewName": "עלומים"
+    },
+    {
+        "cityId": 985,
+        "englishName": "ELI",
+        "hebrewName": "עלי"
+    },
+    {
+        "cityId": 986,
+        "englishName": "ALE ZAHAV",
+        "hebrewName": "עלי זהב"
+    },
+    {
+        "cityId": 987,
+        "englishName": "ALMA",
+        "hebrewName": "עלמה"
+    },
+    {
+        "cityId": 988,
+        "englishName": "ALMON",
+        "hebrewName": "עלמון"
+    },
+    {
+        "cityId": 989,
+        "englishName": "AMUQQA",
+        "hebrewName": "עמוקה"
+    },
+    {
+        "cityId": 990,
+        "englishName": "AMMIHAY",
+        "hebrewName": "עמיחי"
+    },
+    {
+        "cityId": 991,
+        "englishName": "AMMINADAV",
+        "hebrewName": "עמינדב"
+    },
+    {
+        "cityId": 992,
+        "englishName": "AMMI'AD",
+        "hebrewName": "עמיעד"
+    },
+    {
+        "cityId": 993,
+        "englishName": "AMMI'OZ",
+        "hebrewName": "עמיעוז"
+    },
+    {
+        "cityId": 994,
+        "englishName": "AMMIQAM",
+        "hebrewName": "עמיקם"
+    },
+    {
+        "cityId": 995,
+        "englishName": "AMIR",
+        "hebrewName": "עמיר"
+    },
+    {
+        "cityId": 996,
+        "englishName": "IMMANU'EL",
+        "hebrewName": "עמנואל"
+    },
+    {
+        "cityId": 997,
+        "englishName": "AMQA",
+        "hebrewName": "עמקה"
+    },
+    {
+        "cityId": 998,
+        "englishName": "ENAV",
+        "hebrewName": "ענב"
+    },
+    {
+        "cityId": 999,
+        "englishName": "ISIFYA",
+        "hebrewName": "עספיא"
+    },
+    {
+        "cityId": 1000,
+        "englishName": "AFULA",
+        "hebrewName": "עפולה"
+    },
+    {
+        "cityId": 1001,
+        "englishName": "EZ EFRAYIM",
+        "hebrewName": "עץ אפרים"
+    },
+    {
+        "cityId": 1002,
+        "englishName": "ATSMON-SEGEV",
+        "hebrewName": "עצמון שגב"
+    },
+    {
+        "cityId": 1003,
+        "englishName": "ARRABE",
+        "hebrewName": "עראבה"
+    },
+    {
+        "cityId": 1004,
+        "englishName": "ARAMSHA",
+        "hebrewName": "עראמשה"
+    },
+    {
+        "cityId": 1005,
+        "englishName": "ARRAB AL NAIM",
+        "hebrewName": "ערב אל נעים"
+    },
+    {
+        "cityId": 1006,
+        "englishName": "ARAD",
+        "hebrewName": "ערד"
+    },
+    {
+        "cityId": 1007,
+        "englishName": "ARUGOT",
+        "hebrewName": "ערוגות"
+    },
+    {
+        "cityId": 1008,
+        "englishName": "AR'ARA",
+        "hebrewName": "ערערה"
+    },
+    {
+        "cityId": 1009,
+        "englishName": "AR'ARA-BANEGEV",
+        "hebrewName": "ערערה-בנגב"
+    },
+    {
+        "cityId": 1010,
+        "englishName": "ASERET",
+        "hebrewName": "עשרת"
+    },
+    {
+        "cityId": 1011,
+        "englishName": "ATLIT",
+        "hebrewName": "עתלית"
+    },
+    {
+        "cityId": 1012,
+        "englishName": "OTNI'EL",
+        "hebrewName": "עתניאל"
+    },
+    {
+        "cityId": 1013,
+        "englishName": "PARAN",
+        "hebrewName": "פארן"
+    },
+    {
+        "cityId": 1014,
+        "englishName": "PEDU'EL",
+        "hebrewName": "פדואל"
+    },
+    {
+        "cityId": 1015,
+        "englishName": "PEDUYIM",
+        "hebrewName": "פדויים"
+    },
+    {
+        "cityId": 1016,
+        "englishName": "PEDAYA",
+        "hebrewName": "פדיה"
+    },
+    {
+        "cityId": 1017,
+        "englishName": "PORIYYA-KEFAR AVODA",
+        "hebrewName": "פוריה - כפר עבודה"
+    },
+    {
+        "cityId": 1018,
+        "englishName": "PORIYYA-NEWE OVED",
+        "hebrewName": "פוריה - נווה עובד"
+    },
+    {
+        "cityId": 1019,
+        "englishName": "PORIYYA ILLIT",
+        "hebrewName": "פוריה עילית"
+    },
+    {
+        "cityId": 1020,
+        "englishName": "FUREIDIS",
+        "hebrewName": "פוריידיס"
+    },
+    {
+        "cityId": 1021,
+        "englishName": "PORAT",
+        "hebrewName": "פורת"
+    },
+    {
+        "cityId": 1022,
+        "englishName": "PATTISH",
+        "hebrewName": "פטיש"
+    },
+    {
+        "cityId": 1023,
+        "englishName": "PELEKH",
+        "hebrewName": "פלך"
+    },
+    {
+        "cityId": 1024,
+        "englishName": "PALMAHIM",
+        "hebrewName": "פלמחים"
+    },
+    {
+        "cityId": 1025,
+        "englishName": "PENE HEVER",
+        "hebrewName": "פני חבר"
+    },
+    {
+        "cityId": 1026,
+        "englishName": "PESAGOT",
+        "hebrewName": "פסגות"
+    },
+    {
+        "cityId": 1027,
+        "englishName": "FASSUTA",
+        "hebrewName": "פסוטה"
+    },
+    {
+        "cityId": 1028,
+        "englishName": "PA'AME TASHAZ",
+        "hebrewName": "פעמי תש\"ז"
+    },
+    {
+        "cityId": 1029,
+        "englishName": "PEZA'EL",
+        "hebrewName": "פצאל"
+    },
+    {
+        "cityId": 1030,
+        "englishName": "PEQI'IN (BUQEI'A)",
+        "hebrewName": "פקיעין )בוקייעה("
+    },
+    {
+        "cityId": 1031,
+        "englishName": "PEQI'IN HADASHA",
+        "hebrewName": "פקיעין חדשה"
+    },
+    {
+        "cityId": 1032,
+        "englishName": "PARDES HANNA-KARKUR",
+        "hebrewName": "פרדס חנה-כרכור"
+    },
+    {
+        "cityId": 1033,
+        "englishName": "PARDESIYYA",
+        "hebrewName": "פרדסיה"
+    },
+    {
+        "cityId": 1034,
+        "englishName": "PAROD",
+        "hebrewName": "פרוד"
+    },
+    {
+        "cityId": 1035,
+        "englishName": "PERAZON",
+        "hebrewName": "פרזון"
+    },
+    {
+        "cityId": 1036,
+        "englishName": "PERI GAN",
+        "hebrewName": "פרי גן"
+    },
+    {
+        "cityId": 1037,
+        "englishName": "PETAH TIQWA",
+        "hebrewName": "פתח תקווה"
+    },
+    {
+        "cityId": 1038,
+        "englishName": "PETAHYA",
+        "hebrewName": "פתחיה"
+    },
+    {
+        "cityId": 1039,
+        "englishName": "ZE'ELIM",
+        "hebrewName": "צאלים"
+    },
+    {
+        "cityId": 1040,
+        "englishName": "ZVIYYA",
+        "hebrewName": "צביה"
+    },
+    {
+        "cityId": 1041,
+        "englishName": "ZIV'ON",
+        "hebrewName": "צבעון"
+    },
+    {
+        "cityId": 1042,
+        "englishName": "ZOVA",
+        "hebrewName": "צובה"
+    },
+    {
+        "cityId": 1043,
+        "englishName": "ZOHAR",
+        "hebrewName": "צוחר"
+    },
+    {
+        "cityId": 1044,
+        "englishName": "ZOFIYYA",
+        "hebrewName": "צופיה"
+    },
+    {
+        "cityId": 1045,
+        "englishName": "ZUFIN",
+        "hebrewName": "צופים"
+    },
+    {
+        "cityId": 1046,
+        "englishName": "ZOFIT",
+        "hebrewName": "צופית"
+    },
+    {
+        "cityId": 1047,
+        "englishName": "ZOFAR",
+        "hebrewName": "צופר"
+    },
+    {
+        "cityId": 1048,
+        "englishName": "SHOSHANNAT HAAMAQIM(",
+        "hebrewName": "צוקי ים"
+    },
+    {
+        "cityId": 1049,
+        "englishName": "MAHANE BILDAD",
+        "hebrewName": "צוקים"
+    },
+    {
+        "cityId": 1050,
+        "englishName": "ZUR HADASSA",
+        "hebrewName": "צור הדסה"
+    },
+    {
+        "cityId": 1051,
+        "englishName": "ZUR YIZHAQ",
+        "hebrewName": "צור יצחק"
+    },
+    {
+        "cityId": 1052,
+        "englishName": "ZUR MOSHE",
+        "hebrewName": "צור משה"
+    },
+    {
+        "cityId": 1053,
+        "englishName": "ZUR NATAN",
+        "hebrewName": "צור נתן"
+    },
+    {
+        "cityId": 1054,
+        "englishName": "ZURI'EL",
+        "hebrewName": "צוריאל"
+    },
+    {
+        "cityId": 1055,
+        "englishName": "ZURIT",
+        "hebrewName": "צורית"
+    },
+    {
+        "cityId": 1056,
+        "englishName": "ZIPPORI",
+        "hebrewName": "ציפורי"
+    },
+    {
+        "cityId": 1057,
+        "englishName": "ZELAFON",
+        "hebrewName": "צלפון"
+    },
+    {
+        "cityId": 1058,
+        "englishName": "SANDALA",
+        "hebrewName": "צנדלה"
+    },
+    {
+        "cityId": 1059,
+        "englishName": "ZAFRIYYA",
+        "hebrewName": "צפריה"
+    },
+    {
+        "cityId": 1060,
+        "englishName": "ZAFRIRIM",
+        "hebrewName": "צפרירים"
+    },
+    {
+        "cityId": 1061,
+        "englishName": "ZEFAT",
+        "hebrewName": "צפת"
+    },
+    {
+        "cityId": 1062,
+        "englishName": "ZERUFA",
+        "hebrewName": "צרופה"
+    },
+    {
+        "cityId": 1063,
+        "englishName": "ZOR'A",
+        "hebrewName": "צרעה"
+    },
+    {
+        "cityId": 1064,
+        "englishName": "QABBO'A",
+        "hebrewName": "קבועה )שבט("
+    },
+    {
+        "cityId": 1065,
+        "englishName": "QEVUZAT YAVNE",
+        "hebrewName": "קבוצת יבנה"
+    },
+    {
+        "cityId": 1066,
+        "englishName": "QEDUMIM",
+        "hebrewName": "קדומים"
+    },
+    {
+        "cityId": 1067,
+        "englishName": "QADIMA-ZORAN",
+        "hebrewName": "קדימה-צורן"
+    },
+    {
+        "cityId": 1068,
+        "englishName": "QEDMA",
+        "hebrewName": "קדמה"
+    },
+    {
+        "cityId": 1069,
+        "englishName": "QIDMAT ZEVI",
+        "hebrewName": "קדמת צבי"
+    },
+    {
+        "cityId": 1070,
+        "englishName": "QEDAR",
+        "hebrewName": "קדר"
+    },
+    {
+        "cityId": 1071,
+        "englishName": "QIDRON",
+        "hebrewName": "קדרון"
+    },
+    {
+        "cityId": 1072,
+        "englishName": "QADDARIM",
+        "hebrewName": "קדרים"
+    },
+    {
+        "cityId": 1073,
+        "englishName": "QUDEIRAT AS-SANI",
+        "hebrewName": "קודייראת א-צאנע)שבט("
+    },
+    {
+        "cityId": 1074,
+        "englishName": "QAWA'IN",
+        "hebrewName": "קוואעין )שבט("
+    },
+    {
+        "cityId": 1075,
+        "englishName": "QOMEMIYYUT",
+        "hebrewName": "קוממיות"
+    },
+    {
+        "cityId": 1076,
+        "englishName": "QORANIT",
+        "hebrewName": "קורנית"
+    },
+    {
+        "cityId": 1077,
+        "englishName": "QETURA",
+        "hebrewName": "קטורה"
+    },
+    {
+        "cityId": 1078,
+        "englishName": "QESARIYYA",
+        "hebrewName": "קיסריה"
+    },
+    {
+        "cityId": 1079,
+        "englishName": "QELAHIM",
+        "hebrewName": "קלחים"
+    },
+    {
+        "cityId": 1080,
+        "englishName": "QALYA",
+        "hebrewName": "קליה"
+    },
+    {
+        "cityId": 1081,
+        "englishName": "QALANSAWE",
+        "hebrewName": "קלנסווה"
+    },
+    {
+        "cityId": 1082,
+        "englishName": "QELA",
+        "hebrewName": "קלע"
+    },
+    {
+        "cityId": 1083,
+        "englishName": "QAZIR",
+        "hebrewName": "קציר"
+    },
+    {
+        "cityId": 1084,
+        "englishName": "",
+        "hebrewName": "קצר א-סר"
+    },
+    {
+        "cityId": 1085,
+        "englishName": "QAZRIN",
+        "hebrewName": "קצרין"
+    },
+    {
+        "cityId": 1086,
+        "englishName": "QIRYAT ONO",
+        "hebrewName": "קרית אונו"
+    },
+    {
+        "cityId": 1087,
+        "englishName": "QIRYAT ARBA",
+        "hebrewName": "קרית ארבע"
+    },
+    {
+        "cityId": 1088,
+        "englishName": "QIRYAT ATTA",
+        "hebrewName": "קרית אתא"
+    },
+    {
+        "cityId": 1089,
+        "englishName": "QIRYAT BIALIK",
+        "hebrewName": "קרית ביאליק"
+    },
+    {
+        "cityId": 1090,
+        "englishName": "QIRYAT GAT",
+        "hebrewName": "קרית גת"
+    },
+    {
+        "cityId": 1091,
+        "englishName": "QIRYAT TIV'ON",
+        "hebrewName": "קרית טבעון"
+    },
+    {
+        "cityId": 1092,
+        "englishName": "QIRYAT YAM",
+        "hebrewName": "קרית ים"
+    },
+    {
+        "cityId": 1093,
+        "englishName": "QIRYAT YE'ARIM",
+        "hebrewName": "קרית יערים"
+    },
+    {
+        "cityId": 1094,
+        "englishName": "QIRYAT YE'ARIM(INSTI",
+        "hebrewName": "קרית יערים)מוסד("
+    },
+    {
+        "cityId": 1095,
+        "englishName": "QIRYAT MOTZKIN",
+        "hebrewName": "קרית מוצקין"
+    },
+    {
+        "cityId": 1096,
+        "englishName": "QIRYAT MAL'AKHI",
+        "hebrewName": "קרית מלאכי"
+    },
+    {
+        "cityId": 1097,
+        "englishName": "QIRYAT NETAFIM",
+        "hebrewName": "קרית נטפים"
+    },
+    {
+        "cityId": 1098,
+        "englishName": "QIRYAT ANAVIM",
+        "hebrewName": "קרית ענבים"
+    },
+    {
+        "cityId": 1099,
+        "englishName": "QIRYAT EQRON",
+        "hebrewName": "קרית עקרון"
+    },
+    {
+        "cityId": 1100,
+        "englishName": "QIRYAT SHELOMO",
+        "hebrewName": "קרית שלמה"
+    },
+    {
+        "cityId": 1101,
+        "englishName": "QIRYAT SHEMONA",
+        "hebrewName": "קרית שמונה"
+    },
+    {
+        "cityId": 1102,
+        "englishName": "QARNE SHOMERON",
+        "hebrewName": "קרני שומרון"
+    },
+    {
+        "cityId": 1103,
+        "englishName": "QESHET",
+        "hebrewName": "קשת"
+    },
+    {
+        "cityId": 1104,
+        "englishName": "RAME",
+        "hebrewName": "ראמה"
+    },
+    {
+        "cityId": 1105,
+        "englishName": "RAS AL-EIN",
+        "hebrewName": "ראס אל-עין"
+    },
+    {
+        "cityId": 1106,
+        "englishName": "RAS ALI",
+        "hebrewName": "ראס עלי"
+    },
+    {
+        "cityId": 1107,
+        "englishName": "ROSH HAAYIN",
+        "hebrewName": "ראש העין"
+    },
+    {
+        "cityId": 1108,
+        "englishName": "ROSH PINNA",
+        "hebrewName": "ראש פינה"
+    },
+    {
+        "cityId": 1109,
+        "englishName": "ROSH ZURIM",
+        "hebrewName": "ראש צורים"
+    },
+    {
+        "cityId": 1110,
+        "englishName": "RISHON LEZIYYON",
+        "hebrewName": "ראשון לציון"
+    },
+    {
+        "cityId": 1111,
+        "englishName": "REVAVA",
+        "hebrewName": "רבבה"
+    },
+    {
+        "cityId": 1112,
+        "englishName": "REVADIM",
+        "hebrewName": "רבדים"
+    },
+    {
+        "cityId": 1113,
+        "englishName": "REVIVIM",
+        "hebrewName": "רביבים"
+    },
+    {
+        "cityId": 1114,
+        "englishName": "RAVID",
+        "hebrewName": "רביד"
+    },
+    {
+        "cityId": 1115,
+        "englishName": "REGBA",
+        "hebrewName": "רגבה"
+    },
+    {
+        "cityId": 1116,
+        "englishName": "REGAVIM",
+        "hebrewName": "רגבים"
+    },
+    {
+        "cityId": 1117,
+        "englishName": "RAHAT",
+        "hebrewName": "רהט"
+    },
+    {
+        "cityId": 1118,
+        "englishName": "REWAHA",
+        "hebrewName": "רווחה"
+    },
+    {
+        "cityId": 1119,
+        "englishName": "REWAYA",
+        "hebrewName": "רוויה"
+    },
+    {
+        "cityId": 1120,
+        "englishName": "RUAH MIDBAR",
+        "hebrewName": "רוח מדבר"
+    },
+    {
+        "cityId": 1121,
+        "englishName": "RUHAMA",
+        "hebrewName": "רוחמה"
+    },
+    {
+        "cityId": 1122,
+        "englishName": "RUMMANE",
+        "hebrewName": "רומאנה"
+    },
+    {
+        "cityId": 1123,
+        "englishName": "RUMAT HEIB",
+        "hebrewName": "רומת הייב"
+    },
+    {
+        "cityId": 1124,
+        "englishName": "RO'I",
+        "hebrewName": "רועי"
+    },
+    {
+        "cityId": 1125,
+        "englishName": "ROTEM",
+        "hebrewName": "רותם"
+    },
+    {
+        "cityId": 1126,
+        "englishName": "REHOV",
+        "hebrewName": "רחוב"
+    },
+    {
+        "cityId": 1127,
+        "englishName": "REHOVOT",
+        "hebrewName": "רחובות"
+    },
+    {
+        "cityId": 1128,
+        "englishName": "REHELIM",
+        "hebrewName": "רחלים"
+    },
+    {
+        "cityId": 1129,
+        "englishName": "REIHANIYYE",
+        "hebrewName": "ריחאניה"
+    },
+    {
+        "cityId": 1130,
+        "englishName": "REHAN",
+        "hebrewName": "ריחן"
+    },
+    {
+        "cityId": 1131,
+        "englishName": "REINE",
+        "hebrewName": "ריינה"
+    },
+    {
+        "cityId": 1132,
+        "englishName": "RIMMONIM",
+        "hebrewName": "רימונים"
+    },
+    {
+        "cityId": 1133,
+        "englishName": "RINNATYA",
+        "hebrewName": "רינתיה"
+    },
+    {
+        "cityId": 1134,
+        "englishName": "REKHASIM",
+        "hebrewName": "רכסים"
+    },
+    {
+        "cityId": 1135,
+        "englishName": "RAM-ON",
+        "hebrewName": "רם-און"
+    },
+    {
+        "cityId": 1136,
+        "englishName": "RAMOT",
+        "hebrewName": "רמות"
+    },
+    {
+        "cityId": 1137,
+        "englishName": "RAMOT HASHAVIM",
+        "hebrewName": "רמות השבים"
+    },
+    {
+        "cityId": 1138,
+        "englishName": "RAMOT ME'IR",
+        "hebrewName": "רמות מאיר"
+    },
+    {
+        "cityId": 1139,
+        "englishName": "RAMOT MENASHE",
+        "hebrewName": "רמות מנשה"
+    },
+    {
+        "cityId": 1140,
+        "englishName": "RAMOT NAFTALI",
+        "hebrewName": "רמות נפתלי"
+    },
+    {
+        "cityId": 1141,
+        "englishName": "RAMLA",
+        "hebrewName": "רמלה"
+    },
+    {
+        "cityId": 1142,
+        "englishName": "RAMAT GAN",
+        "hebrewName": "רמת גן"
+    },
+    {
+        "cityId": 1143,
+        "englishName": "RAMAT DAWID",
+        "hebrewName": "רמת דוד"
+    },
+    {
+        "cityId": 1144,
+        "englishName": "RAMAT HAKOVESH",
+        "hebrewName": "רמת הכובש"
+    },
+    {
+        "cityId": 1145,
+        "englishName": "RAMAT HASHOFET",
+        "hebrewName": "רמת השופט"
+    },
+    {
+        "cityId": 1146,
+        "englishName": "RAMAT HASHARON",
+        "hebrewName": "רמת השרון"
+    },
+    {
+        "cityId": 1147,
+        "englishName": "RAMAT YOHANAN",
+        "hebrewName": "רמת יוחנן"
+    },
+    {
+        "cityId": 1148,
+        "englishName": "RAMAT YISHAY",
+        "hebrewName": "רמת ישי"
+    },
+    {
+        "cityId": 1149,
+        "englishName": "RAMAT MAGSHIMIM",
+        "hebrewName": "רמת מגשימים"
+    },
+    {
+        "cityId": 1150,
+        "englishName": "RAMAT ZEVI",
+        "hebrewName": "רמת צבי"
+    },
+    {
+        "cityId": 1151,
+        "englishName": "RAMAT RAZI'EL",
+        "hebrewName": "רמת רזיאל"
+    },
+    {
+        "cityId": 1152,
+        "englishName": "RAMAT RAHEL",
+        "hebrewName": "רמת רחל"
+    },
+    {
+        "cityId": 1153,
+        "englishName": "RANNEN",
+        "hebrewName": "רנן"
+    },
+    {
+        "cityId": 1154,
+        "englishName": "RE'IM",
+        "hebrewName": "רעים"
+    },
+    {
+        "cityId": 1155,
+        "englishName": "RA'ANANA",
+        "hebrewName": "רעננה"
+    },
+    {
+        "cityId": 1156,
+        "englishName": "RAQEFET",
+        "hebrewName": "רקפת"
+    },
+    {
+        "cityId": 1157,
+        "englishName": "RISHPON",
+        "hebrewName": "רשפון"
+    },
+    {
+        "cityId": 1158,
+        "englishName": "RESHAFIM",
+        "hebrewName": "רשפים"
+    },
+    {
+        "cityId": 1159,
+        "englishName": "RETAMIM",
+        "hebrewName": "רתמים"
+    },
+    {
+        "cityId": 1160,
+        "englishName": "SHE'AR YASHUV",
+        "hebrewName": "שאר ישוב"
+    },
+    {
+        "cityId": 1161,
+        "englishName": "SHAVE DAROM",
+        "hebrewName": "שבי דרום"
+    },
+    {
+        "cityId": 1162,
+        "englishName": "SHAVE ZIYYON",
+        "hebrewName": "שבי ציון"
+    },
+    {
+        "cityId": 1163,
+        "englishName": "SHAVE SHOMERON",
+        "hebrewName": "שבי שומרון"
+    },
+    {
+        "cityId": 1164,
+        "englishName": "SHIBLI",
+        "hebrewName": "שבלי - אום אל-גנם"
+    },
+    {
+        "cityId": 1165,
+        "englishName": "SEGEV-SHALOM",
+        "hebrewName": "שגב-שלום"
+    },
+    {
+        "cityId": 1166,
+        "englishName": "SEDE ILAN",
+        "hebrewName": "שדה אילן"
+    },
+    {
+        "cityId": 1167,
+        "englishName": "SEDE ELIYYAHU",
+        "hebrewName": "שדה אליהו"
+    },
+    {
+        "cityId": 1168,
+        "englishName": "SEDE ELI'EZER",
+        "hebrewName": "שדה אליעזר"
+    },
+    {
+        "cityId": 1169,
+        "englishName": "SEDE BOQER",
+        "hebrewName": "שדה בוקר"
+    },
+    {
+        "cityId": 1170,
+        "englishName": "SEDE DAWID",
+        "hebrewName": "שדה דוד"
+    },
+    {
+        "cityId": 1171,
+        "englishName": "SEDE WARBURG",
+        "hebrewName": "שדה ורבורג"
+    },
+    {
+        "cityId": 1172,
+        "englishName": "SEDE YO'AV",
+        "hebrewName": "שדה יואב"
+    },
+    {
+        "cityId": 1173,
+        "englishName": "SEDE YA'AQOV",
+        "hebrewName": "שדה יעקב"
+    },
+    {
+        "cityId": 1174,
+        "englishName": "SEDE YIZHAQ",
+        "hebrewName": "שדה יצחק"
+    },
+    {
+        "cityId": 1175,
+        "englishName": "SEDE MOSHE",
+        "hebrewName": "שדה משה"
+    },
+    {
+        "cityId": 1176,
+        "englishName": "SEDE NAHUM",
+        "hebrewName": "שדה נחום"
+    },
+    {
+        "cityId": 1177,
+        "englishName": "SEDE NEHEMYA",
+        "hebrewName": "שדה נחמיה"
+    },
+    {
+        "cityId": 1178,
+        "englishName": "SEDE NIZZAN",
+        "hebrewName": "שדה ניצן"
+    },
+    {
+        "cityId": 1179,
+        "englishName": "SEDE UZZIYYAHU",
+        "hebrewName": "שדה עוזיהו"
+    },
+    {
+        "cityId": 1180,
+        "englishName": "SEDE ZEVI",
+        "hebrewName": "שדה צבי"
+    },
+    {
+        "cityId": 1181,
+        "englishName": "SEDOT YAM",
+        "hebrewName": "שדות ים"
+    },
+    {
+        "cityId": 1182,
+        "englishName": "SEDOT MIKHA",
+        "hebrewName": "שדות מיכה"
+    },
+    {
+        "cityId": 1183,
+        "englishName": "SEDE AVRAHAM",
+        "hebrewName": "שדי אברהם"
+    },
+    {
+        "cityId": 1184,
+        "englishName": "SEDE HEMED",
+        "hebrewName": "שדי חמד"
+    },
+    {
+        "cityId": 1185,
+        "englishName": "SEDE TERUMOT",
+        "hebrewName": "שדי תרומות"
+    },
+    {
+        "cityId": 1186,
+        "englishName": "SHEDEMA",
+        "hebrewName": "שדמה"
+    },
+    {
+        "cityId": 1187,
+        "englishName": "SHADMOT DEVORA",
+        "hebrewName": "שדמות דבורה"
+    },
+    {
+        "cityId": 1188,
+        "englishName": "SHADMOT MEHOLA",
+        "hebrewName": "שדמות מחולה"
+    },
+    {
+        "cityId": 1189,
+        "englishName": "SEDEROT",
+        "hebrewName": "שדרות"
+    },
+    {
+        "cityId": 1190,
+        "englishName": "SHO'EVA",
+        "hebrewName": "שואבה"
+    },
+    {
+        "cityId": 1191,
+        "englishName": "SHUVA",
+        "hebrewName": "שובה"
+    },
+    {
+        "cityId": 1192,
+        "englishName": "SHOVAL",
+        "hebrewName": "שובל"
+    },
+    {
+        "cityId": 1193,
+        "englishName": "SHOHAM",
+        "hebrewName": "שוהם"
+    },
+    {
+        "cityId": 1194,
+        "englishName": "SHOMERA",
+        "hebrewName": "שומרה"
+    },
+    {
+        "cityId": 1195,
+        "englishName": "SHOMERIYYA",
+        "hebrewName": "שומריה"
+    },
+    {
+        "cityId": 1196,
+        "englishName": "SHOQEDA",
+        "hebrewName": "שוקדה"
+    },
+    {
+        "cityId": 1197,
+        "englishName": "SHORESH",
+        "hebrewName": "שורש"
+    },
+    {
+        "cityId": 1198,
+        "englishName": "SHORASHIM",
+        "hebrewName": "שורשים"
+    },
+    {
+        "cityId": 1199,
+        "englishName": "SHOSHANNAT HAAMAQIM",
+        "hebrewName": "שושנת העמקים"
+    },
+    {
+        "cityId": 1200,
+        "englishName": "SHEZOR",
+        "hebrewName": "שזור"
+    },
+    {
+        "cityId": 1201,
+        "englishName": "SHAHAR",
+        "hebrewName": "שחר"
+    },
+    {
+        "cityId": 1202,
+        "englishName": "SHAHARUT",
+        "hebrewName": "שחרות"
+    },
+    {
+        "cityId": 1203,
+        "englishName": "SHIBBOLIM",
+        "hebrewName": "שיבולים"
+    },
+    {
+        "cityId": 1204,
+        "englishName": "NAHAL SHITTIM",
+        "hebrewName": "שיטים"
+    },
+    {
+        "cityId": 1205,
+        "englishName": "SHEIKH DANNUN",
+        "hebrewName": "שייח' דנון"
+    },
+    {
+        "cityId": 1206,
+        "englishName": "SHILO",
+        "hebrewName": "שילה"
+    },
+    {
+        "cityId": 1207,
+        "englishName": "SHILAT",
+        "hebrewName": "שילת"
+    },
+    {
+        "cityId": 1208,
+        "englishName": "SHEKHANYA",
+        "hebrewName": "שכניה"
+    },
+    {
+        "cityId": 1209,
+        "englishName": "SHALWA",
+        "hebrewName": "שלווה"
+    },
+    {
+        "cityId": 1210,
+        "englishName": "SHALVA BAMIDBAR",
+        "hebrewName": "שלווה במדבר"
+    },
+    {
+        "cityId": 1211,
+        "englishName": "SHELUHOT",
+        "hebrewName": "שלוחות"
+    },
+    {
+        "cityId": 1212,
+        "englishName": "SHELOMI",
+        "hebrewName": "שלומי"
+    },
+    {
+        "cityId": 1213,
+        "englishName": "SHLOMIT",
+        "hebrewName": "שלומית"
+    },
+    {
+        "cityId": 1214,
+        "englishName": "SHAMIR",
+        "hebrewName": "שמיר"
+    },
+    {
+        "cityId": 1215,
+        "englishName": "SHIM'A",
+        "hebrewName": "שמעה"
+    },
+    {
+        "cityId": 1216,
+        "englishName": "SHAMERAT",
+        "hebrewName": "שמרת"
+    },
+    {
+        "cityId": 1217,
+        "englishName": "SHIMSHIT",
+        "hebrewName": "שמשית"
+    },
+    {
+        "cityId": 1218,
+        "englishName": "SHANI",
+        "hebrewName": "שני"
+    },
+    {
+        "cityId": 1219,
+        "englishName": "SENIR",
+        "hebrewName": "שניר"
+    },
+    {
+        "cityId": 1220,
+        "englishName": "SHA'AB",
+        "hebrewName": "שעב"
+    },
+    {
+        "cityId": 1221,
+        "englishName": "SE'ORIM",
+        "hebrewName": "שעורים"
+    },
+    {
+        "cityId": 1222,
+        "englishName": "SHA'AL",
+        "hebrewName": "שעל"
+    },
+    {
+        "cityId": 1223,
+        "englishName": "SHA'ALVIM",
+        "hebrewName": "שעלבים"
+    },
+    {
+        "cityId": 1224,
+        "englishName": "SHA'AR EFRAYIM",
+        "hebrewName": "שער אפרים"
+    },
+    {
+        "cityId": 1225,
+        "englishName": "SHA'AR HAGOLAN",
+        "hebrewName": "שער הגולן"
+    },
+    {
+        "cityId": 1226,
+        "englishName": "SHA'AR HAAMAQIM",
+        "hebrewName": "שער העמקים"
+    },
+    {
+        "cityId": 1227,
+        "englishName": "SHA'AR MENASHE",
+        "hebrewName": "שער מנשה"
+    },
+    {
+        "cityId": 1228,
+        "englishName": "SHA'ARE TIQWA",
+        "hebrewName": "שערי תקווה"
+    },
+    {
+        "cityId": 1229,
+        "englishName": "SHEFAYIM",
+        "hebrewName": "שפיים"
+    },
+    {
+        "cityId": 1230,
+        "englishName": "SHAFIR",
+        "hebrewName": "שפיר"
+    },
+    {
+        "cityId": 1231,
+        "englishName": "SHEFER",
+        "hebrewName": "שפר"
+    },
+    {
+        "cityId": 1232,
+        "englishName": "SHEFAR'AM",
+        "hebrewName": "שפרעם"
+    },
+    {
+        "cityId": 1233,
+        "englishName": "SHAQED",
+        "hebrewName": "שקד"
+    },
+    {
+        "cityId": 1234,
+        "englishName": "SHEQEF",
+        "hebrewName": "שקף"
+    },
+    {
+        "cityId": 1235,
+        "englishName": "SHARONA",
+        "hebrewName": "שרונה"
+    },
+    {
+        "cityId": 1236,
+        "englishName": "LI-ON",
+        "hebrewName": "שריגים )לי-און("
+    },
+    {
+        "cityId": 1237,
+        "englishName": "SARID",
+        "hebrewName": "שריד"
+    },
+    {
+        "cityId": 1238,
+        "englishName": "SHARSHERET",
+        "hebrewName": "שרשרת"
+    },
+    {
+        "cityId": 1239,
+        "englishName": "SHETULA",
+        "hebrewName": "שתולה"
+    },
+    {
+        "cityId": 1240,
+        "englishName": "SHETULIM",
+        "hebrewName": "שתולים"
+    },
+    {
+        "cityId": 1241,
+        "englishName": "TE'ASHUR",
+        "hebrewName": "תאשור"
+    },
+    {
+        "cityId": 1242,
+        "englishName": "TIDHAR",
+        "hebrewName": "תדהר"
+    },
+    {
+        "cityId": 1243,
+        "englishName": "TUVAL",
+        "hebrewName": "תובל"
+    },
+    {
+        "cityId": 1244,
+        "englishName": "TOMER",
+        "hebrewName": "תומר"
+    },
+    {
+        "cityId": 1245,
+        "englishName": "TUSHIYYA",
+        "hebrewName": "תושיה"
+    },
+    {
+        "cityId": 1246,
+        "englishName": "TIMMORIM",
+        "hebrewName": "תימורים"
+    },
+    {
+        "cityId": 1247,
+        "englishName": "TIROSH",
+        "hebrewName": "תירוש"
+    },
+    {
+        "cityId": 1248,
+        "englishName": "TEL AVIV - YAFO",
+        "hebrewName": "תל אביב - יפו"
+    },
+    {
+        "cityId": 1249,
+        "englishName": "TEL YOSEF",
+        "hebrewName": "תל יוסף"
+    },
+    {
+        "cityId": 1250,
+        "englishName": "TEL YIZHAQ",
+        "hebrewName": "תל יצחק"
+    },
+    {
+        "cityId": 1251,
+        "englishName": "TEL MOND",
+        "hebrewName": "תל מונד"
+    },
+    {
+        "cityId": 1252,
+        "englishName": "TEL ADASHIM",
+        "hebrewName": "תל עדשים"
+    },
+    {
+        "cityId": 1253,
+        "englishName": "TEL QAZIR",
+        "hebrewName": "תל קציר"
+    },
+    {
+        "cityId": 1254,
+        "englishName": "TEL SHEVA",
+        "hebrewName": "תל שבע"
+    },
+    {
+        "cityId": 1255,
+        "englishName": "TEL TE'OMIM",
+        "hebrewName": "תל תאומים"
+    },
+    {
+        "cityId": 1256,
+        "englishName": "TELEM",
+        "hebrewName": "תלם"
+    },
+    {
+        "cityId": 1257,
+        "englishName": "TALME ELIYYAHU",
+        "hebrewName": "תלמי אליהו"
+    },
+    {
+        "cityId": 1258,
+        "englishName": "TALME EL'AZAR",
+        "hebrewName": "תלמי אלעזר"
+    },
+    {
+        "cityId": 1259,
+        "englishName": "TALME BILU",
+        "hebrewName": "תלמי ביל\"ו"
+    },
+    {
+        "cityId": 1260,
+        "englishName": "TALME YOSEF",
+        "hebrewName": "תלמי יוסף"
+    },
+    {
+        "cityId": 1261,
+        "englishName": "TALME YEHI'EL",
+        "hebrewName": "תלמי יחיאל"
+    },
+    {
+        "cityId": 1262,
+        "englishName": "TALME YAFE",
+        "hebrewName": "תלמי יפה"
+    },
+    {
+        "cityId": 1263,
+        "englishName": "TELAMIM",
+        "hebrewName": "תלמים"
+    },
+    {
+        "cityId": 1264,
+        "englishName": "TIMRAT",
+        "hebrewName": "תמרת"
+    },
+    {
+        "cityId": 1265,
+        "englishName": "TENUVOT",
+        "hebrewName": "תנובות"
+    },
+    {
+        "cityId": 1266,
+        "englishName": "TA'OZ",
+        "hebrewName": "תעוז"
+    },
+    {
+        "cityId": 1267,
+        "englishName": "TIFRAH",
+        "hebrewName": "תפרח"
+    },
+    {
+        "cityId": 1268,
+        "englishName": "TEQUMA",
+        "hebrewName": "תקומה"
+    },
+    {
+        "cityId": 1269,
+        "englishName": "TEQOA",
+        "hebrewName": "תקוע"
+    },
+    {
+        "cityId": 1270,
+        "englishName": "TARABIN AS-SANI",
+        "hebrewName": "תראבין א-צאנע )שבט("
+    },
+    {
+        "cityId": 1271,
+        "englishName": "TARABIN AS-SANI",
+        "hebrewName": "תראבין א-צאנע)ישוב("
+    },
+    {
+        "cityId": 1272,
+        "englishName": "TARUM",
+        "hebrewName": "תרום"
+    }
+]

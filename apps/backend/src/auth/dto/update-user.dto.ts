@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsEmail,
   IsOptional,
@@ -6,6 +7,8 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { IsIsraelLocalityCityIdOptional } from '../validators/israel-locality-city-id-optional.validator';
+import { IsIsraeliMobileCellOptional } from '../validators/israeli-mobile-cell-optional.validator';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -32,4 +35,21 @@ export class UpdateUserDto {
     message: 'password must contain at least one letter and one number',
   })
   password?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsIsraeliMobileCellOptional()
+  phone?: string;
+
+  /** Omit to leave unchanged; send `null` to clear */
+  @IsOptional()
+  @Transform(({ value }) => {
+    if (value === null || value === undefined) {
+      return value;
+    }
+    const n = Number(value);
+    return Number.isNaN(n) ? value : n;
+  })
+  @IsIsraelLocalityCityIdOptional()
+  cityId?: number | null;
 }

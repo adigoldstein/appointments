@@ -1,53 +1,10 @@
 .app-shell {
-  min-height: 100vh;
-}
-
-.app-header {
   align-items: center;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.app-logo {
-  color: var(--color-text);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
-}
-
-.app-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.app-nav-link {
-  border-radius: var(--radius-md);
-  color: var(--color-text-muted);
-  padding: var(--space-2) var(--space-3);
-  text-decoration: none;
-}
-
-.app-nav-link:hover {
-  background: var(--color-surface-muted);
-  color: var(--color-text);
-}
-
-.app-nav-link--active {
-  background: var(--color-primary);
-  color: var(--color-primary-contrast);
-}
-
-.app-main {
-  margin: 0 auto;
-  max-width: 1180px;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(63, 93, 69, 0.05), transparent 55%),
+    var(--color-surface);
+  display: grid;
+  justify-items: center;
+  min-height: 100dvh;
   padding: var(--space-8) var(--space-6);
 }

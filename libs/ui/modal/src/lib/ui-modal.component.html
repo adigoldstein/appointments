@@ -1,0 +1,24 @@
+@if (open()) {
+  <div class="ui-modal-backdrop" (click)="handleBackdropClick($event)">
+    <section
+      cdkTrapFocus
+      class="ui-modal"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="title()"
+      tabindex="-1"
+      (keydown.escape)="close.emit()"
+    >
+      <header class="ui-modal-header">
+        <h2 class="ui-modal-title">{{ title() }}</h2>
+        <button class="ui-modal-close" type="button" aria-label="סגירת חלון" (click)="close.emit()">
+          ×
+        </button>
+      </header>
+
+      <div class="ui-modal-body">
+        <ng-content />
+      </div>
+    </section>
+  </div>
+}

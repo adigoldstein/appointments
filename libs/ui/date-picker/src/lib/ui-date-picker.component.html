@@ -1,0 +1,17 @@
+<label class="ui-date-picker" [attr.for]="id() ?? fallbackId">
+  @if (label()) {
+    <span class="ui-date-picker__label">{{ label() }}</span>
+  }
+
+  <input
+    class="ui-date-picker__control"
+    type="date"
+    [attr.id]="id() ?? fallbackId"
+    [attr.max]="max()"
+    [attr.min]="min()"
+    [disabled]="disabled() || isDisabled"
+    [value]="value"
+    (blur)="markTouched()"
+    (input)="handleInput($event)"
+  />
+</label>

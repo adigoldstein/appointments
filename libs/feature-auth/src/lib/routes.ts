@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
-import { AuthOverviewPageComponent } from './pages/auth-overview.page';
+import { LoginPage } from './pages/login.page';
 
 export const featureAuthRoutes: Route[] = [
   {
     path: '',
-    component: AuthOverviewPageComponent,
+    component: LoginPage,
   },
 ];

@@ -1,7 +1,7 @@
-import { AuthUserResponse } from './auth-user-response.interface';
+import type { AuthUser } from '@app/shared/types';
 
 export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
-  user: AuthUserResponse;
+  user: AuthUser;
 }

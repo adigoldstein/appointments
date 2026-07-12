@@ -1,6 +1,8 @@
+import { Type } from 'class-transformer';
 import {
   IsEmail,
   IsEnum,
+  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -10,10 +12,12 @@ import {
   MinLength,
 } from 'class-validator';
 import { Role } from '@app/shared/types';
+import { IsIsraelLocalityCityIdOptional } from '../validators/israel-locality-city-id-optional.validator';
+import { IsIsraeliMobileCellOptional } from '../validators/israeli-mobile-cell-optional.validator';
 
 export class CreateUserDto {
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty() 
   @MinLength(2, {message: 'First name must be at least 2 characters long'})
   @MaxLength(100, {message: 'First name must be less than 100 characters long'})
   firstName: string;
@@ -43,4 +47,15 @@ export class CreateUserDto {
   @IsOptional()
   @IsUUID('4', { message: 'providerId must be a valid UUID' })
   providerId?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsIsraeliMobileCellOptional()
+  phone?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @IsIsraelLocalityCityIdOptional()
+  cityId?: number;
 }

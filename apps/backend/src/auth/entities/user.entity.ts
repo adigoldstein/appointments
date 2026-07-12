@@ -35,13 +35,26 @@ export class User {
   })
   role: Role;
 
+
+
+  /** Israeli mobile in local form, e.g. `05XXXXXXXX` */
+  @Column({ type: 'varchar', length: 16, nullable: true })
+  phone: string | null;
+
+  /** Locality id from `israel-localities.json` (`cityId` field) */
+  @Column({ name: 'city_id', type: 'integer', nullable: true })
+  cityId: number | null;
+
+
   @Column({ name: 'provider_id', type: 'uuid', nullable: true })
   providerId: string | null;
-
+  
   @ManyToOne(() => User, (user) => user.clients, {
     nullable: true,
     onDelete: 'SET NULL',
   })
+
+  // 
   @JoinColumn({ name: 'provider_id' })
   provider: User | null;
 

@@ -1,0 +1,29 @@
+<label class="ui-input" [attr.for]="id() ?? fallbackId">
+  @if (label()) {
+    <span class="ui-input__label">{{ label() }}</span>
+  }
+
+  <input
+    class="ui-input__control"
+    [class.ui-input__control--invalid]="error()"
+    [attr.aria-invalid]="error() ? 'true' : null"
+    [attr.aria-describedby]="error() ? (id() ?? fallbackId) + '-error' : null"
+    [attr.autocomplete]="autocomplete()"
+    [attr.id]="id() ?? fallbackId"
+    [attr.name]="name()"
+    [attr.placeholder]="placeholder()"
+    [attr.type]="type()"
+    [disabled]="disabled() || isDisabled"
+    [value]="value"
+    (blur)="markTouched()"
+    (input)="handleInput($event)"
+  />
+
+  @if (error()) {
+    <span class="ui-input__error" [id]="(id() ?? fallbackId) + '-error'" role="alert">
+      {{ error() }}
+    </span>
+  } @else if (hint()) {
+    <span class="ui-input__hint">{{ hint() }}</span>
+  }
+</label>

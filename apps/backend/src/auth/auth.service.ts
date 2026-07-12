@@ -7,6 +7,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Role } from '@app/shared/types';
+import type { AuthUser } from '@app/shared/types';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -20,8 +21,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { User } from './entities/user.entity';
 import {
+  getIsraelLocalitiesMap,
+  getIsraelLocalityById,
+} from './reference/israel-localities.loader';
+import { parseIsraeliMobile } from './utils/israeli-mobile.util';
+import {
   AuthenticatedUserPayload,
-  AuthUserResponse,
   JwtPayload,
   LoginResponse,
   LogoutResponse,
@@ -54,7 +59,7 @@ export class AuthService {
   async createUser(
     createUserDto: CreateUserDto,
     actor: AuthenticatedUserPayload,
-  ): Promise<AuthUserResponse> {
+  ): Promise<AuthUser> {
     this.assertCanCreateRole(actor.role, createUserDto.role);
 
     const existingUser = await this.usersRepository.findOne({
@@ -83,10 +88,13 @@ export class AuthService {
         passwordHash,
         role: createUserDto.role,
         providerId,
+        phone: parseIsraeliMobile(createUserDto.phone),
+        cityId:
+          createUserDto.cityId === undefined ? null : createUserDto.cityId,
       }),
     );
 
-    return this.toAuthUserResponse(user);
+    return this.toAuthUser(user);
   }
 
   async login(loginDto: LoginDto): Promise<LoginResponse> {
@@ -126,7 +134,7 @@ export class AuthService {
     return {
       accessToken,
       refreshToken,
-      user: this.toAuthUserResponse(user),
+      user: this.toAuthUser(user),
     };
   }
 
@@ -134,7 +142,7 @@ export class AuthService {
     const { user } = await this.validateRefreshToken(refreshToken);
     const accessToken = await this.generateAccessToken(user);
 
-    return { accessToken };
+    return { accessToken, user: this.toAuthUser(user) };
   }
 
   async logout(refreshToken: string): Promise<LogoutResponse> {
@@ -146,7 +154,7 @@ export class AuthService {
     return { message: 'Logged out successfully' };
   }
 
-  async getProfile(actor: AuthenticatedUserPayload): Promise<AuthUserResponse> {
+  async getProfile(actor: AuthenticatedUserPayload): Promise<AuthUser> {
     const user = await this.usersRepository.findOne({
       where: { id: actor.userId },
     });
@@ -155,19 +163,21 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
-    return this.toAuthUserResponse(user);
+    return this.toAuthUser(user);
   }
 
   async updateUser(
     userId: string,
     updateUserDto: UpdateUserDto,
     actor: AuthenticatedUserPayload,
-  ): Promise<AuthUserResponse> {
+  ): Promise<AuthUser> {
     const hasUpdates =
       updateUserDto.firstName !== undefined ||
       updateUserDto.lastName !== undefined ||
       updateUserDto.email !== undefined ||
-      updateUserDto.password !== undefined;
+      updateUserDto.password !== undefined ||
+      updateUserDto.phone !== undefined ||
+      updateUserDto.cityId !== undefined;
 
     if (!hasUpdates) {
       throw new BadRequestException('At least one field must be provided');
@@ -208,9 +218,17 @@ export class AuthService {
       );
     }
 
+    if (updateUserDto.phone !== undefined) {
+      user.phone = parseIsraeliMobile(updateUserDto.phone);
+    }
+
+    if (updateUserDto.cityId !== undefined) {
+      user.cityId = updateUserDto.cityId;
+    }
+
     const savedUser = await this.usersRepository.save(user);
 
-    return this.toAuthUserResponse(savedUser);
+    return this.toAuthUser(savedUser);
   }
 
   async deleteUser(
@@ -366,7 +384,7 @@ export class AuthService {
     throw new ForbiddenException('You cannot create a user with this role');
   }
 
-  private toAuthUserResponse(user: User): AuthUserResponse {
+  private toAuthUser(user: User): AuthUser {
     return {
       id: user.id,
       email: user.email,
@@ -374,6 +392,8 @@ export class AuthService {
       lastName: user.lastName,
       role: user.role,
       providerId: user.providerId ?? null,
+      phone: parseIsraeliMobile(user.phone),
+      city: getIsraelLocalityById(user.cityId),
     };
   }
 

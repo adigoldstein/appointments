@@ -1,0 +1,16 @@
+<article class="ui-card">
+  @if (title() || subtitle()) {
+    <header class="ui-card-header">
+      @if (title()) {
+        <h2 class="ui-card-title">{{ title() }}</h2>
+      }
+      @if (subtitle()) {
+        <p class="ui-card-subtitle">{{ subtitle() }}</p>
+      }
+    </header>
+  }
+
+  <div class="ui-card-body">
+    <ng-content />
+  </div>
+</article>

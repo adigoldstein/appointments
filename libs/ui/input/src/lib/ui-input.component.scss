@@ -1,0 +1,54 @@
+.ui-input {
+  color: var(--color-text);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ui-input__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-input__control {
+  background: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  min-height: var(--size-field-height);
+  padding: 0 var(--space-3);
+  transition:
+    border-color var(--duration-fast) var(--easing-standard),
+    box-shadow var(--duration-fast) var(--easing-standard);
+}
+
+.ui-input__control:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 var(--focus-ring-spread) var(--color-focus-ring);
+  outline: none;
+}
+
+.ui-input__control:disabled {
+  background: var(--color-surface-muted);
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled-muted);
+}
+
+.ui-input__control--invalid {
+  border-color: var(--color-danger);
+}
+
+.ui-input__control--invalid:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 var(--focus-ring-spread) var(--color-focus-ring);
+}
+
+.ui-input__hint {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ui-input__error {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+}
