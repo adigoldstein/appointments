@@ -25,26 +25,14 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="shell__content">
-    <header class="shell__header">
-      @if (!isDesktop()) {
-        <button
-          class="shell__menu-toggle"
-          type="button"
-          (click)="toggleNav()"
-          aria-label="פתיחת תפריט ניווט"
-        >
-          <span class="shell__menu-bar"></span>
-          <span class="shell__menu-bar"></span>
-          <span class="shell__menu-bar"></span>
-        </button>
-      }
-
-      <span class="shell__brand">Schedula</span>
-
-      <div class="shell__header-actions">
-        <ui-button variant="ghost" size="sm" (click)="onLogout()">התנתקות</ui-button>
-      </div>
-    </header>
+    <ui-header
+      brand="Schedula"
+      [showMenuToggle]="!isDesktop()"
+      menuToggleLabel="פתיחת תפריט ניווט"
+      (menuToggle)="toggleNav()"
+    >
+      <ui-button variant="ghost" size="sm" (click)="onLogout()">התנתקות</ui-button>
+    </ui-header>
 
     <main class="shell__main">
       <router-outlet />

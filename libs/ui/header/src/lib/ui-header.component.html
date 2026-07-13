@@ -1,0 +1,20 @@
+<header class="ui-header">
+  @if (showMenuToggle()) {
+    <button
+      class="ui-header__menu-toggle"
+      type="button"
+      [attr.aria-label]="menuToggleLabel()"
+      (click)="menuToggle.emit()"
+    >
+      <span class="ui-header__menu-bar"></span>
+      <span class="ui-header__menu-bar"></span>
+      <span class="ui-header__menu-bar"></span>
+    </button>
+  }
+
+  <span class="ui-header__brand">{{ brand() }}</span>
+
+  <div class="ui-header__actions">
+    <ng-content />
+  </div>
+</header>

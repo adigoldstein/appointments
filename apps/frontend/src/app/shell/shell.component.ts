@@ -7,13 +7,21 @@ import { map } from 'rxjs';
 import { AuthApiService, AuthStorageService } from '@app/shared/auth';
 import { NAV_ITEMS_BY_ROLE, ROLE_LABELS } from '@app/shared/navigation';
 import { UiButtonComponent } from '@app/ui/button';
+import { UiHeaderComponent } from '@app/ui/header';
 
 const DESKTOP_BREAKPOINT = '(min-width: 900px)';
 
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, MatSidenavModule, UiButtonComponent],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    MatSidenavModule,
+    UiButtonComponent,
+    UiHeaderComponent,
+  ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

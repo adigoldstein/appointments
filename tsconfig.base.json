@@ -30,6 +30,7 @@
       "@app/ui/button": ["libs/ui/button/src/index.ts"],
       "@app/ui/card": ["libs/ui/card/src/index.ts"],
       "@app/ui/date-picker": ["libs/ui/date-picker/src/index.ts"],
+      "@app/ui/header": ["libs/ui/header/src/index.ts"],
       "@app/ui/input": ["libs/ui/input/src/index.ts"],
       "@app/ui/modal": ["libs/ui/modal/src/index.ts"]
     }
