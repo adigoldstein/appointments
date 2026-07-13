@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   booleanAttribute,
+  computed,
   forwardRef,
   input,
+  signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -38,6 +40,12 @@ export class UiInputComponent implements ControlValueAccessor {
   value = '';
   isDisabled = false;
 
+  protected readonly isPasswordField = computed(() => this.type() === 'password');
+  protected readonly showPassword = signal(false);
+  protected readonly resolvedType = computed(() =>
+    this.isPasswordField() && this.showPassword() ? 'text' : this.type(),
+  );
+
   private onChange: (value: string) => void = () => undefined;
   private onTouched: () => void = () => undefined;
 
@@ -65,5 +73,9 @@ export class UiInputComponent implements ControlValueAccessor {
 
   markTouched(): void {
     this.onTouched();
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword.update((visible) => !visible);
   }
 }

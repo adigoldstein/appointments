@@ -1,0 +1,53 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    class="shell__nav"
+    [mode]="isDesktop() ? 'side' : 'over'"
+    [opened]="isDesktop() || sidenavOpen()"
+    (closed)="sidenavOpen.set(false)"
+  >
+    <div class="shell__nav-user">
+      <span class="shell__nav-user-name">{{ userDisplayName() }}</span>
+      <span class="shell__nav-user-role">{{ roleLabel() }}</span>
+    </div>
+
+    <nav class="shell__nav-list" aria-label="ניווט ראשי">
+      @for (item of navItems(); track item.path) {
+        <a
+          class="shell__nav-link"
+          [routerLink]="item.path"
+          routerLinkActive="shell__nav-link--active"
+          (click)="onNavLinkClick()"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content">
+    <header class="shell__header">
+      @if (!isDesktop()) {
+        <button
+          class="shell__menu-toggle"
+          type="button"
+          (click)="toggleNav()"
+          aria-label="פתיחת תפריט ניווט"
+        >
+          <span class="shell__menu-bar"></span>
+          <span class="shell__menu-bar"></span>
+          <span class="shell__menu-bar"></span>
+        </button>
+      }
+
+      <span class="shell__brand">Schedula</span>
+
+      <div class="shell__header-actions">
+        <ui-button variant="ghost" size="sm" (click)="onLogout()">התנתקות</ui-button>
+      </div>
+    </header>
+
+    <main class="shell__main">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

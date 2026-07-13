@@ -3,21 +3,67 @@
     <span class="ui-input__label">{{ label() }}</span>
   }
 
-  <input
-    class="ui-input__control"
-    [class.ui-input__control--invalid]="error()"
-    [attr.aria-invalid]="error() ? 'true' : null"
-    [attr.aria-describedby]="error() ? (id() ?? fallbackId) + '-error' : null"
-    [attr.autocomplete]="autocomplete()"
-    [attr.id]="id() ?? fallbackId"
-    [attr.name]="name()"
-    [attr.placeholder]="placeholder()"
-    [attr.type]="type()"
-    [disabled]="disabled() || isDisabled"
-    [value]="value"
-    (blur)="markTouched()"
-    (input)="handleInput($event)"
-  />
+  <div class="ui-input__field">
+    <input
+      class="ui-input__control"
+      [class.ui-input__control--invalid]="error()"
+      [class.ui-input__control--with-toggle]="isPasswordField()"
+      [attr.aria-invalid]="error() ? 'true' : null"
+      [attr.aria-describedby]="error() ? (id() ?? fallbackId) + '-error' : null"
+      [attr.autocomplete]="autocomplete()"
+      [attr.id]="id() ?? fallbackId"
+      [attr.name]="name()"
+      [attr.placeholder]="placeholder()"
+      [attr.type]="resolvedType()"
+      [disabled]="disabled() || isDisabled"
+      [value]="value"
+      (blur)="markTouched()"
+      (input)="handleInput($event)"
+    />
+
+    @if (isPasswordField()) {
+      <button
+        class="ui-input__toggle"
+        type="button"
+        [attr.aria-label]="showPassword() ? 'הסתרת הסיסמה' : 'הצגת הסיסמה'"
+        [attr.aria-pressed]="showPassword()"
+        (click)="togglePasswordVisibility()"
+      >
+        @if (showPassword()) {
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+            <circle cx="12" cy="12" r="3" />
+            <line x1="3" y1="21" x2="21" y2="3" />
+          </svg>
+        } @else {
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        }
+      </button>
+    }
+  </div>
 
   @if (error()) {
     <span class="ui-input__error" [id]="(id() ?? fallbackId) + '-error'" role="alert">

@@ -1,6 +1,12 @@
 :host {
-  display: block;
-  width: 100%;
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(63, 93, 69, 0.05), transparent 55%),
+    var(--color-surface);
+  display: grid;
+  justify-items: center;
+  min-height: 100dvh;
+  padding: var(--space-8) var(--space-6);
 }
 
 .login-layout {

@@ -1,4 +1,5 @@
 export type { AuthSession, AuthUser } from '@app/shared/types';
+export * from './lib/auth-api.service';
 export * from './lib/auth-storage.service';
 export * from './lib/auth.guard';
 export * from './lib/auth.interceptor';
