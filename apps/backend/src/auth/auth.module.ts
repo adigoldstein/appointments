@@ -5,6 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import type { StringValue } from 'ms';
 import { ENV_KEYS, EnvironmentVariables } from '../config/env.constants';
+import { ProviderSettingsModule } from '../provider-settings/provider-settings.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { RefreshToken } from './entities/refresh-token.entity';
@@ -17,6 +18,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, RefreshToken]),
+    ProviderSettingsModule,
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

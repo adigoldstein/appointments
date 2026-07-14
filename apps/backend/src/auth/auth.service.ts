@@ -15,6 +15,7 @@ import * as bcrypt from 'bcrypt';
 import type { StringValue } from 'ms';
 import { IsNull, Repository } from 'typeorm';
 import { ENV_KEYS, EnvironmentVariables } from '../config/env.constants';
+import { ProviderSettingsService } from '../provider-settings/provider-settings.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -54,6 +55,7 @@ export class AuthService {
     private readonly refreshTokensRepository: Repository<RefreshToken>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService<EnvironmentVariables, true>,
+    private readonly providerSettingsService: ProviderSettingsService,
   ) {}
 
   async createUser(
@@ -94,7 +96,7 @@ export class AuthService {
       }),
     );
 
-    return this.toAuthUser(user);
+    return await this.toAuthUser(user);
   }
 
   async login(loginDto: LoginDto): Promise<LoginResponse> {
@@ -134,7 +136,7 @@ export class AuthService {
     return {
       accessToken,
       refreshToken,
-      user: this.toAuthUser(user),
+      user: await this.toAuthUser(user),
     };
   }
 
@@ -142,7 +144,7 @@ export class AuthService {
     const { user } = await this.validateRefreshToken(refreshToken);
     const accessToken = await this.generateAccessToken(user);
 
-    return { accessToken, user: this.toAuthUser(user) };
+    return { accessToken, user: await this.toAuthUser(user) };
   }
 
   async logout(refreshToken: string): Promise<LogoutResponse> {
@@ -163,7 +165,7 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
-    return this.toAuthUser(user);
+    return await this.toAuthUser(user);
   }
 
   async updateUser(
@@ -228,7 +230,7 @@ export class AuthService {
 
     const savedUser = await this.usersRepository.save(user);
 
-    return this.toAuthUser(savedUser);
+    return await this.toAuthUser(savedUser);
   }
 
   async deleteUser(
@@ -384,7 +386,12 @@ export class AuthService {
     throw new ForbiddenException('You cannot create a user with this role');
   }
 
-  private toAuthUser(user: User): AuthUser {
+  private async toAuthUser(user: User): Promise<AuthUser> {
+    const hasCompletedOnboarding =
+      user.role === Role.PROVIDER
+        ? await this.providerSettingsService.existsForProvider(user.id)
+        : false;
+
     return {
       id: user.id,
       email: user.email,
@@ -394,6 +401,7 @@ export class AuthService {
       providerId: user.providerId ?? null,
       phone: parseIsraeliMobile(user.phone),
       city: getIsraelLocalityById(user.cityId),
+      hasCompletedOnboarding,
     };
   }
 

@@ -46,4 +46,17 @@ export class AuthStorageService {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     this.sessionSignal.set(updated);
   }
+
+  /** Patches the stored user without touching tokens, e.g. after an action that changes server-side user state. */
+  updateUser(user: AuthUser): void {
+    const current = this.sessionSignal();
+
+    if (!current) {
+      return;
+    }
+
+    const updated: AuthSession = { ...current, user };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    this.sessionSignal.set(updated);
+  }
 }

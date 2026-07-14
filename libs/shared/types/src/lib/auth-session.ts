@@ -13,6 +13,8 @@ export interface AuthUser {
   phone: string | null;
   /** Resolved from `cityId` using `israel-localities.json`; null if unset or unknown id */
   city: IsraelLocality | null;
+  /** Whether a ProviderSettings row exists for this user; only meaningful when role is PROVIDER, always false otherwise */
+  hasCompletedOnboarding: boolean;
 }
 
 export interface AuthSession {

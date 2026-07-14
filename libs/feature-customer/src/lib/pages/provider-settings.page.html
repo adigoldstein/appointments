@@ -1,0 +1,57 @@
+<div class="provider-settings-layout">
+  <ui-card
+    title="הגדרת העסק שלכם"
+    subtitle="נעדכן את הפרטים האלה כדי להתחיל לקבל תורים. ניתן יהיה לשנות אותם בהמשך."
+  >
+    <form class="provider-settings-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <ui-input
+        formControlName="businessName"
+        label="שם העסק"
+        placeholder="לדוגמה: קליניקת ד&quot;ר כהן"
+        [error]="businessNameError()"
+      />
+
+      <ui-input
+        formControlName="clientLabel"
+        label="איך תרצו לכנות את הלקוחות שלכם?"
+        placeholder="לדוגמה: מטופל, לקוח, מנוי"
+        [error]="clientLabelError()"
+      />
+
+      <ui-input
+        formControlName="cancellationWindowMinutes"
+        type="number"
+        label="חלון ביטול (בדקות)"
+        hint="כמה זמן לפני התור לקוח יכול לבטל בעצמו"
+        [error]="cancellationWindowError()"
+      />
+
+      <div class="provider-settings-durations">
+        <span class="provider-settings-durations__label">משכי תורים אפשריים</span>
+        <div class="provider-settings-durations__options">
+          @for (minutes of durationOptions; track minutes) {
+            <label class="provider-settings-duration">
+              <input
+                type="checkbox"
+                [checked]="isDurationSelected(minutes)"
+                (change)="toggleDuration(minutes)"
+              />
+              {{ minutes }} דקות
+            </label>
+          }
+        </div>
+        @if (durationsError()) {
+          <span class="provider-settings-durations__error" role="alert">
+            {{ durationsError() }}
+          </span>
+        }
+      </div>
+
+      @if (submitError()) {
+        <p class="provider-settings-form__alert" role="alert">{{ submitError() }}</p>
+      }
+
+      <ui-button type="submit" [loading]="submitting()">שמירה והמשך</ui-button>
+    </form>
+  </ui-card>
+</div>
