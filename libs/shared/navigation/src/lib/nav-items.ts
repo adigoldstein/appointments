@@ -13,6 +13,9 @@ export const ROLE_LABELS: Readonly<Record<Role, string>> = {
 
 export const NAV_ITEMS_BY_ROLE: Readonly<Record<Role, readonly NavItem[]>> = {
   [Role.ADMIN]: [{ label: 'סקירה כללית', path: '/admin' }],
-  [Role.PROVIDER]: [{ label: 'סקירה כללית', path: '/customer' }],
+  [Role.PROVIDER]: [
+    { label: 'סקירה כללית', path: '/customer' },
+    { label: 'הגדרות', path: '/customer/settings' },
+  ],
   [Role.CLIENT]: [{ label: 'סקירה כללית', path: '/client-portal' }],
 };

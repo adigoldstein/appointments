@@ -73,9 +73,19 @@
           <p class="provider-settings-form__alert" role="alert">{{ submitError() }}</p>
         }
 
-        <ui-button type="submit" [loading]="submitting()">
-          {{ isEditing() ? 'שמירת שינויים' : 'שמירה והמשך' }}
-        </ui-button>
+        @if (submitSuccess()) {
+          <p class="provider-settings-form__success" role="status">נשמר בהצלחה.</p>
+        }
+
+        <div class="provider-settings-form__actions">
+          <ui-button type="submit" [loading]="submitting()">
+            {{ isEditing() ? 'שמירת שינויים' : 'שמירה והמשך' }}
+          </ui-button>
+
+          @if (isEditing()) {
+            <ui-button type="button" variant="ghost" (click)="onCancel()">ביטול</ui-button>
+          }
+        </div>
       </form>
     }
   </ui-card>

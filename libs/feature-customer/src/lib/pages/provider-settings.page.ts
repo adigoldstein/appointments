@@ -99,6 +99,7 @@ export class ProviderSettingsPageComponent implements OnInit {
   readonly durationInputError = signal<string | null>(null);
   readonly submitting = signal(false);
   readonly submitError = signal<string | null>(null);
+  readonly submitSuccess = signal(false);
 
   readonly form = new FormGroup({
     businessName: new FormControl('', {
@@ -235,6 +236,7 @@ export class ProviderSettingsPageComponent implements OnInit {
     }
 
     this.submitError.set(null);
+    this.submitSuccess.set(false);
     this.submitting.set(true);
 
     const { businessName, clientLabel, cancellationWindow } = this.form.getRawValue();
@@ -245,7 +247,8 @@ export class ProviderSettingsPageComponent implements OnInit {
       cancellationWindowMinutes,
       allowedDurationsMinutes: this.selectedDurations(),
     };
-    const request$ = this.isEditing()
+    const wasEditing = this.isEditing();
+    const request$ = wasEditing
       ? this.providerSettingsService.update(payload)
       : this.providerSettingsService.create(payload);
 
@@ -255,6 +258,12 @@ export class ProviderSettingsPageComponent implements OnInit {
 
         if (session) {
           this.authStorage.updateUser({ ...session.user, hasCompletedOnboarding: true });
+        }
+
+        if (wasEditing) {
+          this.submitting.set(false);
+          this.submitSuccess.set(true);
+          return;
         }
 
         this.router.navigateByUrl('/customer');
@@ -268,5 +277,9 @@ export class ProviderSettingsPageComponent implements OnInit {
         );
       },
     });
+  }
+
+  protected onCancel(): void {
+    this.router.navigateByUrl('/customer');
   }
 }

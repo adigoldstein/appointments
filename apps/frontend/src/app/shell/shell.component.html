@@ -16,6 +16,7 @@
           class="shell__nav-link"
           [routerLink]="item.path"
           routerLinkActive="shell__nav-link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
           (click)="onNavLinkClick()"
         >
           {{ item.label }}
