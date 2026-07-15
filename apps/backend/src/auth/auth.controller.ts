@@ -44,7 +44,7 @@ export class AuthController {
   }
 
   @UseGuards(LoginThrottlerGuard)
-  @Throttle({ default: { limit: 1, ttl: 60_000 } })
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
   @Post('login')
   login(@Body() loginDto: LoginDto): Promise<LoginResponse> {
     return this.authService.login(loginDto);
