@@ -3,55 +3,80 @@
     title="הגדרת העסק שלכם"
     subtitle="נעדכן את הפרטים האלה כדי להתחיל לקבל תורים. ניתן יהיה לשנות אותם בהמשך."
   >
-    <form class="provider-settings-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-      <ui-input
-        formControlName="businessName"
-        label="שם העסק"
-        placeholder="לדוגמה: קליניקת ד&quot;ר כהן"
-        [error]="businessNameError()"
-      />
+    @if (loading()) {
+      <p class="provider-settings-loading">טוען...</p>
+    } @else {
+      <form class="provider-settings-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <ui-input
+          formControlName="businessName"
+          label="שם העסק"
+          placeholder="לדוגמה: קליניקת ד&quot;ר כהן"
+          [error]="businessNameError()"
+        />
 
-      <ui-input
-        formControlName="clientLabel"
-        label="איך תרצו לכנות את הלקוחות שלכם?"
-        placeholder="לדוגמה: מטופל, לקוח, מנוי"
-        [error]="clientLabelError()"
-      />
+        <ui-input
+          formControlName="clientLabel"
+          label="איך תרצו לכנות את הלקוחות שלכם?"
+          placeholder="לדוגמה: מטופל, לקוח, מנוי"
+          [error]="clientLabelError()"
+        />
 
-      <ui-input
-        formControlName="cancellationWindowMinutes"
-        type="number"
-        label="חלון ביטול (בדקות)"
-        hint="כמה זמן לפני התור לקוח יכול לבטל בעצמו"
-        [error]="cancellationWindowError()"
-      />
+        <ui-input
+          formControlName="cancellationWindow"
+          label="חלון ביטול (שעות:דקות)"
+          placeholder="לדוגמה: 24:00"
+          hint="כמה זמן לפני התור לקוח יכול לבטל בעצמו"
+          [error]="cancellationWindowError()"
+        />
 
-      <div class="provider-settings-durations">
-        <span class="provider-settings-durations__label">משכי תורים אפשריים</span>
-        <div class="provider-settings-durations__options">
-          @for (minutes of durationOptions; track minutes) {
-            <label class="provider-settings-duration">
-              <input
-                type="checkbox"
-                [checked]="isDurationSelected(minutes)"
-                (change)="toggleDuration(minutes)"
-              />
-              {{ minutes }} דקות
-            </label>
+        <div class="provider-settings-durations">
+          <span class="provider-settings-durations__label">משכי תורים אפשריים</span>
+
+          <div class="provider-settings-durations__add">
+            <ui-input
+              [formControl]="durationInputControl"
+              placeholder="שעות:דקות, לדוגמה 1:00"
+              [error]="durationInputError()"
+              (keydown.enter)="$event.preventDefault(); addDuration()"
+            />
+            <ui-button type="button" variant="secondary" (click)="addDuration()">
+              הוספה
+            </ui-button>
+          </div>
+
+          @if (selectedDurations().length > 0) {
+            <div class="provider-settings-durations__chips">
+              @for (minutes of selectedDurations(); track minutes) {
+                <span class="provider-settings-chip">
+                  {{ formatDuration(minutes) }}
+                  <button
+                    type="button"
+                    class="provider-settings-chip__remove"
+                    [attr.aria-label]="'הסרת משך ' + formatDuration(minutes)"
+                    (click)="removeDuration(minutes)"
+                  >
+                    ✕
+                  </button>
+                </span>
+              }
+            </div>
+          }
+
+          @if (durationsError()) {
+            <span class="provider-settings-durations__error" role="alert">
+              {{ durationsError() }}
+            </span>
           }
         </div>
-        @if (durationsError()) {
-          <span class="provider-settings-durations__error" role="alert">
-            {{ durationsError() }}
-          </span>
+
+        @if (submitError()) {
+          <p class="provider-settings-form__alert" role="alert">{{ submitError() }}</p>
         }
-      </div>
 
-      @if (submitError()) {
-        <p class="provider-settings-form__alert" role="alert">{{ submitError() }}</p>
-      }
-
-      <ui-button type="submit" [loading]="submitting()">שמירה והמשך</ui-button>
-    </form>
+        <ui-button type="submit" [loading]="submitting()">
+          {{ isEditing() ? 'שמירת שינויים' : 'שמירה והמשך' }}
+        </ui-button>
+      </form>
+    }
   </ui-card>
 </div>

@@ -28,6 +28,21 @@ export class ProviderSettingsService {
     );
   }
 
+  async update(
+    providerId: string,
+    dto: CreateProviderSettingsDto,
+  ): Promise<ProviderSettings> {
+    const existing = await this.providerSettingsRepository.findOne({
+      where: { providerId },
+    });
+
+    if (!existing) {
+      throw new NotFoundException('Provider settings not found');
+    }
+
+    return this.providerSettingsRepository.save({ ...existing, ...dto });
+  }
+
   async getByProviderId(providerId: string): Promise<ProviderSettings> {
     const settings = await this.providerSettingsRepository.findOne({
       where: { providerId },

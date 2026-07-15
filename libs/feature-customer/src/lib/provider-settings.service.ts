@@ -9,12 +9,30 @@ export interface CreateProviderSettingsPayload {
   allowedDurationsMinutes: number[];
 }
 
+export interface ProviderSettingsResponse {
+  providerId: string;
+  businessName: string;
+  clientLabel: string;
+  cancellationWindowMinutes: number;
+  allowedDurationsMinutes: number[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProviderSettingsService {
   private readonly http = inject(HttpClient);
   private readonly apiBaseUrl = inject(API_BASE_URL);
 
   create(payload: CreateProviderSettingsPayload) {
-    return this.http.post<void>(`${this.apiBaseUrl}/provider-settings`, payload);
+    return this.http.post<ProviderSettingsResponse>(`${this.apiBaseUrl}/provider-settings`, payload);
+  }
+
+  update(payload: CreateProviderSettingsPayload) {
+    return this.http.put<ProviderSettingsResponse>(`${this.apiBaseUrl}/provider-settings`, payload);
+  }
+
+  getOwn() {
+    return this.http.get<ProviderSettingsResponse>(`${this.apiBaseUrl}/provider-settings`);
   }
 }

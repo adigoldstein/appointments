@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { Role } from '@app/shared/types';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -21,6 +21,16 @@ export class ProviderSettingsController {
     @CurrentUser() actor: AuthenticatedUserPayload,
   ): Promise<ProviderSettings> {
     return this.providerSettingsService.create(actor.userId, createProviderSettingsDto);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.PROVIDER)
+  @Put()
+  update(
+    @Body() createProviderSettingsDto: CreateProviderSettingsDto,
+    @CurrentUser() actor: AuthenticatedUserPayload,
+  ): Promise<ProviderSettings> {
+    return this.providerSettingsService.update(actor.userId, createProviderSettingsDto);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
