@@ -48,7 +48,10 @@ export class User {
 
   @Column({ name: 'provider_id', type: 'uuid', nullable: true })
   providerId: string | null;
-  
+
+  @Column({ name: 'deactivated_at', type: 'timestamptz', nullable: true })
+  deactivatedAt: Date | null;
+
   @ManyToOne(() => User, (user) => user.clients, {
     nullable: true,
     onDelete: 'SET NULL',

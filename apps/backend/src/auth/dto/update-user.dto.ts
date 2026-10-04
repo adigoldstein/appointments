@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer';
 import {
+  IsBoolean,
   IsEmail,
   IsOptional,
   IsString,
@@ -52,4 +53,9 @@ export class UpdateUserDto {
   })
   @IsIsraelLocalityCityIdOptional()
   cityId?: number | null;
+
+  /** true = deactivate now, false = reactivate. Omit to leave unchanged. */
+  @IsOptional()
+  @IsBoolean()
+  deactivate?: boolean;
 }

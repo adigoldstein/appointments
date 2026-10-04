@@ -7,16 +7,17 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Role } from '@app/shared/types';
-import type { AuthUser } from '@app/shared/types';
+import type { AuthUser, ClientListItem, PaginatedUsersResponse } from '@app/shared/types';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import type { StringValue } from 'ms';
-import { IsNull, Repository } from 'typeorm';
+import { FindOptionsWhere, IsNull, Repository } from 'typeorm';
 import { ENV_KEYS, EnvironmentVariables } from '../config/env.constants';
 import { ProviderSettingsService } from '../provider-settings/provider-settings.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ListUsersQueryDto } from './dto/list-users-query.dto';
 import { LoginDto } from './dto/login.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RefreshToken } from './entities/refresh-token.entity';
@@ -62,15 +63,25 @@ export class AuthService {
     createUserDto: CreateUserDto,
     actor: AuthenticatedUserPayload,
   ): Promise<AuthUser> {
-    this.assertCanCreateRole(actor.role, createUserDto.role);
+    // this.assertCanCreateRole(actor.role, createUserDto.role);
 
-    const existingUser = await this.usersRepository.findOne({
-      where: { email: createUserDto.email },
-    });
+    // const existingUser = await this.usersRepository.findOne({
+    //   where: { email: createUserDto.email },
+    // });
 
-    if (existingUser) {
-      throw new ConflictException('User with this email already exists');
-    }
+    // if (existingUser) {
+    //   if (existingUser.deactivatedAt) {
+    //     throw new ConflictException({
+    //       statusCode: 409,
+    //       error: 'Conflict',
+    //       message: 'A deactivated account with this email already exists',
+    //       reactivatable: true,
+    //       existingUserId: existingUser.id,
+    //     });
+    //   }
+
+    //   throw new ConflictException('User with this email already exists');
+    // }
 
     const passwordHash = await bcrypt.hash(
       createUserDto.password,
@@ -115,6 +126,10 @@ export class AuthService {
 
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid email or password');
+    }
+
+    if (user.deactivatedAt) {
+      throw new UnauthorizedException('Account is deactivated');
     }
 
     const accessToken = await this.generateAccessToken(user);
@@ -168,6 +183,33 @@ export class AuthService {
     return await this.toAuthUser(user);
   }
 
+  async listUsers(
+    query: ListUsersQueryDto,
+    actor: AuthenticatedUserPayload,
+  ): Promise<PaginatedUsersResponse> {
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 20;
+
+    const where: FindOptionsWhere<User> =
+      actor.role === Role.PROVIDER
+        ? { role: Role.CLIENT, providerId: actor.userId }
+        : { role: Role.CLIENT };
+
+    const [users, total] = await this.usersRepository.findAndCount({
+      where,
+      order: { createdAt: 'DESC' },
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    return {
+      items: users.map((user) => this.toClientListItem(user)),
+      page,
+      limit,
+      total,
+    };
+  }
+
   async updateUser(
     userId: string,
     updateUserDto: UpdateUserDto,
@@ -179,7 +221,8 @@ export class AuthService {
       updateUserDto.email !== undefined ||
       updateUserDto.password !== undefined ||
       updateUserDto.phone !== undefined ||
-      updateUserDto.cityId !== undefined;
+      updateUserDto.cityId !== undefined ||
+      updateUserDto.deactivate !== undefined;
 
     if (!hasUpdates) {
       throw new BadRequestException('At least one field must be provided');
@@ -192,6 +235,11 @@ export class AuthService {
     }
 
     this.assertCanEditUser(actor, user);
+
+    if (updateUserDto.deactivate !== undefined) {
+      this.assertCanToggleDeactivation(actor, user);
+      user.deactivatedAt = updateUserDto.deactivate ? new Date() : null;
+    }
 
     if (updateUserDto.email && updateUserDto.email !== user.email) {
       const existingUser = await this.usersRepository.findOne({
@@ -233,23 +281,31 @@ export class AuthService {
     return await this.toAuthUser(savedUser);
   }
 
-  async deleteUser(
-    userId: string,
+  private assertCanToggleDeactivation(
     actor: AuthenticatedUserPayload,
-  ): Promise<void> {
-    if (actor.userId === userId) {
-      throw new ForbiddenException('You cannot delete your own account');
+    targetUser: User,
+  ): void {
+    if (actor.userId === targetUser.id) {
+      throw new ForbiddenException(
+        'You cannot deactivate or reactivate your own account',
+      );
     }
 
-    const user = await this.usersRepository.findOne({ where: { id: userId } });
-
-    if (!user) {
-      throw new NotFoundException('User not found');
+    if (actor.role === Role.ADMIN) {
+      return;
     }
 
-    this.assertCanDeleteUser(actor, user);
+    if (
+      actor.role === Role.PROVIDER &&
+      targetUser.role === Role.CLIENT &&
+      targetUser.providerId === actor.userId
+    ) {
+      return;
+    }
 
-    await this.usersRepository.remove(user);
+    throw new ForbiddenException(
+      "You cannot change this account's active status",
+    );
   }
 
   private assertCanEditUser(
@@ -288,29 +344,6 @@ export class AuthService {
     throw new ForbiddenException('No permission to edit this user');
   }
 
-  private assertCanDeleteUser(
-    actor: AuthenticatedUserPayload,
-    targetUser: User,
-  ): void {
-    if (actor.role === Role.ADMIN) {
-      return;
-    }
-
-    if (actor.role === Role.PROVIDER) {
-      if (
-        targetUser.role === Role.CLIENT &&
-        targetUser.providerId === actor.userId
-      ) {
-        return;
-      }
-
-      throw new ForbiddenException(
-        'You can only delete clients assigned to you',
-      );
-    }
-
-    throw new ForbiddenException('No permission to delete this user');
-  }
 
   private async resolveProviderIdForCreateUser(
     dto: CreateUserDto,
@@ -405,6 +438,18 @@ export class AuthService {
     };
   }
 
+  private toClientListItem(user: User): ClientListItem {
+    return {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: parseIsraeliMobile(user.phone),
+      city: getIsraelLocalityById(user.cityId),
+      deactivatedAt: user.deactivatedAt ? user.deactivatedAt.toISOString() : null,
+    };
+  }
+
   private async validateRefreshToken(
     refreshToken: string,
   ): Promise<{ user: User; token: RefreshToken }> {
@@ -426,6 +471,10 @@ export class AuthService {
 
     if (!user) {
       throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    if (user.deactivatedAt) {
+      throw new UnauthorizedException('Account is deactivated');
     }
 
     const now = new Date();

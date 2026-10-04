@@ -1,20 +1,21 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { Role } from '@app/shared/types';
-import type { AuthUser } from '@app/shared/types';
+import type { AuthUser, PaginatedUsersResponse } from '@app/shared/types';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { Roles } from './decorators/roles.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ListUsersQueryDto } from './dto/list-users-query.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -68,6 +69,16 @@ export class AuthController {
     return this.authService.getProfile(actor);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.PROVIDER)
+  @Get('users')
+  listUsers(
+    @Query() query: ListUsersQueryDto,
+    @CurrentUser() actor: AuthenticatedUserPayload,
+  ): Promise<PaginatedUsersResponse> {
+    return this.authService.listUsers(query, actor);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Patch('users/:userId')
   updateUser(
@@ -76,15 +87,5 @@ export class AuthController {
     @CurrentUser() actor: AuthenticatedUserPayload,
   ): Promise<AuthUser> {
     return this.authService.updateUser(userId, updateUserDto, actor);
-  }
-
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.PROVIDER)
-  @Delete('users/:userId')
-  deleteUser(
-    @Param('userId', ParseUUIDPipe) userId: string,
-    @CurrentUser() actor: AuthenticatedUserPayload,
-  ): Promise<void> {
-    return this.authService.deleteUser(userId, actor);
   }
 }
