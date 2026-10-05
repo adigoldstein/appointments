@@ -190,6 +190,22 @@ export class AuthService {
     return await this.toAuthUser(user);
   }
 
+  /** Same visibility as editing: Admin anyone, Provider themselves or their Clients, Client themselves. */
+  async getUser(
+    userId: string,
+    actor: AuthenticatedUserPayload,
+  ): Promise<AuthUser> {
+    const user = await this.usersRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    this.assertCanEditUser(actor, user);
+
+    return await this.toAuthUser(user);
+  }
+
   async listUsers(
     query: ListUsersQueryDto,
     actor: AuthenticatedUserPayload,

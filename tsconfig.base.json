@@ -20,11 +20,16 @@
       "@app/feature-auth": ["libs/feature-auth/src/index.ts"],
       "@app/feature-client": ["libs/feature-client/src/index.ts"],
       "@app/feature-provider": ["libs/feature-provider/src/index.ts"],
+      "@app/shared/acting-context": [
+        "libs/shared/acting-context/src/index.ts"
+      ],
       "@app/shared/api": ["libs/shared/api/src/index.ts"],
       "@app/shared/auth": ["libs/shared/auth/src/index.ts"],
       "@app/shared/navigation": ["libs/shared/navigation/src/index.ts"],
       "@app/shared/types": ["libs/shared/types/src/index.ts"],
+      "@app/shared/users": ["libs/shared/users/src/index.ts"],
       "@app/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@app/ui/autocomplete": ["libs/ui/autocomplete/src/index.ts"],
       "@app/ui/button": ["libs/ui/button/src/index.ts"],
       "@app/ui/card": ["libs/ui/card/src/index.ts"],
       "@app/ui/date-picker": ["libs/ui/date-picker/src/index.ts"],

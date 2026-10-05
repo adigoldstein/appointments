@@ -3,6 +3,13 @@ import { authGuard } from '@app/shared/auth';
 import { Role } from '@app/shared/types';
 import { ShellComponent } from './shell/shell.component';
 
+// Each area is mounted wherever it can be reached from (ADR-0005). Acting always happens
+// inside the actor's own top-level area, so the exact-role authGuard on each one stays correct.
+const providerArea = () =>
+  import('@app/feature-provider').then((m) => m.featureProviderRoutes);
+const clientArea = () =>
+  import('@app/feature-client').then((m) => m.featureClientRoutes);
+
 export const appRoutes: Route[] = [
   {
     path: '',
@@ -22,24 +29,35 @@ export const appRoutes: Route[] = [
         path: 'admin',
         canActivate: [authGuard],
         data: { role: Role.ADMIN },
-        loadChildren: () =>
-          import('@app/feature-admin').then((m) => m.featureAdminRoutes),
+        children: [
+          {
+            path: 'providers/:providerId',
+            children: [
+              { path: 'clients/:clientId', loadChildren: clientArea },
+              { path: '', loadChildren: providerArea },
+            ],
+          },
+          {
+            path: '',
+            loadChildren: () =>
+              import('@app/feature-admin').then((m) => m.featureAdminRoutes),
+          },
+        ],
       },
       {
         path: 'provider',
         canActivate: [authGuard],
         data: { role: Role.PROVIDER },
-        loadChildren: () =>
-          import('@app/feature-provider').then((m) => m.featureProviderRoutes),
+        children: [
+          { path: 'clients/:clientId', loadChildren: clientArea },
+          { path: '', loadChildren: providerArea },
+        ],
       },
       {
         path: 'client',
         canActivate: [authGuard],
         data: { role: Role.CLIENT },
-        loadChildren: () =>
-          import('@app/feature-client').then(
-            (m) => m.featureClientRoutes,
-          ),
+        loadChildren: clientArea,
       },
     ],
   },

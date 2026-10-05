@@ -1,6 +1,10 @@
 <div class="provider-settings-layout">
   <ui-card
-    title="הגדרת העסק שלכם"
+    [title]="
+      actingProviderName()
+        ? 'הגדרת העסק של ' + actingProviderName()
+        : 'הגדרת העסק שלכם'
+    "
     subtitle="נעדכן את הפרטים האלה כדי להתחיל לקבל תורים. ניתן יהיה לשנות אותם בהמשך."
   >
     @if (loading()) {
@@ -90,6 +94,10 @@
         @if (isEditing()) {
         <ui-button type="button" variant="ghost" (click)="onCancel()"
           >ביטול</ui-button
+        >
+        } @else if (actingProviderId()) {
+        <ui-button type="button" variant="ghost" (click)="onSkip()"
+          >דילוג — נותן השירות ישלים בעצמו</ui-button
         >
         }
       </div>

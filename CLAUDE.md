@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Git rule — read first
+
+**Never run `git add`, `git commit` or `git push` without the user's explicit approval for that specific commit.** When work is ready: list the changed files, offer the diff, propose a commit message, and wait. Agreeing to a plan or task is not approval to commit; approval for one commit doesn't carry over to the next; committing doesn't imply pushing.
+
 ## Commands
 
 This is an Nx monorepo (Nx 22.7.3). Use root `npm` scripts, or `npx nx <target> <project>` directly.

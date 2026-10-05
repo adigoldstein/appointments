@@ -1,0 +1,38 @@
+@if (visible()) {
+  <nav class="context-bar" aria-label="פעולה בשם">
+    <a class="context-bar__actor" [routerLink]="actorHomeUrl()">{{ actorLabel() }}</a>
+
+    @if (isAdmin()) {
+      <span class="context-bar__separator" aria-hidden="true">‹</span>
+      <ui-autocomplete
+        class="context-bar__picker"
+        label="נותן שירות"
+        hideLabel
+        placeholder="בחירת נותן שירות"
+        clearLabel="יציאה מנותן השירות"
+        [options]="providerOptions()"
+        [value]="providerValue()"
+        [loading]="providerLoading()"
+        (search)="onProviderSearch($event)"
+        (optionSelected)="onProviderSelected($event)"
+        (cleared)="onProviderCleared()"
+      />
+    }
+
+    <span class="context-bar__separator" aria-hidden="true">‹</span>
+    <ui-autocomplete
+      class="context-bar__picker"
+      label="לקוח"
+      hideLabel
+      [placeholder]="clientPickerEnabled() ? 'בחירת לקוח' : 'בחרו קודם נותן שירות'"
+      clearLabel="יציאה מהלקוח"
+      [disabled]="!clientPickerEnabled()"
+      [options]="clientOptions()"
+      [value]="clientValue()"
+      [loading]="clientLoading()"
+      (search)="onClientSearch($event)"
+      (optionSelected)="onClientSelected($event)"
+      (cleared)="onClientCleared()"
+    />
+  </nav>
+}

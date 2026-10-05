@@ -80,6 +80,15 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('users/:userId')
+  getUser(
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @CurrentUser() actor: AuthenticatedUserPayload,
+  ): Promise<AuthUser> {
+    return this.authService.getUser(userId, actor);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch('users/:userId')
   updateUser(
     @Param('userId', ParseUUIDPipe) userId: string,

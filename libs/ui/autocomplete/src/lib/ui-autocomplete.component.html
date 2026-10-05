@@ -1,0 +1,72 @@
+<div class="ui-autocomplete" [class.ui-autocomplete--disabled]="disabled()">
+  <label
+    class="ui-autocomplete__label"
+    [class.ui-autocomplete__label--hidden]="hideLabel()"
+    [attr.for]="fieldId"
+  >
+    {{ label() }}
+  </label>
+
+  <div class="ui-autocomplete__field">
+    <input
+      #inputElement
+      class="ui-autocomplete__control"
+      [class.ui-autocomplete__control--with-clear]="value()"
+      type="text"
+      role="combobox"
+      autocomplete="off"
+      aria-autocomplete="list"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-controls]="listboxId"
+      [attr.aria-activedescendant]="activeOptionId()"
+      [attr.id]="fieldId"
+      [attr.placeholder]="resolvedPlaceholder()"
+      [disabled]="disabled()"
+      [value]="displayText()"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (input)="onInput($event)"
+      (keydown)="onKeydown($event)"
+    />
+
+    @if (value() && !disabled()) {
+      <button
+        class="ui-autocomplete__clear"
+        type="button"
+        [attr.aria-label]="clearLabel()"
+        (mousedown)="$event.preventDefault()"
+        (click)="onClear()"
+      >
+        ✕
+      </button>
+    }
+
+    @if (isOpen()) {
+      <ul class="ui-autocomplete__listbox" role="listbox" [id]="listboxId" [attr.aria-label]="label()">
+        @if (loading() && options().length === 0) {
+          <li class="ui-autocomplete__status" role="presentation">טוען...</li>
+        } @else {
+          @for (option of options(); track option.id; let index = $index) {
+            <li
+              class="ui-autocomplete__option"
+              [class.ui-autocomplete__option--active]="index === activeIndex()"
+              [class.ui-autocomplete__option--selected]="option.id === value()?.id"
+              role="option"
+              [id]="optionId(index)"
+              [attr.aria-selected]="option.id === value()?.id"
+              (mousedown)="onOptionMousedown($event, option, inputElement)"
+              (mouseenter)="activeIndex.set(index)"
+            >
+              <span class="ui-autocomplete__option-label">{{ option.label }}</span>
+              @if (option.description) {
+                <span class="ui-autocomplete__option-description">{{ option.description }}</span>
+              }
+            </li>
+          } @empty {
+            <li class="ui-autocomplete__status" role="presentation">{{ emptyText() }}</li>
+          }
+        }
+      </ul>
+    }
+  </div>
+</div>

@@ -4,10 +4,12 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { map } from 'rxjs';
+import { ActingContextService } from '@app/shared/acting-context';
 import { AuthApiService, AuthStorageService } from '@app/shared/auth';
-import { NAV_ITEMS_BY_ROLE, ROLE_LABELS } from '@app/shared/navigation';
+import { NAV_ITEMS_BY_AREA, ROLE_LABELS, resolveNavPath } from '@app/shared/navigation';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiHeaderComponent } from '@app/ui/header';
+import { ContextBarComponent } from './context-bar/context-bar.component';
 
 const DESKTOP_BREAKPOINT = '(min-width: 900px)';
 
@@ -19,6 +21,7 @@ const DESKTOP_BREAKPOINT = '(min-width: 900px)';
     RouterLinkActive,
     RouterOutlet,
     MatSidenavModule,
+    ContextBarComponent,
     UiButtonComponent,
     UiHeaderComponent,
   ],
@@ -32,6 +35,7 @@ export class ShellComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
+  private readonly actingContext = inject(ActingContextService);
 
   protected readonly sidenavOpen = signal(false);
 
@@ -52,9 +56,19 @@ export class ShellComponent {
     return role ? ROLE_LABELS[role] : '';
   });
 
+  /** Nav follows the area on screen, so an Admin acting for a Provider gets the Provider's links (ADR-0005). */
   protected readonly navItems = computed(() => {
-    const role = this.user()?.role;
-    return role ? NAV_ITEMS_BY_ROLE[role] : [];
+    const area = this.actingContext.area();
+    const baseUrl = this.actingContext.areaBaseUrl();
+
+    if (!area || !baseUrl) {
+      return [];
+    }
+
+    return NAV_ITEMS_BY_AREA[area].map((item) => ({
+      label: item.label,
+      path: resolveNavPath(baseUrl, item),
+    }));
   });
 
   protected toggleNav(): void {

@@ -20,11 +20,13 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { merge } from 'rxjs';
+import { ActingContextService } from '@app/shared/acting-context';
 import { getSubmittedFieldError } from '@app/shared/utils';
 import { AuthStorageService } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
 import { UiInputComponent } from '@app/ui/input';
+import { OnboardingSkipService } from '../onboarding-skip.service';
 import { ProviderSettingsService } from '../provider-settings.service';
 
 const HOURS_MINUTES_PATTERN = /^\d{1,4}:[0-5]\d$/;
@@ -94,8 +96,17 @@ export class ProviderSettingsPageComponent implements OnInit {
   private readonly providerSettingsService = inject(ProviderSettingsService);
   private readonly authStorage = inject(AuthStorageService);
   private readonly router = inject(Router);
+  private readonly actingContext = inject(ActingContextService);
+  private readonly onboardingSkip = inject(OnboardingSkipService);
 
   private readonly submitted = signal(false);
+
+  /** Set when an Admin is acting for this Provider; null when the Provider edits their own settings. */
+  protected readonly actingProviderId = this.actingContext.routeProviderId;
+  protected readonly actingProviderName = computed(() => {
+    const provider = this.actingContext.actingProvider();
+    return provider ? `${provider.firstName} ${provider.lastName}` : null;
+  });
 
   protected readonly isEditing = signal(false);
   readonly loading = signal(true);
@@ -137,7 +148,7 @@ export class ProviderSettingsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.providerSettingsService
-      .getOwn()
+      .get(this.actingProviderId())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (settings) => {
@@ -276,15 +287,17 @@ export class ProviderSettingsPageComponent implements OnInit {
       allowedDurationsMinutes: this.selectedDurations(),
     };
     const wasEditing = this.isEditing();
+    const providerId = this.actingProviderId();
     const request$ = wasEditing
-      ? this.providerSettingsService.update(payload)
-      : this.providerSettingsService.create(payload);
+      ? this.providerSettingsService.update(payload, providerId)
+      : this.providerSettingsService.create(payload, providerId);
 
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         const session = this.authStorage.session();
 
-        if (session) {
+        // Only the Provider's own session carries their onboarding flag; an acting Admin's doesn't.
+        if (session && !providerId) {
           this.authStorage.updateUser({
             ...session.user,
             hasCompletedOnboarding: true,
@@ -297,7 +310,7 @@ export class ProviderSettingsPageComponent implements OnInit {
           return;
         }
 
-        this.router.navigateByUrl('/provider');
+        this.navigateToProviderHome();
       },
       error: (error: HttpErrorResponse) => {
         this.submitting.set(false);
@@ -311,6 +324,22 @@ export class ProviderSettingsPageComponent implements OnInit {
   }
 
   protected onCancel(): void {
-    this.router.navigateByUrl('/provider');
+    this.navigateToProviderHome();
+  }
+
+  /** Admin only: leave onboarding to the Provider's own first login (ADR-0004). */
+  protected onSkip(): void {
+    const providerId = this.actingProviderId();
+
+    if (!providerId) {
+      return;
+    }
+
+    this.onboardingSkip.skip(providerId);
+    this.navigateToProviderHome();
+  }
+
+  private navigateToProviderHome(): void {
+    this.router.navigateByUrl(this.actingContext.providerBaseUrl() ?? '/provider');
   }
 }
