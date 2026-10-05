@@ -2,13 +2,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UiCardComponent } from '@app/ui/card';
 
 @Component({
-  selector: 'feature-client-portal-overview-page',
+  selector: 'feature-client-overview-page',
   standalone: true,
   imports: [UiCardComponent],
   template: `
-    <ui-card title="Client portal feature" subtitle="Portal workflows are isolated for future splitting.">
+    <ui-card
+      title="Client portal feature"
+      subtitle="Portal workflows are isolated for future splitting."
+    >
       <p class="feature-copy">
-        This feature can become its own deployed app without moving shared UI or design tokens.
+        This feature can become its own deployed app without moving shared UI or
+        design tokens.
       </p>
     </ui-card>
   `,
@@ -21,4 +25,4 @@ import { UiCardComponent } from '@app/ui/card';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClientPortalOverviewPageComponent {}
+export class ClientOverviewPageComponent {}

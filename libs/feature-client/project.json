@@ -1,8 +1,8 @@
 {
-  "name": "feature-client-portal",
+  "name": "feature-client",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/feature-client-portal/src",
+  "sourceRoot": "libs/feature-client/src",
   "tags": ["scope:frontend", "type:feature"],
   "targets": {
     "lint": {

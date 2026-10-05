@@ -1,8 +1,8 @@
 {
-  "name": "feature-customer",
+  "name": "feature-provider",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/feature-customer/src",
+  "sourceRoot": "libs/feature-provider/src",
   "tags": ["scope:frontend", "type:feature"],
   "targets": {
     "lint": {

@@ -11,7 +11,8 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('@app/feature-auth').then((m) => m.featureAuthRoutes),
+    loadChildren: () =>
+      import('@app/feature-auth').then((m) => m.featureAuthRoutes),
   },
   {
     path: '',
@@ -21,20 +22,24 @@ export const appRoutes: Route[] = [
         path: 'admin',
         canActivate: [authGuard],
         data: { role: Role.ADMIN },
-        loadChildren: () => import('@app/feature-admin').then((m) => m.featureAdminRoutes),
+        loadChildren: () =>
+          import('@app/feature-admin').then((m) => m.featureAdminRoutes),
       },
       {
-        path: 'customer',
+        path: 'provider',
         canActivate: [authGuard],
         data: { role: Role.PROVIDER },
-        loadChildren: () => import('@app/feature-customer').then((m) => m.featureCustomerRoutes),
+        loadChildren: () =>
+          import('@app/feature-provider').then((m) => m.featureProviderRoutes),
       },
       {
-        path: 'client-portal',
+        path: 'client',
         canActivate: [authGuard],
         data: { role: Role.CLIENT },
         loadChildren: () =>
-          import('@app/feature-client-portal').then((m) => m.featureClientPortalRoutes),
+          import('@app/feature-client').then(
+            (m) => m.featureClientRoutes,
+          ),
       },
     ],
   },

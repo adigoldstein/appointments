@@ -25,14 +25,22 @@ export class ProviderSettingsService {
   private readonly apiBaseUrl = inject(API_BASE_URL);
 
   create(payload: CreateProviderSettingsPayload) {
-    return this.http.post<ProviderSettingsResponse>(`${this.apiBaseUrl}/provider-settings`, payload);
+    return this.http.post<ProviderSettingsResponse>(
+      `${this.apiBaseUrl}/provider-settings`,
+      payload,
+    );
   }
 
   update(payload: CreateProviderSettingsPayload) {
-    return this.http.put<ProviderSettingsResponse>(`${this.apiBaseUrl}/provider-settings`, payload);
+    return this.http.put<ProviderSettingsResponse>(
+      `${this.apiBaseUrl}/provider-settings`,
+      payload,
+    );
   }
 
   getOwn() {
-    return this.http.get<ProviderSettingsResponse>(`${this.apiBaseUrl}/provider-settings`);
+    return this.http.get<ProviderSettingsResponse>(
+      `${this.apiBaseUrl}/provider-settings`,
+    );
   }
 }

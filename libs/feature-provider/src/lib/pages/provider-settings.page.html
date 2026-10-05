@@ -1,0 +1,99 @@
+<div class="provider-settings-layout">
+  <ui-card
+    title="הגדרת העסק שלכם"
+    subtitle="נעדכן את הפרטים האלה כדי להתחיל לקבל תורים. ניתן יהיה לשנות אותם בהמשך."
+  >
+    @if (loading()) {
+    <p class="provider-settings-loading">טוען...</p>
+    } @else {
+    <form
+      class="provider-settings-form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      novalidate
+    >
+      <ui-input
+        formControlName="businessName"
+        label="שם העסק"
+        placeholder='לדוגמה: קליניקת ד"ר כהן'
+        [error]="businessNameError()"
+      />
+
+      <ui-input
+        formControlName="clientLabel"
+        label="איך תרצו לכנות את הלקוחות שלכם?"
+        placeholder="לדוגמה: מטופל, לקוח, מנוי"
+        [error]="clientLabelError()"
+      />
+
+      <ui-input
+        formControlName="cancellationWindow"
+        label="חלון ביטול (שעות:דקות)"
+        placeholder="לדוגמה: 24:00"
+        hint="כמה זמן לפני התור לקוח יכול לבטל בעצמו"
+        [error]="cancellationWindowError()"
+      />
+
+      <div class="provider-settings-durations">
+        <span class="provider-settings-durations__label"
+          >משכי תורים אפשריים</span
+        >
+
+        <div class="provider-settings-durations__add">
+          <ui-input
+            [formControl]="durationInputControl"
+            placeholder="שעות:דקות, לדוגמה 1:00"
+            [error]="durationInputError()"
+            (keydown.enter)="$event.preventDefault(); addDuration()"
+          />
+          <ui-button type="button" variant="secondary" (click)="addDuration()">
+            הוספה
+          </ui-button>
+        </div>
+
+        @if (selectedDurations().length > 0) {
+        <div class="provider-settings-durations__chips">
+          @for (minutes of selectedDurations(); track minutes) {
+          <span class="provider-settings-chip">
+            {{ formatDuration(minutes) }}
+            <button
+              type="button"
+              class="provider-settings-chip__remove"
+              [attr.aria-label]="'הסרת משך ' + formatDuration(minutes)"
+              (click)="removeDuration(minutes)"
+            >
+              ✕
+            </button>
+          </span>
+          }
+        </div>
+        } @if (durationsError()) {
+        <span class="provider-settings-durations__error" role="alert">
+          {{ durationsError() }}
+        </span>
+        }
+      </div>
+
+      @if (submitError()) {
+      <p class="provider-settings-form__alert" role="alert">
+        {{ submitError() }}
+      </p>
+      } @if (submitSuccess()) {
+      <p class="provider-settings-form__success" role="status">נשמר בהצלחה.</p>
+      }
+
+      <div class="provider-settings-form__actions">
+        <ui-button type="submit" [loading]="submitting()">
+          {{ isEditing() ? 'שמירת שינויים' : 'שמירה והמשך' }}
+        </ui-button>
+
+        @if (isEditing()) {
+        <ui-button type="button" variant="ghost" (click)="onCancel()"
+          >ביטול</ui-button
+        >
+        }
+      </div>
+    </form>
+    }
+  </ui-card>
+</div>

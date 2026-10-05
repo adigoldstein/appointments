@@ -2,8 +2,8 @@ import { Role } from '@app/shared/types';
 
 export const ROLE_HOME_ROUTE: Readonly<Record<Role, string>> = {
   [Role.ADMIN]: '/admin',
-  [Role.PROVIDER]: '/customer',
-  [Role.CLIENT]: '/client-portal',
+  [Role.PROVIDER]: '/provider',
+  [Role.CLIENT]: '/client',
 };
 
 export function homeRouteForRole(role: Role): string {

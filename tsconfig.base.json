@@ -18,10 +18,8 @@
       "@app/design-system": ["libs/design-system/src/index.ts"],
       "@app/feature-admin": ["libs/feature-admin/src/index.ts"],
       "@app/feature-auth": ["libs/feature-auth/src/index.ts"],
-      "@app/feature-client-portal": [
-        "libs/feature-client-portal/src/index.ts"
-      ],
-      "@app/feature-customer": ["libs/feature-customer/src/index.ts"],
+      "@app/feature-client": ["libs/feature-client/src/index.ts"],
+      "@app/feature-provider": ["libs/feature-provider/src/index.ts"],
       "@app/shared/api": ["libs/shared/api/src/index.ts"],
       "@app/shared/auth": ["libs/shared/auth/src/index.ts"],
       "@app/shared/navigation": ["libs/shared/navigation/src/index.ts"],

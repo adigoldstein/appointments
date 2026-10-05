@@ -77,9 +77,14 @@ const CANCELLATION_WINDOW_ERROR_MESSAGES: Readonly<Record<string, string>> = {
 const GENERIC_SUBMIT_ERROR = 'אירעה שגיאה. נסו שוב מאוחר יותר.';
 
 @Component({
-  selector: 'feature-customer-provider-settings-page',
+  selector: 'feature-provider-settings-page',
   standalone: true,
-  imports: [ReactiveFormsModule, UiButtonComponent, UiCardComponent, UiInputComponent],
+  imports: [
+    ReactiveFormsModule,
+    UiButtonComponent,
+    UiCardComponent,
+    UiInputComponent,
+  ],
   templateUrl: './provider-settings.page.html',
   styleUrl: './provider-settings.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -104,11 +109,19 @@ export class ProviderSettingsPageComponent implements OnInit {
   readonly form = new FormGroup({
     businessName: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(150)],
+      validators: [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(150),
+      ],
     }),
     clientLabel: new FormControl('לקוח', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(50)],
+      validators: [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+      ],
     }),
     cancellationWindow: new FormControl('24:00', {
       nonNullable: true,
@@ -132,7 +145,9 @@ export class ProviderSettingsPageComponent implements OnInit {
           this.form.patchValue({
             businessName: settings.businessName,
             clientLabel: settings.clientLabel,
-            cancellationWindow: formatHoursMinutes(settings.cancellationWindowMinutes),
+            cancellationWindow: formatHoursMinutes(
+              settings.cancellationWindowMinutes,
+            ),
           });
           this.selectedDurations.set(
             [...settings.allowedDurationsMinutes].sort((a, b) => a - b),
@@ -147,9 +162,12 @@ export class ProviderSettingsPageComponent implements OnInit {
   }
 
   /** Bridges the form's RxJS streams into a signal so every error below is a computed(), with no manual change detection. */
-  private readonly formTick = toSignal(merge(this.form.statusChanges, this.form.valueChanges), {
-    initialValue: null,
-  });
+  private readonly formTick = toSignal(
+    merge(this.form.statusChanges, this.form.valueChanges),
+    {
+      initialValue: null,
+    },
+  );
 
   protected readonly businessNameError = computed(() => {
     this.formTick();
@@ -216,14 +234,18 @@ export class ProviderSettingsPageComponent implements OnInit {
       return;
     }
 
-    this.selectedDurations.update((current) => [...current, minutes].sort((a, b) => a - b));
+    this.selectedDurations.update((current) =>
+      [...current, minutes].sort((a, b) => a - b),
+    );
     this.durationInputControl.setValue('');
     this.durationInputError.set(null);
     this.durationsTouched.set(true);
   }
 
   protected removeDuration(minutes: number): void {
-    this.selectedDurations.update((current) => current.filter((value) => value !== minutes));
+    this.selectedDurations.update((current) =>
+      current.filter((value) => value !== minutes),
+    );
   }
 
   protected onSubmit(): void {
@@ -231,7 +253,11 @@ export class ProviderSettingsPageComponent implements OnInit {
     this.durationsTouched.set(true);
     this.form.markAllAsTouched();
 
-    if (this.form.invalid || this.selectedDurations().length === 0 || this.submitting()) {
+    if (
+      this.form.invalid ||
+      this.selectedDurations().length === 0 ||
+      this.submitting()
+    ) {
       return;
     }
 
@@ -239,8 +265,10 @@ export class ProviderSettingsPageComponent implements OnInit {
     this.submitSuccess.set(false);
     this.submitting.set(true);
 
-    const { businessName, clientLabel, cancellationWindow } = this.form.getRawValue();
-    const cancellationWindowMinutes = parseHoursMinutes(cancellationWindow) ?? 0;
+    const { businessName, clientLabel, cancellationWindow } =
+      this.form.getRawValue();
+    const cancellationWindowMinutes =
+      parseHoursMinutes(cancellationWindow) ?? 0;
     const payload = {
       businessName,
       clientLabel,
@@ -257,7 +285,10 @@ export class ProviderSettingsPageComponent implements OnInit {
         const session = this.authStorage.session();
 
         if (session) {
-          this.authStorage.updateUser({ ...session.user, hasCompletedOnboarding: true });
+          this.authStorage.updateUser({
+            ...session.user,
+            hasCompletedOnboarding: true,
+          });
         }
 
         if (wasEditing) {
@@ -266,7 +297,7 @@ export class ProviderSettingsPageComponent implements OnInit {
           return;
         }
 
-        this.router.navigateByUrl('/customer');
+        this.router.navigateByUrl('/provider');
       },
       error: (error: HttpErrorResponse) => {
         this.submitting.set(false);
@@ -280,6 +311,6 @@ export class ProviderSettingsPageComponent implements OnInit {
   }
 
   protected onCancel(): void {
-    this.router.navigateByUrl('/customer');
+    this.router.navigateByUrl('/provider');
   }
 }

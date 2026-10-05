@@ -42,8 +42,8 @@ Libraries are consumed via **`tsconfig.base.json` paths** (prefix `@app/...`).
 | **`@app/ui/*`** | Presentational UI: `button`, `card`, `input`, `modal`, `date-picker` (some with **Storybook** stories). |
 | **`@app/feature-auth`** | Auth-related Angular routes/pages (feature slice). |
 | **`@app/feature-admin`** | Admin-area routes/pages. |
-| **`@app/feature-customer`** | Customer-area routes/pages. |
-| **`@app/feature-client-portal`** | Client-portal routes/pages. |
+| **`@app/feature-provider`** | Provider-area routes/pages. |
+| **`@app/feature-client`** | Client-area routes/pages. |
 
 **Methodology:** **Feature libraries** for vertical slices (auth, admin, customer, client portal) plus **shared** and **UI** layers for reuse and clearer ownership boundaries.
 

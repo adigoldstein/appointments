@@ -7,7 +7,10 @@ export const onboardingGuard: CanActivateFn = () => {
   const authStorage = inject(AuthStorageService);
   const router = inject(Router);
 
-  const hasCompletedOnboarding = authStorage.session()?.user.hasCompletedOnboarding;
+  const hasCompletedOnboarding =
+    authStorage.session()?.user.hasCompletedOnboarding;
 
-  return hasCompletedOnboarding ? true : router.createUrlTree(['/customer/settings']);
+  return hasCompletedOnboarding
+    ? true
+    : router.createUrlTree(['/provider/settings']);
 };

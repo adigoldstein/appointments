@@ -2,13 +2,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UiCardComponent } from '@app/ui/card';
 
 @Component({
-  selector: 'feature-customer-overview-page',
+  selector: 'feature-provider-overview-page',
   standalone: true,
   imports: [UiCardComponent],
   template: `
-    <ui-card title="Customer feature" subtitle="Customer-specific pages and logic live here.">
+    <ui-card
+      title="Provider feature"
+      subtitle="Provider-specific pages and logic live here."
+    >
       <p class="feature-copy">
-        This boundary is ready for customer appointment search, booking, and profile flows.
+        This boundary is ready for provider slot management, clients, and
+        profile flows.
       </p>
     </ui-card>
   `,
@@ -21,4 +25,4 @@ import { UiCardComponent } from '@app/ui/card';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerOverviewPageComponent {}
+export class ProviderOverviewPageComponent {}
