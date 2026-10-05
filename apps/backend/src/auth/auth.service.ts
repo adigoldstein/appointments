@@ -7,13 +7,13 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Role } from '@app/shared/types';
-import type { AuthUser, ClientListItem, PaginatedUsersResponse } from '@app/shared/types';
+import type { AuthUser, PaginatedUsersResponse, UserListItem } from '@app/shared/types';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import type { StringValue } from 'ms';
-import { FindOptionsWhere, IsNull, Repository } from 'typeorm';
+import { Brackets, IsNull, Repository } from 'typeorm';
 import { ENV_KEYS, EnvironmentVariables } from '../config/env.constants';
 import { ProviderSettingsService } from '../provider-settings/provider-settings.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,6 +26,7 @@ import {
   getIsraelLocalitiesMap,
   getIsraelLocalityById,
 } from './reference/israel-localities.loader';
+import { isAccountActive } from './utils/account-status.util';
 import { parseIsraeliMobile } from './utils/israeli-mobile.util';
 import {
   AuthenticatedUserPayload,
@@ -63,25 +64,30 @@ export class AuthService {
     createUserDto: CreateUserDto,
     actor: AuthenticatedUserPayload,
   ): Promise<AuthUser> {
-    // this.assertCanCreateRole(actor.role, createUserDto.role);
+    this.assertCanCreateRole(actor.role, createUserDto.role);
 
-    // const existingUser = await this.usersRepository.findOne({
-    //   where: { email: createUserDto.email },
-    // });
+    const existingUser = await this.usersRepository.findOne({
+      where: { email: createUserDto.email },
+    });
 
-    // if (existingUser) {
-    //   if (existingUser.deactivatedAt) {
-    //     throw new ConflictException({
-    //       statusCode: 409,
-    //       error: 'Conflict',
-    //       message: 'A deactivated account with this email already exists',
-    //       reactivatable: true,
-    //       existingUserId: existingUser.id,
-    //     });
-    //   }
+    if (existingUser) {
+      // Only reveal the deactivated account (and its id) to someone who may reactivate it —
+      // otherwise a Provider would learn about another Provider's Client (ADR-0002).
+      if (
+        existingUser.deactivatedAt &&
+        this.canToggleDeactivation(actor, existingUser)
+      ) {
+        throw new ConflictException({
+          statusCode: 409,
+          error: 'Conflict',
+          message: 'A deactivated account with this email already exists',
+          reactivatable: true,
+          existingUserId: existingUser.id,
+        });
+      }
 
-    //   throw new ConflictException('User with this email already exists');
-    // }
+      throw new ConflictException('User with this email already exists');
+    }
 
     const passwordHash = await bcrypt.hash(
       createUserDto.password,
@@ -113,6 +119,7 @@ export class AuthService {
   async login(loginDto: LoginDto): Promise<LoginResponse> {
     const user = await this.usersRepository.findOne({
       where: { email: loginDto.email },
+      relations: { provider: true },
     });
 
     if (!user) {
@@ -128,7 +135,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    if (user.deactivatedAt) {
+    if (!isAccountActive(user)) {
       throw new UnauthorizedException('Account is deactivated');
     }
 
@@ -189,21 +196,39 @@ export class AuthService {
   ): Promise<PaginatedUsersResponse> {
     const page = query.page ?? 1;
     const limit = query.limit ?? 20;
+    const { role, providerId } = await this.resolveListUsersScope(query, actor);
 
-    const where: FindOptionsWhere<User> =
-      actor.role === Role.PROVIDER
-        ? { role: Role.CLIENT, providerId: actor.userId }
-        : { role: Role.CLIENT };
+    const usersQuery = this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.role = :role', { role });
 
-    const [users, total] = await this.usersRepository.findAndCount({
-      where,
-      order: { createdAt: 'DESC' },
-      skip: (page - 1) * limit,
-      take: limit,
-    });
+    if (providerId) {
+      usersQuery.andWhere('user.providerId = :providerId', { providerId });
+    }
+
+    if (query.search) {
+      // Escape LIKE wildcards so the search text is matched literally.
+      const pattern = `%${query.search.replace(/[\\%_]/g, '\\$&')}%`;
+
+      usersQuery.andWhere(
+        new Brackets((searchQuery) => {
+          searchQuery
+            .where('user.firstName ILIKE :pattern', { pattern })
+            .orWhere('user.lastName ILIKE :pattern')
+            .orWhere("CONCAT(user.firstName, ' ', user.lastName) ILIKE :pattern")
+            .orWhere('user.email ILIKE :pattern');
+        }),
+      );
+    }
+
+    const [users, total] = await usersQuery
+      .orderBy('user.createdAt', 'DESC')
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getManyAndCount();
 
     return {
-      items: users.map((user) => this.toClientListItem(user)),
+      items: users.map((user) => this.toUserListItem(user)),
       page,
       limit,
       total,
@@ -281,6 +306,56 @@ export class AuthService {
     return await this.toAuthUser(savedUser);
   }
 
+  /** Providers always list their own Clients; only an Admin may choose the role or Provider. */
+  private async resolveListUsersScope(
+    query: ListUsersQueryDto,
+    actor: AuthenticatedUserPayload,
+  ): Promise<{ role: Role; providerId: string | null }> {
+    if (actor.role === Role.PROVIDER) {
+      if (query.role !== undefined || query.providerId !== undefined) {
+        throw new ForbiddenException(
+          'Only an admin can filter users by role or provider',
+        );
+      }
+
+      return { role: Role.CLIENT, providerId: actor.userId };
+    }
+
+    const role = query.role ?? Role.CLIENT;
+
+    if (query.providerId === undefined) {
+      return { role, providerId: null };
+    }
+
+    if (role !== Role.CLIENT) {
+      throw new BadRequestException(
+        'providerId can only be used when listing clients',
+      );
+    }
+
+    await this.findProviderOrThrow(query.providerId);
+
+    return { role, providerId: query.providerId };
+  }
+
+  private async findProviderOrThrow(providerId: string): Promise<User> {
+    const providerUser = await this.usersRepository.findOne({
+      where: { id: providerId },
+    });
+
+    if (!providerUser) {
+      throw new BadRequestException('providerId does not refer to an existing user');
+    }
+
+    if (providerUser.role !== Role.PROVIDER) {
+      throw new BadRequestException(
+        'providerId must refer to a user with role PROVIDER',
+      );
+    }
+
+    return providerUser;
+  }
+
   private assertCanToggleDeactivation(
     actor: AuthenticatedUserPayload,
     targetUser: User,
@@ -291,20 +366,29 @@ export class AuthService {
       );
     }
 
-    if (actor.role === Role.ADMIN) {
-      return;
+    if (!this.canToggleDeactivation(actor, targetUser)) {
+      throw new ForbiddenException(
+        "You cannot change this account's active status",
+      );
+    }
+  }
+
+  private canToggleDeactivation(
+    actor: AuthenticatedUserPayload,
+    targetUser: User,
+  ): boolean {
+    if (actor.userId === targetUser.id) {
+      return false;
     }
 
-    if (
+    if (actor.role === Role.ADMIN) {
+      return true;
+    }
+
+    return (
       actor.role === Role.PROVIDER &&
       targetUser.role === Role.CLIENT &&
       targetUser.providerId === actor.userId
-    ) {
-      return;
-    }
-
-    throw new ForbiddenException(
-      "You cannot change this account's active status",
     );
   }
 
@@ -386,20 +470,7 @@ export class AuthService {
         );
       }
 
-      const providerUser = await this.usersRepository.findOne({
-        where: { id: dto.providerId },
-      });
-
-      if (!providerUser) {
-        throw new BadRequestException('providerId does not refer to an existing user');
-      }
-
-      // if the providerId does not refer to a user with role PROVIDER, we throw an error
-      if (providerUser.role !== Role.PROVIDER) {
-        throw new BadRequestException(
-          'providerId must refer to a user with role PROVIDER',
-        );
-      }
+      await this.findProviderOrThrow(dto.providerId);
 
       return dto.providerId;
     }
@@ -438,7 +509,7 @@ export class AuthService {
     };
   }
 
-  private toClientListItem(user: User): ClientListItem {
+  private toUserListItem(user: User): UserListItem {
     return {
       id: user.id,
       email: user.email,
@@ -467,13 +538,14 @@ export class AuthService {
 
     const user = await this.usersRepository.findOne({
       where: { id: payload.sub },
+      relations: { provider: true },
     });
 
     if (!user) {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    if (user.deactivatedAt) {
+    if (!isAccountActive(user)) {
       throw new UnauthorizedException('Account is deactivated');
     }
 

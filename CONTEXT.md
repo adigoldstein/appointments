@@ -48,5 +48,15 @@ _Avoid_: Preferences, config
 ## Account Lifecycle
 
 **Deactivation**:
-Soft-archiving a Provider or Client (`deactivatedAt` set) instead of deleting them. A deactivated user cannot log in at all, but none of their data is touched or hidden from other people's records — reactivating restores them exactly as they were.
+Soft-archiving a Provider or Client (`deactivatedAt` set) instead of deleting them. A deactivated user cannot log in at all, but none of their data is touched or hidden from other people's records — reactivating restores them exactly as they were. Deactivating a Provider also blocks all of their Clients from logging in (derived from the Provider's status, not written onto the Client rows).
 _Avoid_: Delete, disable, suspend, archive
+
+## Acting on behalf
+
+**Acting on behalf**:
+A higher role using a lower role's pages for a selected target while staying logged in as themselves — an Admin acting for a Provider (and, through them, one of that Provider's Clients), or a Provider acting for one of their own Clients. Rules and audit always use the real actor. See ADR-0004.
+_Avoid_: Impersonate, log in as, switch user
+
+**Acting context**:
+The Provider and/or Client currently selected by the actor, which reusable pages operate on.
+_Avoid_: Session, current user

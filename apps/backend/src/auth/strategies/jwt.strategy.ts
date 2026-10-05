@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { ENV_KEYS, EnvironmentVariables } from '../../config/env.constants';
 import { User } from '../entities/user.entity';
 import { AuthenticatedUserPayload, JwtPayload } from '../interfaces';
+import { isAccountActive } from '../utils/account-status.util';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -23,9 +24,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload): Promise<AuthenticatedUserPayload> {
-    const user = await this.usersRepository.findOne({ where: { id: payload.sub } });
+    const user = await this.usersRepository.findOne({
+      where: { id: payload.sub },
+      relations: { provider: true },
+    });
 
-    if (!user || user.deactivatedAt) {
+    if (!user || !isAccountActive(user)) {
       throw new UnauthorizedException('Account is deactivated');
     }
 

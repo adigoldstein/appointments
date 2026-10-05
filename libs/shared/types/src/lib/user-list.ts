@@ -1,7 +1,7 @@
 import { IsraelLocality } from './israel-locality';
 
-/** Row shape for a Provider's (or Admin's) client-listing endpoint. */
-export interface ClientListItem {
+/** Row shape for the user-listing endpoint (a Provider's Clients, or Admin's Provider/Client lists). */
+export interface UserListItem {
   id: string;
   email: string;
   firstName: string;
@@ -13,7 +13,7 @@ export interface ClientListItem {
 }
 
 export interface PaginatedUsersResponse {
-  items: ClientListItem[];
+  items: UserListItem[];
   page: number;
   limit: number;
   total: number;
