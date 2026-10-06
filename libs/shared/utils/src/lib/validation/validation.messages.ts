@@ -1,47 +1,66 @@
-import { ValidationErrors } from '@angular/forms';
-import {
-  AUTH_PASSWORD_MAX_LENGTH,
-  AUTH_PASSWORD_MIN_LENGTH,
-} from './validation.constants';
+import { Signal, computed } from '@angular/core';
+import { FormGroup, ValidationErrors } from '@angular/forms';
+import { formChangeTick } from '../form-change-tick';
 
-export const EMAIL_FIELD_ERROR_MESSAGES: Readonly<Record<string, string>> = {
-  required: 'שדה האימייל הוא שדה חובה.',
+/** A message for one validation rule; a function gets that rule's error details (e.g. `requiredLength`). */
+export type FieldErrorMessage = string | ((details: Readonly<Record<string, unknown>>) => string);
+export type FieldErrorMessages = Readonly<Record<string, FieldErrorMessage>>;
+
+/**
+ * One Hebrew message per validation rule, shared by every form (ADR-0006). Keyed by the
+ * validator's error key — not by field — so "required" reads the same everywhere and lengths
+ * come from the error itself.
+ */
+export const DEFAULT_FIELD_ERROR_MESSAGES: FieldErrorMessages = {
+  required: 'שדה חובה.',
+  minlength: (details) => `יש להזין לפחות ${details['requiredLength']} תווים.`,
+  maxlength: (details) => `אפשר להזין לכל היותר ${details['requiredLength']} תווים.`,
   email: 'יש להזין כתובת אימייל תקינה.',
+  pattern: 'הערך שהוזן אינו תקין.',
+  israeliMobile: 'יש להזין מספר נייד ישראלי, לדוגמה 050-1234567.',
 };
 
-export const AUTH_PASSWORD_ERROR_MESSAGES: Readonly<Record<string, string>> = {
-  required: 'שדה הסיסמה הוא שדה חובה.',
-  minlength: `הסיסמה חייבת להכיל לפחות ${AUTH_PASSWORD_MIN_LENGTH} תווים.`,
-  maxlength: `הסיסמה יכולה להכיל לכל היותר ${AUTH_PASSWORD_MAX_LENGTH} תווים.`,
-  pattern: 'הסיסמה חייבת לכלול לפחות אות אחת באנגלית וספרה אחת, ויכולה להכיל רק אותיות באנגלית, ספרות וסימנים (ללא רווחים).',
+const FALLBACK_MESSAGE = 'ערך לא תקין.';
+
+/** Override for password fields: the generic `pattern` message wouldn't say what's wrong. */
+export const PASSWORD_FIELD_ERROR_MESSAGES: FieldErrorMessages = {
+  pattern:
+    'הסיסמה חייבת לכלול לפחות אות אחת באנגלית וספרה אחת, ויכולה להכיל רק אותיות באנגלית, ספרות וסימנים (ללא רווחים).',
 };
 
-export function resolveFieldErrorMessage(
+/** The message for a control's first failing rule: the field's override if any, else the default. */
+export function fieldErrorMessage(
   errors: ValidationErrors | null | undefined,
-  messages: Readonly<Record<string, string>>,
-  fallback = 'ערך לא תקין.',
+  overrides: FieldErrorMessages = {},
 ): string | null {
   if (!errors) {
     return null;
   }
 
-  for (const key of Object.keys(errors)) {
-    if (messages[key]) {
-      return messages[key];
-    }
-  }
+  const [rule, details] = Object.entries(errors)[0];
+  const message = overrides[rule] ?? DEFAULT_FIELD_ERROR_MESSAGES[rule] ?? FALLBACK_MESSAGE;
 
-  return fallback;
+  return typeof message === 'function' ? message(details as Record<string, unknown>) : message;
 }
 
-export function getSubmittedFieldError(
-  submitted: boolean,
-  errors: ValidationErrors | null | undefined,
-  messages: Readonly<Record<string, string>>,
-): string | null {
-  if (!submitted) {
-    return null;
-  }
+/**
+ * Error signals for a form's fields, shown only after a submit attempt:
+ *
+ *   private readonly errors = fieldErrors(this.form, this.submitted);
+ *   protected readonly emailError = this.errors('email');
+ *   protected readonly passwordError = this.errors('password', PASSWORD_FIELD_ERROR_MESSAGES);
+ *
+ * Must be called in an injection context (a field initializer or constructor).
+ */
+export function fieldErrors<T extends FormGroup>(form: T, submitted: Signal<boolean>) {
+  const formChanged = formChangeTick(form);
 
-  return resolveFieldErrorMessage(errors, messages);
+  return (
+    name: keyof T['controls'] & string,
+    overrides?: FieldErrorMessages,
+  ): Signal<string | null> =>
+    computed(() => {
+      formChanged();
+      return submitted() ? fieldErrorMessage(form.controls[name].errors, overrides) : null;
+    });
 }

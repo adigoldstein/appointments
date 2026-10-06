@@ -20,7 +20,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActingContextStore } from '@app/shared/acting-context';
-import { formChangeTick, getSubmittedFieldError } from '@app/shared/utils';
+import { FieldErrorMessages, fieldErrors } from '@app/shared/utils';
 import { SessionStore } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
@@ -57,20 +57,8 @@ function maxHoursMinutesValidator(maxMinutes: number): ValidatorFn {
   };
 }
 
-const BUSINESS_NAME_ERROR_MESSAGES: Readonly<Record<string, string>> = {
-  required: 'שם העסק הוא שדה חובה.',
-  minlength: 'שם העסק חייב להכיל לפחות 2 תווים.',
-  maxlength: 'שם העסק יכול להכיל לכל היותר 150 תווים.',
-};
-
-const CLIENT_LABEL_ERROR_MESSAGES: Readonly<Record<string, string>> = {
-  required: 'שדה חובה.',
-  minlength: 'הכינוי חייב להכיל לפחות 2 תווים.',
-  maxlength: 'הכינוי יכול להכיל לכל היותר 50 תווים.',
-};
-
-const CANCELLATION_WINDOW_ERROR_MESSAGES: Readonly<Record<string, string>> = {
-  required: 'שדה חובה.',
+/** Only the rules whose shared default wouldn't explain the HH:MM format. */
+const CANCELLATION_WINDOW_ERROR_MESSAGES: FieldErrorMessages = {
   pattern: 'יש להזין בפורמט שעות:דקות, לדוגמה 24:00.',
   max: 'הערך לא יכול לעלות על 168:00 (7 ימים).',
 };
@@ -171,35 +159,13 @@ export class ProviderSettingsPageComponent implements OnInit {
       });
   }
 
-  /** Makes every error below a computed() that follows the form, with no manual change detection. */
-  private readonly formTick = formChangeTick(this.form);
-
-  protected readonly businessNameError = computed(() => {
-    this.formTick();
-    return getSubmittedFieldError(
-      this.submitted(),
-      this.form.controls.businessName.errors,
-      BUSINESS_NAME_ERROR_MESSAGES,
-    );
-  });
-
-  protected readonly clientLabelError = computed(() => {
-    this.formTick();
-    return getSubmittedFieldError(
-      this.submitted(),
-      this.form.controls.clientLabel.errors,
-      CLIENT_LABEL_ERROR_MESSAGES,
-    );
-  });
-
-  protected readonly cancellationWindowError = computed(() => {
-    this.formTick();
-    return getSubmittedFieldError(
-      this.submitted(),
-      this.form.controls.cancellationWindow.errors,
-      CANCELLATION_WINDOW_ERROR_MESSAGES,
-    );
-  });
+  private readonly errors = fieldErrors(this.form, this.submitted);
+  protected readonly businessNameError = this.errors('businessName');
+  protected readonly clientLabelError = this.errors('clientLabel');
+  protected readonly cancellationWindowError = this.errors(
+    'cancellationWindow',
+    CANCELLATION_WINDOW_ERROR_MESSAGES,
+  );
 
   protected readonly durationsError = computed(() => {
     const inputError = this.durationInputError();

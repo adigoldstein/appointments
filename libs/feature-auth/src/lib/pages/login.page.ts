@@ -1,23 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  OnInit,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { merge } from 'rxjs';
 import {
-  AUTH_PASSWORD_ERROR_MESSAGES,
-  EMAIL_FIELD_ERROR_MESSAGES,
+  PASSWORD_FIELD_ERROR_MESSAGES,
   authPasswordValidators,
   emailFieldValidators,
-  getSubmittedFieldError,
+  fieldErrors,
 } from '@app/shared/utils';
 import { SessionStore, homeRouteForRole } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
@@ -44,14 +34,13 @@ const GENERIC_LOGIN_ERROR = 'אירעה שגיאה. נסו שוב מאוחר י�
   styleUrl: './login.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPage implements OnInit {
-  private readonly cdr = inject(ChangeDetectorRef);
+export class LoginPage {
   private readonly destroyRef = inject(DestroyRef);
   private readonly authService = inject(AuthService);
   private readonly sessionStore = inject(SessionStore);
   private readonly router = inject(Router);
 
-  private submitted = false;
+  private readonly submitted = signal(false);
 
   readonly submitting = signal(false);
   readonly loginError = signal<string | null>(null);
@@ -67,30 +56,12 @@ export class LoginPage implements OnInit {
     }),
   });
 
-  ngOnInit(): void {
-    merge(this.form.statusChanges, this.form.valueChanges)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.cdr.markForCheck());
-  }
-
-  emailError(): string | null {
-    return getSubmittedFieldError(
-      this.submitted,
-      this.form.controls.email.errors,
-      EMAIL_FIELD_ERROR_MESSAGES,
-    );
-  }
-
-  passwordError(): string | null {
-    return getSubmittedFieldError(
-      this.submitted,
-      this.form.controls.password.errors,
-      AUTH_PASSWORD_ERROR_MESSAGES,
-    );
-  }
+  private readonly errors = fieldErrors(this.form, this.submitted);
+  readonly emailError = this.errors('email');
+  readonly passwordError = this.errors('password', PASSWORD_FIELD_ERROR_MESSAGES);
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
     this.form.markAllAsTouched();
 
     if (this.form.invalid || this.submitting()) {

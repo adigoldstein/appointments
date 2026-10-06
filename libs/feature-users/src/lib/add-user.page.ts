@@ -21,13 +21,7 @@ import { ActingContextStore } from '@app/shared/acting-context';
 import { LocalitiesApiService } from '@app/shared/api';
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN, Role } from '@app/shared/types';
 import { CreateUserPayload, UsersApiService } from '@app/shared/users';
-import {
-  AUTH_PASSWORD_ERROR_MESSAGES,
-  EMAIL_FIELD_ERROR_MESSAGES,
-  debouncedSearch,
-  formChangeTick,
-  getSubmittedFieldError,
-} from '@app/shared/utils';
+import { PASSWORD_FIELD_ERROR_MESSAGES, debouncedSearch, fieldErrors } from '@app/shared/utils';
 import { UiAutocompleteComponent, UiAutocompleteOption } from '@app/ui/autocomplete';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
@@ -42,16 +36,6 @@ import {
 export type AddUserMode = 'client' | 'admin';
 
 type NewUserRole = Role.PROVIDER | Role.CLIENT;
-
-const NAME_ERROR_MESSAGES: Readonly<Record<string, string>> = {
-  required: 'שדה חובה.',
-  minlength: 'יש להזין לפחות 2 תווים.',
-  maxlength: 'אפשר להזין לכל היותר 100 תווים.',
-};
-
-const PHONE_ERROR_MESSAGES: Readonly<Record<string, string>> = {
-  israeliMobile: 'יש להזין מספר נייד ישראלי, לדוגמה 050-1234567.',
-};
 
 /** Optional; same rule as the backend: `05XXXXXXXX`, spaces and dashes allowed between digits. */
 function israeliMobileValidator(control: AbstractControl<string>): ValidationErrors | null {
@@ -187,14 +171,12 @@ export class AddUserPageComponent {
       : null;
   });
 
-  /** Makes every error below a computed() that follows the form. */
-  private readonly formTick = formChangeTick(this.form);
-
-  protected readonly firstNameError = this.fieldError('firstName', NAME_ERROR_MESSAGES);
-  protected readonly lastNameError = this.fieldError('lastName', NAME_ERROR_MESSAGES);
-  protected readonly emailError = this.fieldError('email', EMAIL_FIELD_ERROR_MESSAGES);
-  protected readonly passwordError = this.fieldError('password', AUTH_PASSWORD_ERROR_MESSAGES);
-  protected readonly phoneError = this.fieldError('phone', PHONE_ERROR_MESSAGES);
+  private readonly errors = fieldErrors(this.form, this.submitted);
+  protected readonly firstNameError = this.errors('firstName');
+  protected readonly lastNameError = this.errors('lastName');
+  protected readonly emailError = this.errors('email');
+  protected readonly passwordError = this.errors('password', PASSWORD_FIELD_ERROR_MESSAGES);
+  protected readonly phoneError = this.errors('phone');
 
   protected onSubmit(): void {
     this.submitted.set(true);
@@ -272,15 +254,5 @@ export class AddUserPageComponent {
     this.form.reset();
     this.submitted.set(false);
     this.cityQuery.set('');
-  }
-
-  private fieldError(
-    name: 'firstName' | 'lastName' | 'email' | 'password' | 'phone',
-    messages: Readonly<Record<string, string>>,
-  ) {
-    return computed(() => {
-      this.formTick();
-      return getSubmittedFieldError(this.submitted(), this.form.controls[name].errors, messages);
-    });
   }
 }
