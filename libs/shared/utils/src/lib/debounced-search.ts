@@ -1,11 +1,14 @@
 import { Signal, computed, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import {
+  EMPTY,
   Observable,
   catchError,
   debounceTime,
   distinctUntilChanged,
   finalize,
+  map,
+  merge,
   of,
   switchMap,
 } from 'rxjs';
@@ -16,6 +19,11 @@ export interface DebouncedSearchOptions {
   debounceMs?: number;
   /** Re-runs the search when this changes too, even if the text didn't (e.g. the selected Provider). */
   dependsOn?: () => unknown;
+  /**
+   * Re-runs the current search immediately on every emission — no debounce, no "same text" skip.
+   * Use it to refresh after the underlying data changed (e.g. `UsersApiService.usersChanged$`).
+   */
+  refresh?: Observable<unknown>;
 }
 
 export interface DebouncedSearch<T> {
@@ -38,13 +46,17 @@ export function debouncedSearch<T>(
   const loading = signal(false);
   const request = computed(() => ({ text: query().trim(), dependency: options.dependsOn?.() }));
 
+  const typed$ = toObservable(request).pipe(
+    debounceTime(options.debounceMs ?? DEFAULT_DEBOUNCE_MS),
+    distinctUntilChanged(
+      (previous, current) =>
+        previous.text === current.text && previous.dependency === current.dependency,
+    ),
+  );
+  const refreshed$ = options.refresh ? options.refresh.pipe(map(() => request())) : EMPTY;
+
   const results = toSignal(
-    toObservable(request).pipe(
-      debounceTime(options.debounceMs ?? DEFAULT_DEBOUNCE_MS),
-      distinctUntilChanged(
-        (previous, current) =>
-          previous.text === current.text && previous.dependency === current.dependency,
-      ),
+    merge(typed$, refreshed$).pipe(
       switchMap(({ text }) => {
         const request$ = search(text);
 

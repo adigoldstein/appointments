@@ -98,6 +98,13 @@ export class UiAutocompleteComponent implements ControlValueAccessor {
     this.open();
   }
 
+  /** Reopens the list when the field already has focus (e.g. after Escape closed it). */
+  protected onClick(): void {
+    if (!this.isOpen()) {
+      this.open();
+    }
+  }
+
   protected onBlur(): void {
     this.isEditing.set(false);
     this.close();

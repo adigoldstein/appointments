@@ -80,7 +80,7 @@ export class ContextBarComponent {
             .list({ role: Role.PROVIDER, search, limit: OPTION_LIMIT })
             .pipe(map((response) => response.items.map(toOption)))
         : null,
-    { dependsOn: this.isAdmin },
+    { dependsOn: this.isAdmin, refresh: this.usersApi.usersChanged$ },
   );
 
   protected readonly clientSearch = debouncedSearch(
@@ -95,8 +95,9 @@ export class ContextBarComponent {
             })
             .pipe(map((response) => response.items.map(toOption)))
         : null,
-    // Switching Provider re-runs the same search text against the new Provider's Clients.
-    { dependsOn: this.actingContext.providerId },
+    // Switching Provider re-runs the same search text against the new Provider's Clients;
+    // adding/(de)activating a user refreshes the list right away.
+    { dependsOn: this.actingContext.providerId, refresh: this.usersApi.usersChanged$ },
   );
 
   protected onProviderChange(option: UiAutocompleteOption | null): void {

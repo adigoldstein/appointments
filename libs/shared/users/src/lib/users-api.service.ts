@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
 import { AuthUser, PaginatedUsersResponse, Role } from '@app/shared/types';
 
@@ -37,6 +37,14 @@ export interface ReactivatableConflict {
 export class UsersApiService {
   private readonly http = inject(HttpClient);
   private readonly apiBaseUrl = inject(API_BASE_URL);
+  private readonly usersChanged = new Subject<void>();
+
+  /**
+   * Emits after every successful change to users made through this service, so lists showing
+   * users can refresh (e.g. `debouncedSearch(…, { refresh: usersApi.usersChanged$ })`).
+   * Every new mutating method must pipe through `announceChange()`.
+   */
+  readonly usersChanged$ = this.usersChanged.asObservable();
 
   list(params: ListUsersParams = {}): Observable<PaginatedUsersResponse> {
     let httpParams = new HttpParams();
@@ -57,12 +65,18 @@ export class UsersApiService {
   }
 
   create(payload: CreateUserPayload): Observable<AuthUser> {
-    return this.http.post<AuthUser>(`${this.apiBaseUrl}/auth/create-user`, payload);
+    return this.http
+      .post<AuthUser>(`${this.apiBaseUrl}/auth/create-user`, payload)
+      .pipe(this.announceChange());
   }
 
   setDeactivated(userId: string, deactivate: boolean): Observable<AuthUser> {
-    return this.http.patch<AuthUser>(`${this.apiBaseUrl}/auth/users/${userId}`, {
-      deactivate,
-    });
+    return this.http
+      .patch<AuthUser>(`${this.apiBaseUrl}/auth/users/${userId}`, { deactivate })
+      .pipe(this.announceChange());
+  }
+
+  private announceChange<T>() {
+    return tap<T>(() => this.usersChanged.next());
   }
 }
