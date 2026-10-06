@@ -44,7 +44,7 @@ npx nx graph               # visualize the project dependency graph
 - `apps/appointments` — an older/legacy Angular app scaffold; not the active frontend.
 - `apps/backend` — NestJS 11 REST API. Webpack build via `nx:run-commands` (not the Nx webpack executor directly).
 - `apps/backend-e2e` — e2e scaffold, currently empty.
-- `libs/feature-*` (`feature-auth`, `feature-admin`, `feature-provider`, `feature-client`) — vertical-slice Angular route/page libraries consumed by `apps/frontend`.
+- `libs/feature-*` (`feature-auth`, `feature-admin`, `feature-provider`, `feature-client`, `feature-users`) — vertical-slice Angular route/page libraries consumed by `apps/frontend`.
 - `libs/ui/*` (`button`, `card`, `input`, `modal`, `date-picker`) — standalone, presentational Angular components with Storybook stories. Each component's template/styles live in separate `.html`/`.scss` files alongside the `.component.ts` (not inline).
 - `libs/design-system` — global SCSS: `settings/` (tokens: breakpoints, sizes, opacity, motion, layers), `tools/` (mixins), `base/` (reset). Imported into `apps/frontend/src/styles.scss`.
 - `libs/shared/types`, `libs/shared/utils`, `libs/shared/api` — cross-cutting code shared between frontend and backend contexts (e.g. `Role`/`UserRole` enum, `israel-locality` types, API base URL token).

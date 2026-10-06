@@ -27,8 +27,10 @@
   width: 100%;
 }
 
+// Physical side on purpose: the toggle sits at the RTL field's end (left), while a password
+// input itself is LTR (ADR-0006), where "inline-end" would mean the right.
 .ui-input__control--with-toggle {
-  padding-inline-end: var(--space-10);
+  padding-left: var(--space-10);
 }
 
 .ui-input__control:focus {

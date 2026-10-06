@@ -11,6 +11,8 @@ const providerArea = () =>
   import('@app/feature-provider').then((m) => m.featureProviderRoutes);
 const clientArea = () =>
   import('@app/feature-client').then((m) => m.featureClientRoutes);
+const addUserPage = () =>
+  import('@app/feature-users').then((m) => m.featureUsersRoutes);
 
 export const appRoutes: Route[] = [
   {
@@ -33,6 +35,17 @@ export const appRoutes: Route[] = [
         data: { role: Role.ADMIN },
         children: [
           {
+            path: 'users/new',
+            data: { mode: 'admin' },
+            loadChildren: addUserPage,
+          },
+          {
+            path: 'provider/clients/new',
+            canActivate: [requireProviderGuard],
+            data: { mode: 'client' },
+            loadChildren: addUserPage,
+          },
+          {
             path: 'provider',
             canActivate: [requireProviderGuard],
             loadChildren: providerArea,
@@ -54,6 +67,11 @@ export const appRoutes: Route[] = [
         canActivate: [authGuard],
         data: { role: Role.PROVIDER },
         children: [
+          {
+            path: 'clients/new',
+            data: { mode: 'client' },
+            loadChildren: addUserPage,
+          },
           {
             path: 'client',
             canActivate: [requireClientGuard],

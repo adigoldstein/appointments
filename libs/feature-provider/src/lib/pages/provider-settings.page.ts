@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   AbstractControl,
   FormControl,
@@ -19,9 +19,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { merge } from 'rxjs';
 import { ActingContextStore } from '@app/shared/acting-context';
-import { getSubmittedFieldError } from '@app/shared/utils';
+import { formChangeTick, getSubmittedFieldError } from '@app/shared/utils';
 import { SessionStore } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
@@ -172,13 +171,8 @@ export class ProviderSettingsPageComponent implements OnInit {
       });
   }
 
-  /** Bridges the form's RxJS streams into a signal so every error below is a computed(), with no manual change detection. */
-  private readonly formTick = toSignal(
-    merge(this.form.statusChanges, this.form.valueChanges),
-    {
-      initialValue: null,
-    },
-  );
+  /** Makes every error below a computed() that follows the form, with no manual change detection. */
+  private readonly formTick = formChangeTick(this.form);
 
   protected readonly businessNameError = computed(() => {
     this.formTick();

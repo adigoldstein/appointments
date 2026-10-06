@@ -16,3 +16,13 @@ a {
   outline: var(--outline-width-focus-visible) solid var(--color-focus-ring);
   outline-offset: var(--outline-offset-focus);
 }
+
+// Hebrew UI, RTL (ADR-0006) — but inherently Latin values (emails, passwords, phone numbers,
+// URLs) read left to right. Kept right-aligned so they line up with the RTL fields around them.
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='url'] {
+  direction: ltr;
+  text-align: right;
+}

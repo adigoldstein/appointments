@@ -15,8 +15,8 @@
       [attr.name]="name()"
       [attr.placeholder]="placeholder()"
       [attr.type]="resolvedType()"
-      [disabled]="disabled() || isDisabled"
-      [value]="value"
+      [disabled]="isDisabled()"
+      [value]="value()"
       (blur)="markTouched()"
       (input)="handleInput($event)"
     />

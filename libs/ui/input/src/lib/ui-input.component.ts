@@ -37,8 +37,11 @@ export class UiInputComponent implements ControlValueAccessor {
   readonly type = input('text');
 
   readonly fallbackId = `ui-input-${nextInputId++}`;
-  value = '';
-  isDisabled = false;
+  // Signals, not plain fields: in this zoneless app a form's reset()/patchValue() calls writeValue()
+  // outside any template event, and only a signal change repaints this OnPush component.
+  protected readonly value = signal('');
+  private readonly formDisabled = signal(false);
+  protected readonly isDisabled = computed(() => this.disabled() || this.formDisabled());
 
   protected readonly isPasswordField = computed(() => this.type() === 'password');
   protected readonly showPassword = signal(false);
@@ -50,7 +53,7 @@ export class UiInputComponent implements ControlValueAccessor {
   private onTouched: () => void = () => undefined;
 
   writeValue(value: string | null): void {
-    this.value = value ?? '';
+    this.value.set(value ?? '');
   }
 
   registerOnChange(onChange: (value: string) => void): void {
@@ -62,12 +65,12 @@ export class UiInputComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.formDisabled.set(isDisabled);
   }
 
   handleInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
-    this.value = value;
+    this.value.set(value);
     this.onChange(value);
   }
 
