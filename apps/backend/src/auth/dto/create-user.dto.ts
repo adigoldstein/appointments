@@ -11,7 +11,12 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Role } from '@app/shared/types';
+import {
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+  PASSWORD_PATTERN,
+  Role,
+} from '@app/shared/types';
 import { IsIsraelLocalityCityIdOptional } from '../validators/israel-locality-city-id-optional.validator';
 import { IsIsraeliMobileCellOptional } from '../validators/israeli-mobile-cell-optional.validator';
 
@@ -33,10 +38,10 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(6, {message: 'Password must be at least 6 characters long'})
-  @MaxLength(72, {message: 'Password must be less than 72 characters long'})
-  @Matches(/^(?=.*[A-Za-z])(?=.*\d).+$/, {
-    message: 'password must contain at least one letter and one number',
+  @MinLength(PASSWORD_MIN_LENGTH, { message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long` })
+  @MaxLength(PASSWORD_MAX_LENGTH, { message: `Password must be at most ${PASSWORD_MAX_LENGTH} characters long` })
+  @Matches(PASSWORD_PATTERN, {
+    message: 'password must use English letters, digits and symbols only, with at least one letter and one digit',
   })
   password: string;
 

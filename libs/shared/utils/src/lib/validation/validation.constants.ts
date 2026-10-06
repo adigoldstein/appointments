@@ -1,5 +1,5 @@
-/** English letters (a–z, A–Z) and digits only. */
-export const ALPHANUMERIC_ENGLISH_PATTERN = /^[A-Za-z0-9]+$/;
-
-export const AUTH_PASSWORD_MIN_LENGTH = 5;
-export const AUTH_PASSWORD_MAX_LENGTH = 20;
+export {
+  PASSWORD_MAX_LENGTH as AUTH_PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH as AUTH_PASSWORD_MIN_LENGTH,
+  PASSWORD_PATTERN as AUTH_PASSWORD_PATTERN,
+} from '@app/shared/types';

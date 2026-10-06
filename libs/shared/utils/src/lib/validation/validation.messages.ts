@@ -13,7 +13,7 @@ export const AUTH_PASSWORD_ERROR_MESSAGES: Readonly<Record<string, string>> = {
   required: 'שדה הסיסמה הוא שדה חובה.',
   minlength: `הסיסמה חייבת להכיל לפחות ${AUTH_PASSWORD_MIN_LENGTH} תווים.`,
   maxlength: `הסיסמה יכולה להכיל לכל היותר ${AUTH_PASSWORD_MAX_LENGTH} תווים.`,
-  pattern: 'הסיסמה יכולה להכיל רק אותיות באנגלית וספרות.',
+  pattern: 'הסיסמה חייבת לכלול לפחות אות אחת באנגלית וספרה אחת, ויכולה להכיל רק אותיות באנגלית, ספרות וסימנים (ללא רווחים).',
 };
 
 export function resolveFieldErrorMessage(

@@ -4,6 +4,17 @@ import type { IsraelLocality } from '@app/shared/types';
 
 let cachedById: Map<number, IsraelLocality> | null = null;
 
+/**
+ * The source data was exported from an RTL spreadsheet: 55 names have mirrored parentheses
+ * (`אבו ג'ווייעד )שבט(`) and some have stray spaces. Normalized on load; the JSON stays as published.
+ */
+function normalizeHebrewName(name: string): string {
+  return name
+    .replace(/\)([^()]*)\(/g, '($1)')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function candidatePaths(): string[] {
   return [
     join(__dirname, 'src', 'assets', 'data', 'israel-localities.json'),
@@ -17,7 +28,10 @@ function loadRaw(): IsraelLocality[] {
   for (const filePath of candidatePaths()) {
     if (existsSync(filePath)) {
       const raw = readFileSync(filePath, 'utf8');
-      return JSON.parse(raw) as IsraelLocality[];
+      return (JSON.parse(raw) as IsraelLocality[]).map((row) => ({
+        ...row,
+        hebrewName: normalizeHebrewName(row.hebrewName),
+      }));
     }
   }
 
@@ -38,6 +52,10 @@ export function getIsraelLocalitiesMap(): Map<number, IsraelLocality> {
   cachedById = new Map(list.map((row) => [row.cityId, row]));
 
   return cachedById;
+}
+
+export function getIsraelLocalitiesList(): IsraelLocality[] {
+  return [...getIsraelLocalitiesMap().values()];
 }
 
 export function getIsraelLocalityById(
