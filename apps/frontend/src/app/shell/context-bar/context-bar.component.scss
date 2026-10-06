@@ -4,30 +4,16 @@
   border-bottom: var(--border-width-thin) solid var(--color-border);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--space-2) var(--space-4);
+  justify-content: space-between;
   padding: var(--space-2) var(--space-4);
 }
 
-.context-bar__actor {
-  border-radius: var(--radius-sm);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  padding: var(--space-1) var(--space-2);
-  text-decoration: none;
-}
-
-.context-bar__actor:hover {
-  color: var(--color-text);
-}
-
-.context-bar__actor:focus-visible {
-  outline: var(--outline-width-focus-visible) solid var(--color-focus-ring);
-  outline-offset: var(--outline-offset-focus);
-}
-
-.context-bar__separator {
-  color: var(--color-text-subtle);
+.context-bar__pickers {
+  display: flex;
+  flex: 1 1 24rem;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .context-bar__picker {
@@ -35,12 +21,32 @@
   max-width: 18rem;
 }
 
-@media (max-width: 599px) {
-  // Stack the pickers full-width on phones; separators would only waste space there.
-  .context-bar__separator {
-    display: none;
-  }
+.context-bar__status {
+  margin: 0;
+}
 
+.context-bar__chip {
+  align-items: center;
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent);
+  display: inline-flex;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+}
+
+.context-bar__chip-label {
+  font-weight: var(--font-weight-regular);
+}
+
+.context-bar__hint {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 599px) {
   .context-bar__picker {
     flex-basis: 100%;
     max-width: none;

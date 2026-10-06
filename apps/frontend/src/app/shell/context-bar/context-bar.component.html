@@ -1,38 +1,49 @@
 @if (visible()) {
-  <nav class="context-bar" aria-label="פעולה בשם">
-    <a class="context-bar__actor" [routerLink]="actorHomeUrl()">{{ actorLabel() }}</a>
+  <section class="context-bar" aria-label="פעולה בשם">
+    <div class="context-bar__pickers">
+      @if (isAdmin()) {
+        <ui-autocomplete
+          class="context-bar__picker"
+          label="נותן שירות"
+          hideLabel
+          placeholder="בחירת נותן שירות"
+          clearLabel="ביטול בחירת נותן השירות"
+          [options]="providerOptions()"
+          [value]="providerValue()"
+          [loading]="providerLoading()"
+          (search)="onProviderSearch($event)"
+          (optionSelected)="onProviderSelected($event)"
+          (cleared)="onProviderCleared()"
+        />
+      }
 
-    @if (isAdmin()) {
-      <span class="context-bar__separator" aria-hidden="true">‹</span>
       <ui-autocomplete
         class="context-bar__picker"
-        label="נותן שירות"
+        label="לקוח"
         hideLabel
-        placeholder="בחירת נותן שירות"
-        clearLabel="יציאה מנותן השירות"
-        [options]="providerOptions()"
-        [value]="providerValue()"
-        [loading]="providerLoading()"
-        (search)="onProviderSearch($event)"
-        (optionSelected)="onProviderSelected($event)"
-        (cleared)="onProviderCleared()"
+        [placeholder]="clientPickerEnabled() ? 'בחירת לקוח' : 'בחרו קודם נותן שירות'"
+        clearLabel="ביטול בחירת הלקוח"
+        [disabled]="!clientPickerEnabled()"
+        [options]="clientOptions()"
+        [value]="clientValue()"
+        [loading]="clientLoading()"
+        (search)="onClientSearch($event)"
+        (optionSelected)="onClientSelected($event)"
+        (cleared)="onClientCleared()"
       />
-    }
+    </div>
 
-    <span class="context-bar__separator" aria-hidden="true">‹</span>
-    <ui-autocomplete
-      class="context-bar__picker"
-      label="לקוח"
-      hideLabel
-      [placeholder]="clientPickerEnabled() ? 'בחירת לקוח' : 'בחרו קודם נותן שירות'"
-      clearLabel="יציאה מהלקוח"
-      [disabled]="!clientPickerEnabled()"
-      [options]="clientOptions()"
-      [value]="clientValue()"
-      [loading]="clientLoading()"
-      (search)="onClientSearch($event)"
-      (optionSelected)="onClientSelected($event)"
-      (cleared)="onClientCleared()"
-    />
-  </nav>
+    <p class="context-bar__status" role="status">
+      @if (actingFor()) {
+        <span class="context-bar__chip">
+          <span class="context-bar__chip-label">פועל עבור:</span>
+          {{ actingFor() }}
+        </span>
+      } @else {
+        <span class="context-bar__hint">
+          {{ isAdmin() ? 'בחרו נותן שירות כדי לעבוד בשמו' : 'בחרו לקוח כדי לעבוד בשמו' }}
+        </span>
+      }
+    </p>
+  </section>
 }

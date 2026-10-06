@@ -38,6 +38,16 @@
   padding: var(--space-4);
 }
 
+.shell__nav-section-title {
+  border-top: var(--border-width-thin) solid var(--color-border);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-1);
+}
+
 .shell__nav-link {
   border-radius: var(--radius-md);
   color: var(--color-text-muted);

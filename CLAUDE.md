@@ -63,6 +63,9 @@ Users have a `role` (`ADMIN` | `PROVIDER` | `CLIENT`) and an optional `providerI
 
 A more detailed technical inventory (written for a reviewing tech lead) exists at `README-STACK.md` in the repo root — consult it for the full backend auth table-by-table breakdown, but treat it as a snapshot that can drift from the code.
 
+### UI language
+Hebrew only, RTL (ADR-0006): every user-visible string and every selectable value (e.g. city = `hebrewName`) is Hebrew. Exceptions: inherently-Latin values like emails and passwords, rendered `dir="ltr"`. Backend messages stay English and are mapped to Hebrew in the frontend — never show a raw backend `message` to the user.
+
 ### Config & validation conventions
 - Backend uses `@nestjs/config` with a custom `validate` function (fail-fast on boot if env vars are missing/malformed) rather than ad hoc `process.env` reads — extend `env.constants.ts` + `env.validation.ts` together when adding a new env var.
 - All backend input validation goes through DTOs (`class-validator`) plus a global `ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true })` set in `main.ts` — unrecognized body fields are rejected, so new DTO fields must be added explicitly.

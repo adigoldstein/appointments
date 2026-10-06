@@ -11,6 +11,8 @@ export const featureProviderRoutes: Route[] = [
   {
     path: '',
     canActivate: [onboardingGuard],
+    // Re-check on every navigation, including the same-URL reload an Admin's Provider switch triggers.
+    runGuardsAndResolvers: 'always',
     children: [
       {
         path: '',

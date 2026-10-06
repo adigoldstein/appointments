@@ -8,10 +8,29 @@ import { ActingContextService } from '@app/shared/acting-context';
 import { AuthApiService, AuthStorageService } from '@app/shared/auth';
 import { NAV_ITEMS_BY_AREA, ROLE_LABELS, resolveNavPath } from '@app/shared/navigation';
 import { UiButtonComponent } from '@app/ui/button';
+import { Role } from '@app/shared/types';
 import { UiHeaderComponent } from '@app/ui/header';
 import { ContextBarComponent } from './context-bar/context-bar.component';
 
 const DESKTOP_BREAKPOINT = '(min-width: 900px)';
+
+interface NavSection {
+  /** null for the actor's own section; otherwise the selected target's name. */
+  readonly title: string | null;
+  readonly items: readonly { readonly label: string; readonly path: string }[];
+}
+
+function section(title: string | null, area: Role, baseUrl: string | null): NavSection {
+  return {
+    title,
+    items: baseUrl
+      ? NAV_ITEMS_BY_AREA[area].map((item) => ({
+          label: item.label,
+          path: resolveNavPath(baseUrl, item),
+        }))
+      : [],
+  };
+}
 
 @Component({
   selector: 'app-shell',
@@ -56,19 +75,42 @@ export class ShellComponent {
     return role ? ROLE_LABELS[role] : '';
   });
 
-  /** Nav follows the area on screen, so an Admin acting for a Provider gets the Provider's links (ADR-0005). */
-  protected readonly navItems = computed(() => {
-    const area = this.actingContext.area();
-    const baseUrl = this.actingContext.areaBaseUrl();
+  /** Re-creates the routed page when the target it depends on changes (ADR-0005). */
+  protected readonly pageKey = this.actingContext.pageKey;
 
-    if (!area || !baseUrl) {
+  /**
+   * The actor's own links, then one section per selected target (ADR-0005): an Admin with a
+   * Provider selected also gets that Provider's pages, and so on one level down.
+   */
+  protected readonly navSections = computed<NavSection[]>(() => {
+    const role = this.user()?.role;
+    const providerBaseUrl = this.actingContext.providerBaseUrl();
+    const clientBaseUrl = this.actingContext.clientBaseUrl();
+    const provider = this.actingContext.selectedProvider();
+    const client = this.actingContext.selectedClient();
+
+    if (!role) {
       return [];
     }
 
-    return NAV_ITEMS_BY_AREA[area].map((item) => ({
-      label: item.label,
-      path: resolveNavPath(baseUrl, item),
-    }));
+    if (role === Role.CLIENT) {
+      return [section(null, Role.CLIENT, clientBaseUrl)];
+    }
+
+    const sections =
+      role === Role.ADMIN
+        ? [section(null, Role.ADMIN, '/admin')]
+        : [section(null, Role.PROVIDER, providerBaseUrl)];
+
+    if (role === Role.ADMIN && provider) {
+      sections.push(section(provider.name, Role.PROVIDER, providerBaseUrl));
+    }
+
+    if (client && (role === Role.PROVIDER || provider)) {
+      sections.push(section(client.name, Role.CLIENT, clientBaseUrl));
+    }
+
+    return sections;
   });
 
   protected toggleNav(): void {

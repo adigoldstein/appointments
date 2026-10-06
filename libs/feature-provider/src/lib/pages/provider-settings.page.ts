@@ -102,7 +102,7 @@ export class ProviderSettingsPageComponent implements OnInit {
   private readonly submitted = signal(false);
 
   /** Set when an Admin is acting for this Provider; null when the Provider edits their own settings. */
-  protected readonly actingProviderId = this.actingContext.routeProviderId;
+  protected readonly actingProviderId = this.actingContext.providerIdForRequest;
   protected readonly actingProviderName = computed(() => {
     const provider = this.actingContext.actingProvider();
     return provider ? `${provider.firstName} ${provider.lastName}` : null;

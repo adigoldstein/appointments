@@ -1,28 +1,30 @@
-# Frontend routing: nested per-role areas, acting target in the URL
+# Frontend: fixed per-area routes, acting target held as state
 
 ADR-0004 decided that higher roles act on behalf of lower ones. This records how the frontend is shaped around that.
 
-**Areas are mounted, not duplicated.** Each feature lib exports one route list (`featureProviderRoutes`, `featureClientRoutes`) and the app mounts it in every place that area can be reached from:
+**The acting target is state, not URL.** The context bar under the header holds the selection: an Admin picks a Provider (and optionally one of that Provider's Clients); a Provider picks one of their Clients. Picking never navigates — you stay on the page you're on and it reloads for the new target, so an Admin can add a client, switch Provider in the dropdown, and add another without leaving the page. An indicator ("פועל עבור: …") always shows who the screen is working on. `ActingContextService` (`@app/shared/acting-context`) owns the selection and derives everything else from it plus the logged-in user.
+
+*Changed 2026-10-06:* the first version put the target in the URL (`/admin/providers/:providerId/...`). We moved to state because switching from the dropdown is the primary workflow and ids in the address bar added nothing to it. What the URL gave for free we keep where it matters: the selection is stored in **sessionStorage**, so a refresh keeps it and each browser tab has its own; it is dropped on logout or when a different user logs in. We accepted losing back-button history of selections and shareable deep links to a target.
+
+**Areas are mounted, not duplicated**, at fixed URLs with no ids:
 
 ```
-/admin                                         Admin's own pages
-/admin/providers/:providerId/...               Provider area, Admin acting for a Provider
-/admin/providers/:providerId/clients/:clientId/...   Client area, two levels down
-/provider/...                                  Provider area, the Provider themselves
-/provider/clients/:clientId/...                Client area, Provider acting for a Client
-/client/...                                    Client area, the Client themselves
+/admin/...             Admin's own pages
+/admin/provider/...    Provider pages, for the selected Provider
+/admin/client/...      Client pages, for the selected Client
+/provider/...          the Provider's own pages
+/provider/client/...   Client pages, for the Provider's selected Client
+/client/...            the Client's own pages
 ```
 
-Because acting always happens *inside* the actor's own top-level area, the existing exact-role `authGuard` on `/admin`, `/provider` and `/client` stays correct — no hierarchical guard is needed. The backend authorizes every target id anyway (ADR-0002/0004); the frontend never relies on routing for security.
+Each feature lib exports one route list (`featureProviderRoutes`, `featureClientRoutes`) that the app mounts in every place it is reachable from. Acting always happens inside the actor's own top-level area, so the exact-role `authGuard` on each one stays correct; `requireProviderGuard`/`requireClientGuard` send a selection-dependent area back one level when nothing is selected. The backend authorizes every target id anyway (ADR-0002/0004).
 
-**The URL is the only source of the acting target.** `ActingContextService` (`@app/shared/acting-context`) reads `providerId`/`clientId` from the active route and falls back to the logged-in user (a Provider is their own `providerId`; a Client is their own `clientId` and their `providerId`). Pages never read the session user to decide *whose* data to show. We rejected localStorage/sessionStorage for this: the URL survives refresh, works with back/forward and bookmarks, and lets two tabs act for two different Providers without one silently changing the other.
+**One rule for "which Provider do I send".** `providerIdForRequest()` is the selected Provider for an Admin and `null` for everyone else (the backend derives a Provider's own id from the token and rejects it if sent). Components ask the service instead of branching on role themselves.
 
-**Pages read the context once, on creation.** Angular normally *reuses* a page when only a route param changes, which would leave it showing the previous Provider after a switch. `ActingContextReuseStrategy` recreates the routed subtree whenever the acting `providerId`/`clientId` changes, and `ActingContextService` updates at `ResolveEnd` (before the new page is constructed), so a page can read `routeProviderId()` in `ngOnInit` without subscribing to changes.
+**Pages read the context once and still follow a switch.** The shell renders the router outlet inside a one-item `@for` keyed on `pageKey()`, so changing the target re-creates the page on screen. The key only includes the Client on Client pages, so picking a Client never wipes a half-filled Provider page. A switch also re-runs the current route's guards (same-URL navigation with `onSameUrlNavigation: 'reload'`; the onboarding-gated route uses `runGuardsAndResolvers: 'always'`), so e.g. switching to a not-yet-onboarded Provider lands on their settings form.
 
-**Pages build links from the context, never from hard-coded role prefixes.** `providerBaseUrl()`/`clientBaseUrl()` give the right prefix for whoever is looking (`/provider` for the Provider, `/admin/providers/<id>` for an Admin). Nav items are defined per area with relative paths and resolved against that base.
+**Nav is sectioned by target**: the actor's own links, then the selected Provider's pages under that Provider's name, then the selected Client's. Items are defined per area with relative paths and resolved against the area's base URL.
 
-**The picker is a context bar under the header**, visible to Admins and Providers: `Admin › [Provider ▾] › [Client ▾] ✕`. Switching the Provider keeps the current Provider-area sub-page; clearing a level goes back up one level.
+**Onboarding while acting**: when an Admin works on a Provider who hasn't completed onboarding, they land on the settings form with a Skip option. A skip is remembered for that browser tab only; the Provider still has to complete onboarding themselves.
 
-**Onboarding while acting**: when an Admin enters a Provider who hasn't completed onboarding, they land on the settings form with a Skip option. A skip is remembered for that browser tab only; the Provider still has to complete onboarding themselves.
-
-**Revisit if**: an area needs genuinely different pages per actor (e.g. Admin-only tools inside the Provider area). Prefer an `ActingContextService`-based `@if` inside the shared page first; split routes only if that gets unwieldy.
+**Revisit if**: deep links to a specific target become a real need (e.g. linking from an email to "Provider X's settings"). That could be added as an optional `?providerId=` that seeds the selection, without going back to ids in every route.

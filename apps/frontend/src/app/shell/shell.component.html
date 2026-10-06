@@ -11,16 +11,21 @@
     </div>
 
     <nav class="shell__nav-list" aria-label="ניווט ראשי">
-      @for (item of navItems(); track item.path) {
-        <a
-          class="shell__nav-link"
-          [routerLink]="item.path"
-          routerLinkActive="shell__nav-link--active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="onNavLinkClick()"
-        >
-          {{ item.label }}
-        </a>
+      @for (navSection of navSections(); track $index) {
+        @if (navSection.title) {
+          <span class="shell__nav-section-title">{{ navSection.title }}</span>
+        }
+        @for (item of navSection.items; track item.path) {
+          <a
+            class="shell__nav-link"
+            [routerLink]="item.path"
+            routerLinkActive="shell__nav-link--active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="onNavLinkClick()"
+          >
+            {{ item.label }}
+          </a>
+        }
       }
     </nav>
   </mat-sidenav>
@@ -38,7 +43,10 @@
     <app-context-bar />
 
     <main class="shell__main">
-      <router-outlet />
+      <!-- One-item @for keyed on the target: switching Provider/Client re-creates the page (ADR-0005). -->
+      @for (key of [pageKey()]; track key) {
+        <router-outlet />
+      }
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>
