@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
+import { ShellComponent } from '@app/feature-shell';
 import { requireClientGuard, requireProviderGuard } from '@app/shared/acting-context';
 import { authGuard } from '@app/shared/auth';
 import { Role } from '@app/shared/types';
-import { ShellComponent } from './shell/shell.component';
 
 // Each area is mounted wherever it can be reached from (ADR-0005). The target Provider/Client is
 // state (the context bar), not part of the URL. Acting always happens inside the actor's own

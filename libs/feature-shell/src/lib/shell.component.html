@@ -6,12 +6,12 @@
     (closed)="sidenavOpen.set(false)"
   >
     <div class="shell__nav-user">
-      <span class="shell__nav-user-name">{{ userDisplayName() }}</span>
-      <span class="shell__nav-user-role">{{ roleLabel() }}</span>
+      <span class="shell__nav-user-name">{{ navigation.userDisplayName() }}</span>
+      <span class="shell__nav-user-role">{{ navigation.roleLabel() }}</span>
     </div>
 
     <nav class="shell__nav-list" aria-label="ניווט ראשי">
-      @for (navSection of navSections(); track $index) {
+      @for (navSection of navigation.sections(); track $index) {
         @if (navSection.title) {
           <span class="shell__nav-section-title">{{ navSection.title }}</span>
         }

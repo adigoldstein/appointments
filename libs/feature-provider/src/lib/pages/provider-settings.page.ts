@@ -20,9 +20,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { merge } from 'rxjs';
-import { ActingContextService } from '@app/shared/acting-context';
+import { ActingContextStore } from '@app/shared/acting-context';
 import { getSubmittedFieldError } from '@app/shared/utils';
-import { AuthStorageService } from '@app/shared/auth';
+import { SessionStore } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
 import { UiInputComponent } from '@app/ui/input';
@@ -94,9 +94,9 @@ const GENERIC_SUBMIT_ERROR = 'אירעה שגיאה. נסו שוב מאוחר י
 export class ProviderSettingsPageComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly providerSettingsService = inject(ProviderSettingsService);
-  private readonly authStorage = inject(AuthStorageService);
+  private readonly sessionStore = inject(SessionStore);
   private readonly router = inject(Router);
-  private readonly actingContext = inject(ActingContextService);
+  private readonly actingContext = inject(ActingContextStore);
   private readonly onboardingSkip = inject(OnboardingSkipService);
 
   private readonly submitted = signal(false);
@@ -294,14 +294,11 @@ export class ProviderSettingsPageComponent implements OnInit {
 
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
-        const session = this.authStorage.session();
+        const user = this.sessionStore.user();
 
         // Only the Provider's own session carries their onboarding flag; an acting Admin's doesn't.
-        if (session && !providerId) {
-          this.authStorage.updateUser({
-            ...session.user,
-            hasCompletedOnboarding: true,
-          });
+        if (user && !providerId) {
+          this.sessionStore.updateUser({ ...user, hasCompletedOnboarding: true });
         }
 
         if (wasEditing) {

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, finalize, map, shareReplay, throwError } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
 import { AuthUser } from '@app/shared/types';
-import { AuthStorageService } from './auth-storage.service';
+import { SessionStore } from './session.store';
 
 interface RefreshResponse {
   accessToken: string;
@@ -14,7 +14,7 @@ interface RefreshResponse {
 export class TokenRefreshService {
   private readonly http = inject(HttpClient);
   private readonly apiBaseUrl = inject(API_BASE_URL);
-  private readonly authStorage = inject(AuthStorageService);
+  private readonly sessionStore = inject(SessionStore);
 
   private refreshInFlight$: Observable<string> | null = null;
 
@@ -24,7 +24,7 @@ export class TokenRefreshService {
       return this.refreshInFlight$;
     }
 
-    const refreshToken = this.authStorage.session()?.refreshToken;
+    const refreshToken = this.sessionStore.refreshToken();
 
     if (!refreshToken) {
       return throwError(() => new Error('No refresh token available'));
@@ -34,11 +34,11 @@ export class TokenRefreshService {
       .post<RefreshResponse>(`${this.apiBaseUrl}/auth/refresh`, { refreshToken })
       .pipe(
         map((response) => {
-          this.authStorage.updateAccessToken(response.accessToken, response.user);
+          this.sessionStore.updateAccessToken(response.accessToken, response.user);
           return response.accessToken;
         }),
         catchError((error: unknown) => {
-          this.authStorage.clearSession();
+          this.sessionStore.clear();
           return throwError(() => error);
         }),
         finalize(() => {

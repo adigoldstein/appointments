@@ -39,7 +39,8 @@ npx nx graph               # visualize the project dependency graph
 ## Architecture
 
 ### Workspace layout
-- `apps/frontend` — the primary Angular 21 SPA (Angular Material/CDK, SCSS). This is the app to build features in.
+- `apps/frontend` — the primary Angular 21 SPA (Angular Material/CDK, SCSS). Kept thin (ADR-0007): only `main.ts`, `app.config.ts`, `app.routes.ts`, `index.html`, global styles. Build features in libs, not here.
+- `libs/feature-shell` — the app layout (`ShellComponent`, context bar, `ShellNavigationService`); app-specific, not a generic component.
 - `apps/appointments` — an older/legacy Angular app scaffold; not the active frontend.
 - `apps/backend` — NestJS 11 REST API. Webpack build via `nx:run-commands` (not the Nx webpack executor directly).
 - `apps/backend-e2e` — e2e scaffold, currently empty.
@@ -47,6 +48,7 @@ npx nx graph               # visualize the project dependency graph
 - `libs/ui/*` (`button`, `card`, `input`, `modal`, `date-picker`) — standalone, presentational Angular components with Storybook stories. Each component's template/styles live in separate `.html`/`.scss` files alongside the `.component.ts` (not inline).
 - `libs/design-system` — global SCSS: `settings/` (tokens: breakpoints, sizes, opacity, motion, layers), `tools/` (mixins), `base/` (reset). Imported into `apps/frontend/src/styles.scss`.
 - `libs/shared/types`, `libs/shared/utils`, `libs/shared/api` — cross-cutting code shared between frontend and backend contexts (e.g. `Role`/`UserRole` enum, `israel-locality` types, API base URL token).
+- App-wide frontend state is NgRx Signal Store (ADR-0007): `SessionStore` (`@app/shared/auth`) and `ActingContextStore` (`@app/shared/acting-context`, ADR-0005). Stateless HTTP services (`@app/shared/users` etc.) stay plain `@Injectable`s.
 - All libs are imported via TS path aliases in `tsconfig.base.json` under the `@app/...` prefix (e.g. `@app/feature-auth`, `@app/ui/button`, `@app/shared/types`) — always check `tsconfig.base.json` when adding a new lib so its path alias is registered.
 
 ### Backend: auth & RBAC (the most involved subsystem)

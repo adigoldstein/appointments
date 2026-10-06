@@ -3,14 +3,14 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
-import { AuthStorageService } from './auth-storage.service';
+import { SessionStore } from './session.store';
 import { TokenRefreshService } from './token-refresh.service';
 
 const PUBLIC_AUTH_PATHS = ['/auth/login', '/auth/refresh', '/auth/logout'];
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const apiBaseUrl = inject(API_BASE_URL);
-  const authStorage = inject(AuthStorageService);
+  const sessionStore = inject(SessionStore);
   const tokenRefresh = inject(TokenRefreshService);
   const router = inject(Router);
 
@@ -23,7 +23,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
-  const accessToken = authStorage.session()?.accessToken;
+  const accessToken = sessionStore.accessToken();
   const authReq = accessToken
     ? req.clone({ setHeaders: { Authorization: `Bearer ${accessToken}` } })
     : req;
@@ -32,7 +32,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: unknown) => {
       const isUnauthorized = error instanceof HttpErrorResponse && error.status === 401;
 
-      if (!isUnauthorized || !authStorage.session()) {
+      if (!isUnauthorized || !sessionStore.isAuthenticated()) {
         return throwError(() => error);
       }
 

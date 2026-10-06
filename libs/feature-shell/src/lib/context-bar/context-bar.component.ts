@@ -18,7 +18,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { ActingContextService, ActingSelection } from '@app/shared/acting-context';
+import { ActingContextStore, ActingSelection } from '@app/shared/acting-context';
 import { Role, UserListItem, PaginatedUsersResponse } from '@app/shared/types';
 import { UsersApiService } from '@app/shared/users';
 import { UiAutocompleteComponent, UiAutocompleteOption } from '@app/ui/autocomplete';
@@ -58,7 +58,7 @@ function toSelection(option: UiAutocompleteOption): ActingSelection {
 })
 export class ContextBarComponent {
   private readonly usersApi = inject(UsersApiService);
-  private readonly actingContext = inject(ActingContextService);
+  private readonly actingContext = inject(ActingContextStore);
 
   private readonly actorRole = computed(() => this.actingContext.actor()?.role ?? null);
 

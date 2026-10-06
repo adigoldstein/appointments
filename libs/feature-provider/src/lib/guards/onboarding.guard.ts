@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
-import { ActingContextService } from '@app/shared/acting-context';
-import { AuthStorageService } from '@app/shared/auth';
+import { ActingContextStore } from '@app/shared/acting-context';
+import { SessionStore } from '@app/shared/auth';
 import { UsersApiService } from '@app/shared/users';
 import { OnboardingSkipService } from '../onboarding-skip.service';
 
@@ -13,12 +13,12 @@ import { OnboardingSkipService } from '../onboarding-skip.service';
  */
 export const onboardingGuard: CanActivateFn = () => {
   const router = inject(Router);
-  const actingContext = inject(ActingContextService);
+  const actingContext = inject(ActingContextStore);
   const settingsUrl = router.createUrlTree([actingContext.providerBaseUrl() ?? '/', 'settings']);
   const providerId = actingContext.providerIdForRequest();
 
   if (!providerId) {
-    const hasCompletedOnboarding = inject(AuthStorageService).session()?.user.hasCompletedOnboarding;
+    const hasCompletedOnboarding = inject(SessionStore).user()?.hasCompletedOnboarding;
     return hasCompletedOnboarding ? true : settingsUrl;
   }
 

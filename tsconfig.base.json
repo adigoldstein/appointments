@@ -20,6 +20,7 @@
       "@app/feature-auth": ["libs/feature-auth/src/index.ts"],
       "@app/feature-client": ["libs/feature-client/src/index.ts"],
       "@app/feature-provider": ["libs/feature-provider/src/index.ts"],
+      "@app/feature-shell": ["libs/feature-shell/src/index.ts"],
       "@app/shared/acting-context": [
         "libs/shared/acting-context/src/index.ts"
       ],

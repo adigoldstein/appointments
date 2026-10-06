@@ -19,7 +19,7 @@ import {
   emailFieldValidators,
   getSubmittedFieldError,
 } from '@app/shared/utils';
-import { AuthStorageService, homeRouteForRole } from '@app/shared/auth';
+import { SessionStore, homeRouteForRole } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
 import { UiInputComponent } from '@app/ui/input';
@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
   private readonly authService = inject(AuthService);
-  private readonly authStorage = inject(AuthStorageService);
+  private readonly sessionStore = inject(SessionStore);
   private readonly router = inject(Router);
 
   private submitted = false;
@@ -105,7 +105,7 @@ export class LoginPage implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (session) => {
-          this.authStorage.setSession(session);
+          this.sessionStore.setSession(session);
           this.router.navigateByUrl(homeRouteForRole(session.user.role));
         },
         error: (error: HttpErrorResponse) => {
