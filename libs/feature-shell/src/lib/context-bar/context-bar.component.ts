@@ -1,29 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  WritableSignal,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import {
-  Observable,
-  Subject,
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { map } from 'rxjs';
 import { ActingContextStore, ActingSelection } from '@app/shared/acting-context';
-import { Role, UserListItem, PaginatedUsersResponse } from '@app/shared/types';
+import { Role, UserListItem } from '@app/shared/types';
 import { UsersApiService } from '@app/shared/users';
+import { debouncedSearch } from '@app/shared/utils';
 import { UiAutocompleteComponent, UiAutocompleteOption } from '@app/ui/autocomplete';
 
-const SEARCH_DEBOUNCE_MS = 250;
 const OPTION_LIMIT = 10;
 
 function toOption(user: UserListItem): UiAutocompleteOption {
@@ -87,77 +69,49 @@ export class ContextBarComponent {
   /** An Admin has to pick a Provider before their Clients can be listed. */
   protected readonly clientPickerEnabled = computed(() => this.actingContext.providerId() !== null);
 
-  protected readonly providerLoading = signal(false);
-  protected readonly clientLoading = signal(false);
+  protected readonly providerQuery = signal('');
+  protected readonly clientQuery = signal('');
 
-  private readonly providerSearch = new Subject<string>();
-  private readonly clientSearch = new Subject<string>();
-
-  protected readonly providerOptions = toSignal(
-    this.providerSearch.pipe(
-      debounceTime(SEARCH_DEBOUNCE_MS),
-      distinctUntilChanged(),
-      switchMap((search) =>
-        this.searchUsers(this.providerLoading, () =>
-          this.usersApi.list({ role: Role.PROVIDER, search, limit: OPTION_LIMIT }),
-        ),
-      ),
-    ),
-    { initialValue: [] },
+  protected readonly providerSearch = debouncedSearch(
+    this.providerQuery,
+    (search) =>
+      this.isAdmin()
+        ? this.usersApi
+            .list({ role: Role.PROVIDER, search, limit: OPTION_LIMIT })
+            .pipe(map((response) => response.items.map(toOption)))
+        : null,
+    { dependsOn: this.isAdmin },
   );
 
-  protected readonly clientOptions = toSignal(
-    this.clientSearch.pipe(
-      // Keyed by Provider too, so switching Provider re-runs the same search text.
-      map((search) => ({ search, providerId: this.actingContext.providerIdForRequest() })),
-      debounceTime(SEARCH_DEBOUNCE_MS),
-      distinctUntilChanged(
-        (previous, current) =>
-          previous.search === current.search && previous.providerId === current.providerId,
-      ),
-      switchMap(({ search, providerId }) =>
-        this.searchUsers(this.clientLoading, () =>
-          this.usersApi.list({ providerId: providerId ?? undefined, search, limit: OPTION_LIMIT }),
-        ),
-      ),
-    ),
-    { initialValue: [] },
+  protected readonly clientSearch = debouncedSearch(
+    this.clientQuery,
+    (search) =>
+      this.clientPickerEnabled()
+        ? this.usersApi
+            .list({
+              providerId: this.actingContext.providerIdForRequest() ?? undefined,
+              search,
+              limit: OPTION_LIMIT,
+            })
+            .pipe(map((response) => response.items.map(toOption)))
+        : null,
+    // Switching Provider re-runs the same search text against the new Provider's Clients.
+    { dependsOn: this.actingContext.providerId },
   );
 
-  protected onProviderSearch(search: string): void {
-    this.providerSearch.next(search);
+  protected onProviderChange(option: UiAutocompleteOption | null): void {
+    if (option) {
+      this.actingContext.selectProvider(toSelection(option));
+    } else {
+      this.actingContext.clearProvider();
+    }
   }
 
-  protected onClientSearch(search: string): void {
-    this.clientSearch.next(search);
-  }
-
-  protected onProviderSelected(option: UiAutocompleteOption): void {
-    this.actingContext.selectProvider(toSelection(option));
-  }
-
-  protected onProviderCleared(): void {
-    this.actingContext.clearProvider();
-  }
-
-  protected onClientSelected(option: UiAutocompleteOption): void {
-    this.actingContext.selectClient(toSelection(option));
-  }
-
-  protected onClientCleared(): void {
-    this.actingContext.clearClient();
-  }
-
-  private searchUsers(
-    loading: WritableSignal<boolean>,
-    request: () => Observable<PaginatedUsersResponse>,
-  ): Observable<UiAutocompleteOption[]> {
-    loading.set(true);
-
-    return request().pipe(
-      map((response) => response.items.map(toOption)),
-      catchError(() => of([])),
-      tap(() => loading.set(false)),
-    );
+  protected onClientChange(option: UiAutocompleteOption | null): void {
+    if (option) {
+      this.actingContext.selectClient(toSelection(option));
+    } else {
+      this.actingContext.clearClient();
+    }
   }
 }

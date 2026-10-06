@@ -32,6 +32,7 @@ Sequenced by dependency; each epic is independently shippable once its dependenc
 - **Working-hours templates, buffer time between appointments, per-Provider timezone** — only relevant once bulk/recurring slot generation exists. The app is currently Israel-only / single-timezone.
 - **Same person as a Client of several Providers** — not planned (decided 2026-10-04). This is a POC: a Client belongs to exactly one Provider and email stays globally unique, so a Provider simply can't add a Client whose email is already used elsewhere. If it's ever needed, the direction discussed was splitting login identity (`users`) from per-Provider client records (`clients`).
 - **Per-Provider staff/receptionist role** — distinct from the global `ADMIN`. Nobody has asked for this yet.
+- **Signal Forms** (decided 2026-10-06, deferred) — experimental in Angular 21, which we're on; forms stay Reactive Forms until we upgrade to Angular 22, where they're expected to be stable. Custom controls are already shaped for it: `ui-autocomplete`'s `value` is a `model()` (Signal Forms' `FormValueControl`), so on migration its ControlValueAccessor is simply deleted. `ui-input` still needs the same `model()` treatment then.
 
 ## Design system note
 

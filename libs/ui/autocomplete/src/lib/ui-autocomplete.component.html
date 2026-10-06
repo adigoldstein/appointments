@@ -1,4 +1,4 @@
-<div class="ui-autocomplete" [class.ui-autocomplete--disabled]="disabled()">
+<div class="ui-autocomplete" [class.ui-autocomplete--disabled]="isDisabled()">
   <label
     class="ui-autocomplete__label"
     [class.ui-autocomplete__label--hidden]="hideLabel()"
@@ -21,7 +21,7 @@
       [attr.aria-activedescendant]="activeOptionId()"
       [attr.id]="fieldId"
       [attr.placeholder]="resolvedPlaceholder()"
-      [disabled]="disabled()"
+      [disabled]="isDisabled()"
       [value]="displayText()"
       (focus)="onFocus()"
       (blur)="onBlur()"
@@ -29,7 +29,7 @@
       (keydown)="onKeydown($event)"
     />
 
-    @if (value() && !disabled()) {
+    @if (value() && !isDisabled()) {
       <button
         class="ui-autocomplete__clear"
         type="button"

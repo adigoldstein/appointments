@@ -8,12 +8,11 @@
           hideLabel
           placeholder="בחירת נותן שירות"
           clearLabel="ביטול בחירת נותן השירות"
-          [options]="providerOptions()"
+          [(query)]="providerQuery"
           [value]="providerValue()"
-          [loading]="providerLoading()"
-          (search)="onProviderSearch($event)"
-          (optionSelected)="onProviderSelected($event)"
-          (cleared)="onProviderCleared()"
+          (valueChange)="onProviderChange($event)"
+          [options]="providerSearch.results()"
+          [loading]="providerSearch.loading()"
         />
       }
 
@@ -24,12 +23,11 @@
         [placeholder]="clientPickerEnabled() ? 'בחירת לקוח' : 'בחרו קודם נותן שירות'"
         clearLabel="ביטול בחירת הלקוח"
         [disabled]="!clientPickerEnabled()"
-        [options]="clientOptions()"
+        [(query)]="clientQuery"
         [value]="clientValue()"
-        [loading]="clientLoading()"
-        (search)="onClientSearch($event)"
-        (optionSelected)="onClientSelected($event)"
-        (cleared)="onClientCleared()"
+        (valueChange)="onClientChange($event)"
+        [options]="clientSearch.results()"
+        [loading]="clientSearch.loading()"
       />
     </div>
 

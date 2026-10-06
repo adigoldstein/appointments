@@ -3,10 +3,12 @@ import {
   Component,
   booleanAttribute,
   computed,
+  forwardRef,
   input,
-  output,
+  model,
   signal,
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface UiAutocompleteOption {
   readonly id: string;
@@ -18,38 +20,56 @@ export interface UiAutocompleteOption {
 let nextAutocompleteId = 0;
 
 /**
- * Presentational combobox: the parent owns searching (debounce, HTTP) and feeds `options`.
- * Typing emits `search`; picking emits `optionSelected`; the clear button emits `cleared`.
+ * Presentational combobox. `[(query)]` is the typed text; the selection (null when cleared) binds
+ * either as `[(value)]` or, inside a Reactive Form, as `formControlName` (the control holds the
+ * whole option). The parent owns searching — typically `debouncedSearch(query, …)` from
+ * `@app/shared/utils` — and feeds `options`; this component never fetches anything itself.
+ *
+ * The ControlValueAccessor is for Angular 21 Reactive Forms. `value` being a `model()` already
+ * satisfies Signal Forms' `FormValueControl`, so the CVA can go once we move to Signal Forms.
  */
 @Component({
   selector: 'ui-autocomplete',
   standalone: true,
   templateUrl: './ui-autocomplete.component.html',
   styleUrl: './ui-autocomplete.component.scss',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => UiAutocompleteComponent),
+      multi: true,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UiAutocompleteComponent {
+export class UiAutocompleteComponent implements ControlValueAccessor {
   /** Accessible name; shown above the field unless `hideLabel`. */
   readonly label = input.required<string>();
   readonly hideLabel = input(false, { transform: booleanAttribute });
   readonly placeholder = input<string | null>(null);
   readonly options = input<readonly UiAutocompleteOption[]>([]);
-  readonly value = input<UiAutocompleteOption | null>(null);
   readonly loading = input(false, { transform: booleanAttribute });
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly emptyText = input('לא נמצאו תוצאות');
   readonly clearLabel = input('ניקוי הבחירה');
 
-  readonly search = output<string>();
-  readonly optionSelected = output<UiAutocompleteOption>();
-  readonly cleared = output<void>();
+  /** The text being typed; reset to '' when the field opens and after a pick. */
+  readonly query = model('');
+  /** The selected option; null when nothing is selected or after clearing. */
+  readonly value = model<UiAutocompleteOption | null>(null);
 
   protected readonly fieldId = `ui-autocomplete-${nextAutocompleteId++}`;
   protected readonly listboxId = `${this.fieldId}-listbox`;
 
+  /** Disabled by the `disabled` input or by the form control (`control.disable()`). */
+  private readonly formDisabled = signal(false);
+  protected readonly isDisabled = computed(() => this.disabled() || this.formDisabled());
+
+  private onChange: (value: UiAutocompleteOption | null) => void = () => undefined;
+  private onTouched: () => void = () => undefined;
+
   protected readonly isOpen = signal(false);
   protected readonly isEditing = signal(false);
-  protected readonly query = signal('');
   protected readonly activeIndex = signal(-1);
 
   /** While typing show the query; otherwise show the selected option's label. */
@@ -81,6 +101,7 @@ export class UiAutocompleteComponent {
   protected onBlur(): void {
     this.isEditing.set(false);
     this.close();
+    this.onTouched();
   }
 
   protected onInput(event: Event): void {
@@ -88,7 +109,6 @@ export class UiAutocompleteComponent {
     this.query.set(text);
     this.activeIndex.set(-1);
     this.isOpen.set(true);
-    this.search.emit(text.trim());
   }
 
   protected onKeydown(event: KeyboardEvent): void {
@@ -138,13 +158,28 @@ export class UiAutocompleteComponent {
   protected onClear(): void {
     this.query.set('');
     this.close();
-    this.cleared.emit();
+    this.setValue(null);
+  }
+
+  writeValue(value: UiAutocompleteOption | null): void {
+    this.value.set(value ?? null);
+  }
+
+  registerOnChange(onChange: (value: UiAutocompleteOption | null) => void): void {
+    this.onChange = onChange;
+  }
+
+  registerOnTouched(onTouched: () => void): void {
+    this.onTouched = onTouched;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.formDisabled.set(isDisabled);
   }
 
   private open(): void {
     this.activeIndex.set(-1);
     this.isOpen.set(true);
-    this.search.emit(this.query().trim());
   }
 
   private close(): void {
@@ -153,9 +188,15 @@ export class UiAutocompleteComponent {
   }
 
   private select(option: UiAutocompleteOption, inputElement: HTMLInputElement): void {
-    this.optionSelected.emit(option);
+    this.setValue(option);
     this.query.set('');
     this.close();
     inputElement.blur();
+  }
+
+  /** A user pick: updates the model (and so `valueChange`) and notifies a bound form control. */
+  private setValue(value: UiAutocompleteOption | null): void {
+    this.value.set(value);
+    this.onChange(value);
   }
 }
