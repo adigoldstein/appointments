@@ -1,0 +1,17 @@
+@if (visible()) {
+  <nav class="ui-pagination" [attr.aria-label]="label()">
+    <button class="ui-pagination__button" type="button" [disabled]="isFirst()" (click)="previous()">
+      <ui-icon name="caret-right" />
+      הקודם
+    </button>
+
+    <span class="ui-pagination__status" aria-live="polite">
+      עמוד {{ page() }} מתוך {{ totalPages() }}
+    </span>
+
+    <button class="ui-pagination__button" type="button" [disabled]="isLast()" (click)="next()">
+      הבא
+      <ui-icon name="caret-left" />
+    </button>
+  </nav>
+}

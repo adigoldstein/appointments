@@ -1,0 +1,230 @@
+:host {
+  display: block;
+  width: 100%;
+
+  // Secondary text. --color-text-muted is below WCAG AA on these surfaces (4.04-4.32:1), so this
+  // uses the existing AA-safe grey (#57534e, 6.88:1) until a neutral-named token is signed off.
+  --users-list-secondary: var(--color-appointment-blocked-text);
+}
+
+.users-list {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0 auto;
+  max-width: 64rem;
+}
+
+.users-list__header {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.users-list__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.users-list__title-owner {
+  color: var(--users-list-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+}
+
+.users-list__count {
+  color: var(--users-list-secondary);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  margin: var(--space-1) 0 0;
+}
+
+.users-list__toolbar {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.users-list__search {
+  flex: 1 1 16rem;
+  max-width: 24rem;
+}
+
+// Segmented status filter: native radios, visually a single control.
+.users-list__filter {
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  margin: 0;
+  padding: var(--space-half);
+}
+
+.users-list__filter-option {
+  border-radius: var(--radius-sm);
+  color: var(--users-list-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  padding: var(--space-2) var(--space-3);
+  position: relative;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard);
+
+  input {
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+  }
+
+  &:has(input:focus-visible) {
+    outline: var(--outline-width-focus-visible) solid var(--color-focus-ring);
+  }
+}
+
+.users-list__filter-option--selected {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+// Rows: one divider between rows only (taste: no border around every row).
+.users-list__rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: opacity var(--duration-fast) var(--easing-standard);
+}
+
+.users-list__rows--refreshing {
+  opacity: 0.6;
+}
+
+.users-list__row {
+  align-items: center;
+  display: grid;
+  gap: var(--space-2) var(--space-4);
+  grid-template-columns: minmax(8rem, 1.2fr) minmax(10rem, 1.6fr) minmax(7rem, 1fr) minmax(6rem, 1fr) auto;
+  padding: var(--space-4) var(--space-3);
+
+  & + & {
+    border-top: var(--border-width-thin) solid var(--color-border);
+  }
+}
+
+// Muted by a background tint, not by fainter text, so it stays readable (WCAG AA).
+.users-list__row--inactive {
+  background: var(--color-surface-muted);
+}
+
+.users-list__name {
+  font-weight: var(--font-weight-medium);
+}
+
+.users-list__detail {
+  color: var(--users-list-secondary);
+  font-size: var(--font-size-sm);
+  min-width: 0;
+  overflow-wrap: anywhere;
+
+  // LTR values (email, phone) stay aligned with the RTL columns.
+  &[dir='ltr'] {
+    text-align: right;
+  }
+}
+
+.users-list__status {
+  justify-self: end;
+}
+
+// Skeleton rows in the shape of real rows (taste: no spinners).
+.users-list__bar {
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-sm);
+  height: 0.75rem;
+  width: 70%;
+}
+
+.users-list__bar--name {
+  width: 85%;
+}
+
+.users-list__bar--wide {
+  width: 90%;
+}
+
+.users-list__bar--badge {
+  border-radius: var(--radius-pill);
+  height: 1.25rem;
+  justify-self: end;
+  width: 3.5rem;
+}
+
+.users-list__message {
+  align-items: center;
+  border: var(--border-width-thin) dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--users-list-secondary);
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: var(--space-10) var(--space-6);
+  text-align: center;
+
+  p {
+    margin: 0;
+    max-width: 40ch;
+  }
+}
+
+.users-list__message-title {
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+.users-list__message--error {
+  border-color: var(--color-pastel-red-text);
+  color: var(--color-pastel-red-text);
+}
+
+.users-list__visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+// Phones: each row stacks, name and status on top, details below.
+@media (max-width: 699px) {
+  .users-list__row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .users-list__status {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .users-list__detail {
+    grid-column: 1 / -1;
+  }
+
+  // The "-" placeholder keeps desktop columns aligned; stacked on a phone it is just noise.
+  .users-list__detail--empty {
+    display: none;
+  }
+
+  .users-list__row--skeleton .users-list__bar:not(.users-list__bar--name, .users-list__bar--badge) {
+    display: none;
+  }
+}

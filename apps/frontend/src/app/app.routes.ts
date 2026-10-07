@@ -13,6 +13,8 @@ const clientArea = () =>
   import('@app/feature-client').then((m) => m.featureClientRoutes);
 const addUserPage = () =>
   import('@app/feature-users').then((m) => m.featureUsersRoutes);
+const usersListPage = () =>
+  import('@app/feature-users').then((m) => m.featureUsersListRoutes);
 
 export const appRoutes: Route[] = [
   {
@@ -46,6 +48,11 @@ export const appRoutes: Route[] = [
             loadChildren: addUserPage,
           },
           {
+            path: 'provider/clients',
+            canActivate: [requireProviderGuard],
+            loadChildren: usersListPage,
+          },
+          {
             path: 'provider',
             canActivate: [requireProviderGuard],
             loadChildren: providerArea,
@@ -72,6 +79,7 @@ export const appRoutes: Route[] = [
             data: { mode: 'client' },
             loadChildren: addUserPage,
           },
+          { path: 'clients', loadChildren: usersListPage },
           {
             path: 'client',
             canActivate: [requireClientGuard],

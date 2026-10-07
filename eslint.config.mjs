@@ -31,7 +31,8 @@ export default [
             },
             {
               sourceTag: 'type:ui',
-              onlyDependOnLibsWithTags: ['type:design-system'],
+              // UI components may compose other UI components (e.g. pagination uses ui-icon).
+              onlyDependOnLibsWithTags: ['type:ui', 'type:design-system'],
             },
             {
               sourceTag: 'type:shared',

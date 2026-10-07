@@ -1,0 +1,118 @@
+<section class="users-list">
+  <header class="users-list__header">
+    <div>
+      <h1 class="users-list__title">
+        לקוחות
+        @if (providerName) {
+          <span class="users-list__title-owner">של {{ providerName }}</span>
+        }
+      </h1>
+      @if (view() === 'list' || view() === 'no-results') {
+        <p class="users-list__count" aria-live="polite">{{ countLabel() }}</p>
+      }
+    </div>
+
+    <ui-button (click)="onAddClient()">
+      <ui-icon name="user-plus" />
+      הוספת לקוח
+    </ui-button>
+  </header>
+
+  <div class="users-list__toolbar">
+    <ui-input
+      class="users-list__search"
+      label="חיפוש"
+      placeholder="שם או אימייל"
+      autocomplete="off"
+      [formControl]="searchControl"
+    />
+
+    <fieldset class="users-list__filter">
+      <legend class="users-list__visually-hidden">סינון לפי סטטוס</legend>
+      @for (option of statusOptions; track option.value) {
+        <label
+          class="users-list__filter-option"
+          [class.users-list__filter-option--selected]="statusFilter() === option.value"
+        >
+          <input
+            type="radio"
+            name="status-filter"
+            [value]="option.value"
+            [checked]="statusFilter() === option.value"
+            (change)="statusFilter.set(option.value)"
+          />
+          {{ option.label }}
+        </label>
+      }
+    </fieldset>
+  </div>
+
+  @switch (view()) {
+    @case ('loading') {
+      <ul class="users-list__rows" aria-hidden="true">
+        @for (row of skeletonRows; track row) {
+          <li class="users-list__row users-list__row--skeleton">
+            <span class="users-list__bar users-list__bar--name"></span>
+            <span class="users-list__bar users-list__bar--wide"></span>
+            <span class="users-list__bar"></span>
+            <span class="users-list__bar"></span>
+            <span class="users-list__bar users-list__bar--badge"></span>
+          </li>
+        }
+      </ul>
+      <p class="users-list__visually-hidden" role="status">טוען את רשימת הלקוחות</p>
+    }
+
+    @case ('error') {
+      <div class="users-list__message users-list__message--error" role="alert">
+        <ui-icon name="warning" size="1.25rem" />
+        <p>לא הצלחנו לטעון את רשימת הלקוחות.</p>
+        <ui-button variant="secondary" size="sm" (click)="onRetry()">נסו שוב</ui-button>
+      </div>
+    }
+
+    @case ('empty') {
+      <div class="users-list__message">
+        <p class="users-list__message-title">עדיין אין לקוחות</p>
+        <p>לקוחות שתוסיפו יופיעו כאן, ותוכלו לחפש, לסנן ולנהל אותם.</p>
+        <ui-button (click)="onAddClient()">
+          <ui-icon name="user-plus" />
+          הוספת לקוח
+        </ui-button>
+      </div>
+    }
+
+    @case ('no-results') {
+      <div class="users-list__message">
+        <p class="users-list__message-title">לא נמצאו לקוחות</p>
+        <p>אין לקוחות שתואמים לחיפוש או לסינון שבחרתם.</p>
+        <ui-button variant="secondary" size="sm" (click)="onClearFilters()">
+          <ui-icon name="close" />
+          ניקוי החיפוש והסינון
+        </ui-button>
+      </div>
+    }
+
+    @case ('list') {
+      <ul class="users-list__rows" [class.users-list__rows--refreshing]="users.isLoading()">
+        @for (user of items(); track user.id) {
+          <li class="users-list__row" [class.users-list__row--inactive]="user.deactivatedAt">
+            <span class="users-list__name">{{ user.firstName }} {{ user.lastName }}</span>
+            <span class="users-list__detail" dir="ltr">{{ user.email }}</span>
+            <span class="users-list__detail" [class.users-list__detail--empty]="!user.phone" dir="ltr">{{ formatPhone(user.phone) ?? '-' }}</span>
+            <span class="users-list__detail" [class.users-list__detail--empty]="!user.city">{{ user.city?.hebrewName ?? '-' }}</span>
+            <span class="users-list__status">
+              @if (user.deactivatedAt) {
+                <ui-badge tone="neutral">לא פעיל</ui-badge>
+              } @else {
+                <ui-badge tone="success">פעיל</ui-badge>
+              }
+            </span>
+          </li>
+        }
+      </ul>
+
+      <ui-pagination class="users-list__pagination" [(page)]="page" [totalPages]="totalPages()" label="דפי רשימת הלקוחות" />
+    }
+  }
+</section>

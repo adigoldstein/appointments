@@ -1,0 +1,38 @@
+// Pastel pill per minimalist-ui. No uppercase/tracking: Hebrew has no letter case.
+:host {
+  align-items: center;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  padding: var(--space-1) var(--space-2);
+  white-space: nowrap;
+}
+
+// --color-text-muted on this background is 4.04:1, below WCAG AA (4.5:1) for small text.
+// #57534e (6.88:1) is the existing token below; a neutral-named token needs sign-off (ROADMAP).
+:host(.ui-badge--neutral) {
+  background: var(--color-surface-muted);
+  color: var(--color-appointment-blocked-text);
+}
+
+:host(.ui-badge--success) {
+  background: var(--color-pastel-green-bg);
+  color: var(--color-pastel-green-text);
+}
+
+:host(.ui-badge--warning) {
+  background: var(--color-pastel-yellow-bg);
+  color: var(--color-pastel-yellow-text);
+}
+
+:host(.ui-badge--danger) {
+  background: var(--color-pastel-red-bg);
+  color: var(--color-pastel-red-text);
+}
+
+:host(.ui-badge--info) {
+  background: var(--color-pastel-blue-bg);
+  color: var(--color-pastel-blue-text);
+}

@@ -100,9 +100,7 @@ The add-user nav items ("הוספת לקוח", "הוספת משתמש") stay in 
 
 1. **Backend `status` filter** on `GET /auth/users` + API tests.
 2. **`ui-icons`**: `<ui-icon>` + the first Phosphor icons (search, row actions, chevrons) + story.
-3. **`ui-badge`**: component + story (active / inactive).
-4. **`ui-pagination`**: component + story (first, middle, last page; hidden when there is one page).
-5. **List page, read-only**: route, nav, title + count, add button, rows, search, status filter, paging, client-side cache, all states. No actions yet.
+3-5. **List page, read-only, including `ui-badge` and `ui-pagination`** (steps 3 and 4 merged into 5 on 2026-10-07, so the list is reviewed as one working page): badge + pagination components with stories, route, nav, title + count, add button, rows, search, status filter, paging, client-side cache, all states. No actions yet.
 6. **Row actions**: deactivate (with confirmation) / reactivate, inline action errors, cache cleared on change.
 7. **"עבודה בשמו"**: selects the Client in the context bar.
 8. **Admin Providers mode**: same page with `mode: 'providers'`, the Provider-specific confirmation text.
