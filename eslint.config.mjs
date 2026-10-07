@@ -17,6 +17,11 @@ export default [
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
+              // Used by the backend AND the frontend (ADR-0008): must stay framework-neutral.
+              sourceTag: 'scope:shared',
+              bannedExternalImports: ['@angular/*', '@nestjs/*'],
+            },
+            {
               sourceTag: 'type:app',
               onlyDependOnLibsWithTags: [
                 'type:feature',

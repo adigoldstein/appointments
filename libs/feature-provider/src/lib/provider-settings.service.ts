@@ -1,23 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { API_BASE_URL } from '@app/shared/api';
-
-export interface CreateProviderSettingsPayload {
-  businessName: string;
-  clientLabel: string;
-  cancellationWindowMinutes: number;
-  allowedDurationsMinutes: number[];
-}
-
-export interface ProviderSettingsResponse {
-  providerId: string;
-  businessName: string;
-  clientLabel: string;
-  cancellationWindowMinutes: number;
-  allowedDurationsMinutes: number[];
-  createdAt: string;
-  updatedAt: string;
-}
+import { ProviderSettingsRequest, ProviderSettingsResponse } from '@app/shared/types';
 
 @Injectable({ providedIn: 'root' })
 export class ProviderSettingsService {
@@ -25,7 +9,7 @@ export class ProviderSettingsService {
   private readonly apiBaseUrl = inject(API_BASE_URL);
 
   /** `providerId` is only sent when an Admin acts for a Provider; a Provider always targets themselves. */
-  create(payload: CreateProviderSettingsPayload, providerId: string | null = null) {
+  create(payload: ProviderSettingsRequest, providerId: string | null = null) {
     return this.http.post<ProviderSettingsResponse>(
       `${this.apiBaseUrl}/provider-settings`,
       payload,
@@ -33,7 +17,7 @@ export class ProviderSettingsService {
     );
   }
 
-  update(payload: CreateProviderSettingsPayload, providerId: string | null = null) {
+  update(payload: ProviderSettingsRequest, providerId: string | null = null) {
     return this.http.put<ProviderSettingsResponse>(
       `${this.apiBaseUrl}/provider-settings`,
       payload,

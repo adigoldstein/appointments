@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
+import { RefreshTokenRequest } from '@app/shared/types';
 import { SessionStore } from './session.store';
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +20,7 @@ export class AuthApiService {
       return of(void 0);
     }
 
-    return this.http.post(`${this.apiBaseUrl}/auth/logout`, { refreshToken }).pipe(
+    return this.http.post(`${this.apiBaseUrl}/auth/logout`, { refreshToken } satisfies RefreshTokenRequest).pipe(
       catchError(() => of(null)),
       map(() => void 0),
       tap(() => this.sessionStore.clear()),

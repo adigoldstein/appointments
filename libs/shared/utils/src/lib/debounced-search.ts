@@ -12,24 +12,9 @@ import {
   of,
   switchMap,
 } from 'rxjs';
+import type { DebouncedSearchOptions, DebouncedSearch } from './debounced-search.types';
+import { SEARCH_DEBOUNCE_MS } from './shared.constants';
 
-const DEFAULT_DEBOUNCE_MS = 250;
-
-export interface DebouncedSearchOptions {
-  debounceMs?: number;
-  /** Re-runs the search when this changes too, even if the text didn't (e.g. the selected Provider). */
-  dependsOn?: () => unknown;
-  /**
-   * Re-runs the current search immediately on every emission — no debounce, no "same text" skip.
-   * Use it to refresh after the underlying data changed (e.g. `UsersApiService.usersChanged$`).
-   */
-  refresh?: Observable<unknown>;
-}
-
-export interface DebouncedSearch<T> {
-  readonly results: Signal<readonly T[]>;
-  readonly loading: Signal<boolean>;
-}
 
 /**
  * Search-as-you-type for autocompletes: signal in, signals out. Waits for typing to pause,
@@ -47,7 +32,7 @@ export function debouncedSearch<T>(
   const request = computed(() => ({ text: query().trim(), dependency: options.dependsOn?.() }));
 
   const typed$ = toObservable(request).pipe(
-    debounceTime(options.debounceMs ?? DEFAULT_DEBOUNCE_MS),
+    debounceTime(options.debounceMs ?? SEARCH_DEBOUNCE_MS),
     distinctUntilChanged(
       (previous, current) =>
         previous.text === current.text && previous.dependency === current.dependency,

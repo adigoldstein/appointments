@@ -9,13 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-export interface UiAutocompleteOption {
-  readonly id: string;
-  readonly label: string;
-  /** Secondary line, e.g. an email. */
-  readonly description?: string;
-}
+import type { UiAutocompleteOption } from './ui-autocomplete.types';
 
 let nextAutocompleteId = 0;
 

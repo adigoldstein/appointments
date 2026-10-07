@@ -7,14 +7,23 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Role } from '@app/shared/types';
-import type { AuthUser, PaginatedUsersResponse, UserListItem } from '@app/shared/types';
+import type {
+  AuthUser,
+  LoginResponse,
+  LogoutResponse,
+  PaginatedUsersResponse,
+  ReactivatableConflictBody,
+  RefreshResponse,
+  UserListItem,
+} from '@app/shared/types';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import type { StringValue } from 'ms';
 import { Brackets, IsNull, Repository } from 'typeorm';
-import { ENV_KEYS, EnvironmentVariables } from '../config/env.constants';
+import { ENV_KEYS } from '../config/env.constants';
+import type { EnvironmentVariables } from '../config/env.types';
 import { ProviderSettingsService } from '../provider-settings/provider-settings.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ListUsersQueryDto } from './dto/list-users-query.dto';
@@ -28,15 +37,10 @@ import {
 } from './reference/israel-localities.loader';
 import { isAccountActive } from './utils/account-status.util';
 import { parseIsraeliMobile } from './utils/israeli-mobile.util';
-import {
-  AuthenticatedUserPayload,
-  JwtPayload,
-  LoginResponse,
-  LogoutResponse,
-  RefreshResponse,
-} from './interfaces';
+import type { DurationUnit } from './auth.types';
+import { AuthenticatedUserPayload, JwtPayload } from './interfaces';
 
-const DURATION_UNIT_IN_MS = {
+const DURATION_UNIT_IN_MS: Readonly<Record<DurationUnit, number>> = {
   ms: 1,
   s: 1000,
   m: 60 * 1000,
@@ -44,9 +48,7 @@ const DURATION_UNIT_IN_MS = {
   d: 24 * 60 * 60 * 1000,
   w: 7 * 24 * 60 * 60 * 1000,
   y: 365 * 24 * 60 * 60 * 1000,
-} as const;
-
-type DurationUnit = keyof typeof DURATION_UNIT_IN_MS;
+};
 
 @Injectable()
 export class AuthService {
@@ -77,13 +79,14 @@ export class AuthService {
         existingUser.deactivatedAt &&
         this.canToggleDeactivation(actor, existingUser)
       ) {
-        throw new ConflictException({
+        const body: ReactivatableConflictBody = {
           statusCode: 409,
           error: 'Conflict',
           message: 'A deactivated account with this email already exists',
           reactivatable: true,
           existingUserId: existingUser.id,
-        });
+        };
+        throw new ConflictException(body);
       }
 
       throw new ConflictException('User with this email already exists');

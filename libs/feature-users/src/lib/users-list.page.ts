@@ -11,18 +11,17 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, of, tap } from 'rxjs';
 import { ActingContextStore } from '@app/shared/acting-context';
-import { PaginatedUsersResponse, Role, UserListItem, UserStatusFilter } from '@app/shared/types';
+import { PaginatedUsersResponse, Role, UserListItem } from '@app/shared/types';
 import { UsersApiService } from '@app/shared/users';
+import { SEARCH_DEBOUNCE_MS } from '@app/shared/utils';
 import { UiBadgeComponent } from '@app/ui/badge';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiIconComponent } from '@app/ui/icons';
 import { UiInputComponent } from '@app/ui/input';
 import { UiPaginationComponent } from '@app/ui/pagination';
-
-type StatusFilter = 'all' | UserStatusFilter;
+import type { StatusFilter } from './users-list.types';
 
 const PAGE_SIZE = 20;
-const SEARCH_DEBOUNCE_MS = 250;
 const SKELETON_ROWS = [1, 2, 3, 4, 5];
 
 export const STATUS_FILTER_OPTIONS: readonly { value: StatusFilter; label: string }[] = [

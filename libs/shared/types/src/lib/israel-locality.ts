@@ -4,3 +4,10 @@ export interface IsraelLocality {
   englishName: string;
   hebrewName: string;
 }
+
+/** `GET /localities` query. Backend: `SearchLocalitiesQueryDto implements SearchLocalitiesQuery`. */
+export interface SearchLocalitiesQuery {
+  /** Hebrew or English name; empty returns the first localities alphabetically. */
+  search?: string;
+  limit?: number;
+}

@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@app/shared/types';
+import { LoginRequest, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@app/shared/types';
 
-export class LoginDto {
+export class LoginDto implements LoginRequest {
   @IsEmail({},{message: 'Invalid email'})
   email: string;
 

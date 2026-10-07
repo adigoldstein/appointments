@@ -1,12 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-
-/** What a failed create-user means to the page; raw backend messages never reach the user (ADR-0006). */
-export type CreateUserFailure =
-  | { kind: 'reactivatable'; userId: string }
-  | { kind: 'email-taken' }
-  | { kind: 'forbidden' }
-  | { kind: 'invalid' }
-  | { kind: 'unknown' };
+import { ReactivatableConflictBody } from '@app/shared/types';
+import { GENERIC_ERROR_MESSAGE } from '@app/shared/utils';
+import type { CreateUserFailure } from './create-user-error.types';
 
 export function toCreateUserFailure(error: unknown): CreateUserFailure {
   if (!(error instanceof HttpErrorResponse)) {
@@ -14,11 +9,13 @@ export function toCreateUserFailure(error: unknown): CreateUserFailure {
   }
 
   switch (error.status) {
-    case 409:
-      // Only returned to someone allowed to reactivate that account (backend, ADR-0002).
-      return error.error?.reactivatable && typeof error.error.existingUserId === 'string'
-        ? { kind: 'reactivatable', userId: error.error.existingUserId }
+    case 409: {
+      // `reactivatable` only reaches someone allowed to reactivate that account (backend, ADR-0002).
+      const body = error.error as Partial<ReactivatableConflictBody> | null;
+      return body?.reactivatable && typeof body.existingUserId === 'string'
+        ? { kind: 'reactivatable', userId: body.existingUserId }
         : { kind: 'email-taken' };
+    }
     case 403:
       return { kind: 'forbidden' };
     case 400:
@@ -34,5 +31,5 @@ export const CREATE_USER_FAILURE_MESSAGES: Readonly<
   'email-taken': 'כתובת האימייל כבר רשומה במערכת.',
   forbidden: 'אין לך הרשאה להוסיף משתמש כזה.',
   invalid: 'חלק מהפרטים אינם תקינים. בדקו את השדות ונסו שוב.',
-  unknown: 'אירעה שגיאה. נסו שוב מאוחר יותר.',
+  unknown: GENERIC_ERROR_MESSAGE,
 };

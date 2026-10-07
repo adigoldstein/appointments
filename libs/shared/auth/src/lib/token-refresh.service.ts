@@ -2,13 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, finalize, map, shareReplay, throwError } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
-import { AuthUser } from '@app/shared/types';
+import { RefreshResponse, RefreshTokenRequest } from '@app/shared/types';
 import { SessionStore } from './session.store';
-
-interface RefreshResponse {
-  accessToken: string;
-  user: AuthUser;
-}
 
 @Injectable({ providedIn: 'root' })
 export class TokenRefreshService {
@@ -31,7 +26,7 @@ export class TokenRefreshService {
     }
 
     this.refreshInFlight$ = this.http
-      .post<RefreshResponse>(`${this.apiBaseUrl}/auth/refresh`, { refreshToken })
+      .post<RefreshResponse>(`${this.apiBaseUrl}/auth/refresh`, { refreshToken } satisfies RefreshTokenRequest)
       .pipe(
         map((response) => {
           this.sessionStore.updateAccessToken(response.accessToken, response.user);

@@ -20,7 +20,16 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActingContextStore } from '@app/shared/acting-context';
-import { FieldErrorMessages, fieldErrors } from '@app/shared/utils';
+import {
+  APPOINTMENT_DURATION_MAX_MINUTES,
+  APPOINTMENT_DURATION_MIN_MINUTES,
+  BUSINESS_NAME_MAX_LENGTH,
+  BUSINESS_NAME_MIN_LENGTH,
+  CANCELLATION_WINDOW_MAX_MINUTES,
+  CLIENT_LABEL_MAX_LENGTH,
+  CLIENT_LABEL_MIN_LENGTH,
+} from '@app/shared/types';
+import { FieldErrorMessages, GENERIC_ERROR_MESSAGE, fieldErrors } from '@app/shared/utils';
 import { SessionStore } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
@@ -29,9 +38,6 @@ import { OnboardingSkipService } from '../onboarding-skip.service';
 import { ProviderSettingsService } from '../provider-settings.service';
 
 const HOURS_MINUTES_PATTERN = /^\d{1,4}:[0-5]\d$/;
-const MIN_DURATION_MINUTES = 5;
-const MAX_DURATION_MINUTES = 480;
-const MAX_CANCELLATION_MINUTES = 10_080;
 
 function parseHoursMinutes(value: string): number | null {
   const trimmed = value.trim();
@@ -63,7 +69,6 @@ const CANCELLATION_WINDOW_ERROR_MESSAGES: FieldErrorMessages = {
   max: 'הערך לא יכול לעלות על 168:00 (7 ימים).',
 };
 
-const GENERIC_SUBMIT_ERROR = 'אירעה שגיאה. נסו שוב מאוחר יותר.';
 
 @Component({
   selector: 'feature-provider-settings-page',
@@ -109,16 +114,16 @@ export class ProviderSettingsPageComponent implements OnInit {
       nonNullable: true,
       validators: [
         Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(150),
+        Validators.minLength(BUSINESS_NAME_MIN_LENGTH),
+        Validators.maxLength(BUSINESS_NAME_MAX_LENGTH),
       ],
     }),
     clientLabel: new FormControl('לקוח', {
       nonNullable: true,
       validators: [
         Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(50),
+        Validators.minLength(CLIENT_LABEL_MIN_LENGTH),
+        Validators.maxLength(CLIENT_LABEL_MAX_LENGTH),
       ],
     }),
     cancellationWindow: new FormControl('24:00', {
@@ -126,7 +131,7 @@ export class ProviderSettingsPageComponent implements OnInit {
       validators: [
         Validators.required,
         Validators.pattern(HOURS_MINUTES_PATTERN),
-        maxHoursMinutesValidator(MAX_CANCELLATION_MINUTES),
+        maxHoursMinutesValidator(CANCELLATION_WINDOW_MAX_MINUTES),
       ],
     }),
   });
@@ -193,9 +198,9 @@ export class ProviderSettingsPageComponent implements OnInit {
       return;
     }
 
-    if (minutes < MIN_DURATION_MINUTES || minutes > MAX_DURATION_MINUTES) {
+    if (minutes < APPOINTMENT_DURATION_MIN_MINUTES || minutes > APPOINTMENT_DURATION_MAX_MINUTES) {
       this.durationInputError.set(
-        `המשך חייב להיות בין ${formatHoursMinutes(MIN_DURATION_MINUTES)} ל-${formatHoursMinutes(MAX_DURATION_MINUTES)}.`,
+        `המשך חייב להיות בין ${formatHoursMinutes(APPOINTMENT_DURATION_MIN_MINUTES)} ל-${formatHoursMinutes(APPOINTMENT_DURATION_MAX_MINUTES)}.`,
       );
       return;
     }
@@ -274,7 +279,7 @@ export class ProviderSettingsPageComponent implements OnInit {
         this.submitError.set(
           Array.isArray(error.error?.message)
             ? error.error.message.join(' ')
-            : (error.error?.message ?? GENERIC_SUBMIT_ERROR),
+            : (error.error?.message ?? GENERIC_ERROR_MESSAGE),
         );
       },
     });

@@ -3,17 +3,7 @@ import { ActingContextStore } from '@app/shared/acting-context';
 import { SessionStore } from '@app/shared/auth';
 import { NAV_ITEMS_BY_AREA, ROLE_LABELS, resolveNavPath } from '@app/shared/navigation';
 import { Role } from '@app/shared/types';
-
-export interface NavLink {
-  readonly label: string;
-  readonly path: string;
-}
-
-export interface NavSection {
-  /** null for the actor's own section; otherwise the selected target's name. */
-  readonly title: string | null;
-  readonly items: readonly NavLink[];
-}
+import type { NavSection } from './shell-navigation.types';
 
 function section(title: string | null, area: Role, baseUrl: string | null): NavSection {
   return {

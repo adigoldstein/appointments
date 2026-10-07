@@ -11,7 +11,13 @@ import {
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { Role } from '@app/shared/types';
-import type { AuthUser, PaginatedUsersResponse } from '@app/shared/types';
+import type {
+  AuthUser,
+  LoginResponse,
+  LogoutResponse,
+  PaginatedUsersResponse,
+  RefreshResponse,
+} from '@app/shared/types';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { Roles } from './decorators/roles.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -23,11 +29,6 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LoginThrottlerGuard } from './guards/login-throttler.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { AuthService } from './auth.service';
-import {
-  LoginResponse,
-  LogoutResponse,
-  RefreshResponse,
-} from './interfaces';
 import { AuthenticatedUserPayload } from './interfaces';
 
 @Controller('auth')

@@ -1,6 +1,6 @@
 # Plan: types, constants and API contracts refactor (ADR-0008)
 
-Status: **approved 2026-10-07**, in progress.
+Status: **done 2026-10-07** (all 5 steps; full test run green).
 Brings the existing code in line with ADR-0008 before the client list continues (its step 6 would otherwise add more of the same). Pure refactor: no behavior change, every existing test suite must stay green.
 
 ## Goal

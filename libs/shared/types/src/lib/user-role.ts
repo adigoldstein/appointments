@@ -3,5 +3,3 @@ export enum Role {
   PROVIDER = 'PROVIDER',
   CLIENT = 'CLIENT',
 }
-
-export type UserRole = Role;

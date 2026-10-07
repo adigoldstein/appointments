@@ -1,10 +1,5 @@
 import { Role } from '@app/shared/types';
-
-export interface NavItem {
-  readonly label: string;
-  /** Relative to the area's base URL (ADR-0005); '' is the area's home. */
-  readonly path: string;
-}
+import type { NavItem } from './nav-items.types';
 
 export const ROLE_LABELS: Readonly<Record<Role, string>> = {
   [Role.ADMIN]: 'מנהל מערכת',

@@ -1,4 +1,4 @@
-import { Role, USER_STATUS_FILTERS, UserStatusFilter } from '@app/shared/types';
+import { ListUsersQuery, Role, USER_STATUS_FILTERS, UserStatusFilter } from '@app/shared/types';
 import { Transform, Type } from 'class-transformer';
 import {
   IsIn,
@@ -11,7 +11,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class ListUsersQueryDto {
+export class ListUsersQueryDto implements ListUsersQuery {
   @IsOptional()
   @Type(() => Number)
   @IsInt()

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { UI_ICONS, UiIconName } from './icons';
+import { UI_ICONS } from './icons';
+import type { UiIconName } from './ui-icon.types';
 
 /**
  * One icon from the shared set (Phosphor "regular", copied into icons.ts). Takes the current text

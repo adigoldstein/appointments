@@ -1,12 +1,9 @@
 import { computed, effect } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { AuthSession, AuthUser } from '@app/shared/types';
+import type { SessionState } from './session.types';
 
 const STORAGE_KEY = 'schedula.auth.session';
-
-interface SessionState {
-  session: AuthSession | null;
-}
 
 function readStoredSession(): AuthSession | null {
   try {

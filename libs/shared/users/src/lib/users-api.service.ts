@@ -2,38 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
-import { AuthUser, PaginatedUsersResponse, Role, UserStatusFilter } from '@app/shared/types';
-
-export interface ListUsersParams {
-  page?: number;
-  limit?: number;
-  /** Admin only; the backend defaults to CLIENT. */
-  role?: Role.PROVIDER | Role.CLIENT;
-  /** Admin only; restricts a CLIENT listing to one Provider. */
-  providerId?: string;
-  search?: string;
-  /** Omitted = all users. */
-  status?: UserStatusFilter;
-}
-
-export interface CreateUserPayload {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  role: Role;
-  /** Admin only, when creating a CLIENT; a Provider's clients are always linked to themselves. */
-  providerId?: string;
-  phone?: string;
-  cityId?: number;
-}
-
-/** Body of the 409 returned by create-user when the email belongs to an account the actor may reactivate. */
-export interface ReactivatableConflict {
-  reactivatable: true;
-  existingUserId: string;
-  message: string;
-}
+import {
+  AuthUser,
+  CreateUserRequest,
+  ListUsersQuery,
+  PaginatedUsersResponse,
+  UpdateUserRequest,
+} from '@app/shared/types';
 
 @Injectable({ providedIn: 'root' })
 export class UsersApiService {
@@ -48,7 +23,7 @@ export class UsersApiService {
    */
   readonly usersChanged$ = this.usersChanged.asObservable();
 
-  list(params: ListUsersParams = {}): Observable<PaginatedUsersResponse> {
+  list(params: ListUsersQuery = {}): Observable<PaginatedUsersResponse> {
     let httpParams = new HttpParams();
 
     for (const [key, value] of Object.entries(params)) {
@@ -66,7 +41,7 @@ export class UsersApiService {
     return this.http.get<AuthUser>(`${this.apiBaseUrl}/auth/users/${userId}`);
   }
 
-  create(payload: CreateUserPayload): Observable<AuthUser> {
+  create(payload: CreateUserRequest): Observable<AuthUser> {
     return this.http
       .post<AuthUser>(`${this.apiBaseUrl}/auth/create-user`, payload)
       .pipe(this.announceChange());
@@ -74,7 +49,7 @@ export class UsersApiService {
 
   setDeactivated(userId: string, deactivate: boolean): Observable<AuthUser> {
     return this.http
-      .patch<AuthUser>(`${this.apiBaseUrl}/auth/users/${userId}`, { deactivate })
+      .patch<AuthUser>(`${this.apiBaseUrl}/auth/users/${userId}`, { deactivate } satisfies UpdateUserRequest)
       .pipe(this.announceChange());
   }
 

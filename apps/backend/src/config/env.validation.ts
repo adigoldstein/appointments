@@ -1,5 +1,6 @@
 import type { StringValue } from 'ms';
-import { ENV_KEYS, EnvironmentVariables } from './env.constants';
+import { ENV_KEYS } from './env.constants';
+import type { EnvironmentVariables } from './env.types';
 
 function requiredString(
   config: Record<string, unknown>,

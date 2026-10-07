@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { UI_ICONS, UiIconName } from './icons';
+import { UI_ICONS } from './icons';
+import type { UiIconName } from './ui-icon.types';
 import { UiIconComponent } from './ui-icon.component';
 
 const meta: Meta<UiIconComponent> = {

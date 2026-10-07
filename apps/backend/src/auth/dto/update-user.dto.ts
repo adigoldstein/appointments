@@ -12,11 +12,12 @@ import {
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   PASSWORD_PATTERN,
+  UpdateUserRequest,
 } from '@app/shared/types';
 import { IsIsraelLocalityCityIdOptional } from '../validators/israel-locality-city-id-optional.validator';
 import { IsIsraeliMobileCellOptional } from '../validators/israeli-mobile-cell-optional.validator';
 
-export class UpdateUserDto {
+export class UpdateUserDto implements UpdateUserRequest {
   @IsOptional()
   @IsString()
   @MinLength(2, { message: 'First name must be at least 2 characters long' })

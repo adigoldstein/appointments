@@ -5,7 +5,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Role } from '@app/shared/types';
+import { ProviderSettingsResponse, Role } from '@app/shared/types';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../auth/entities/user.entity';
@@ -68,7 +68,7 @@ export class ProviderSettingsService {
   async create(
     providerId: string,
     dto: CreateProviderSettingsDto,
-  ): Promise<ProviderSettings> {
+  ): Promise<ProviderSettingsResponse> {
     const existing = await this.providerSettingsRepository.findOne({
       where: { providerId },
     });
@@ -77,15 +77,17 @@ export class ProviderSettingsService {
       throw new ConflictException('Provider settings already exist');
     }
 
-    return this.providerSettingsRepository.save(
+    const saved = await this.providerSettingsRepository.save(
       this.providerSettingsRepository.create({ providerId, ...dto }),
     );
+
+    return this.toResponse(saved);
   }
 
   async update(
     providerId: string,
     dto: CreateProviderSettingsDto,
-  ): Promise<ProviderSettings> {
+  ): Promise<ProviderSettingsResponse> {
     const existing = await this.providerSettingsRepository.findOne({
       where: { providerId },
     });
@@ -94,10 +96,10 @@ export class ProviderSettingsService {
       throw new NotFoundException('Provider settings not found');
     }
 
-    return this.providerSettingsRepository.save({ ...existing, ...dto });
+    return this.toResponse(await this.providerSettingsRepository.save({ ...existing, ...dto }));
   }
 
-  async getByProviderId(providerId: string): Promise<ProviderSettings> {
+  async getByProviderId(providerId: string): Promise<ProviderSettingsResponse> {
     const settings = await this.providerSettingsRepository.findOne({
       where: { providerId },
     });
@@ -106,7 +108,20 @@ export class ProviderSettingsService {
       throw new NotFoundException('Provider settings not found');
     }
 
-    return settings;
+    return this.toResponse(settings);
+  }
+
+  /** The shared API shape (ADR-0008): the entity minus its relation, dates as ISO strings. */
+  private toResponse(settings: ProviderSettings): ProviderSettingsResponse {
+    return {
+      providerId: settings.providerId,
+      businessName: settings.businessName,
+      clientLabel: settings.clientLabel,
+      cancellationWindowMinutes: settings.cancellationWindowMinutes,
+      allowedDurationsMinutes: settings.allowedDurationsMinutes,
+      createdAt: settings.createdAt.toISOString(),
+      updatedAt: settings.updatedAt.toISOString(),
+    };
   }
 
   existsForProvider(providerId: string): Promise<boolean> {

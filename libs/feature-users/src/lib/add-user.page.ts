@@ -19,23 +19,22 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { ActingContextStore } from '@app/shared/acting-context';
 import { LocalitiesApiService } from '@app/shared/api';
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN, Role } from '@app/shared/types';
-import { CreateUserPayload, UsersApiService } from '@app/shared/users';
+import {
+  CreateUserRequest,
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+  PASSWORD_PATTERN,
+  Role,
+} from '@app/shared/types';
+import { UsersApiService } from '@app/shared/users';
 import { PASSWORD_FIELD_ERROR_MESSAGES, debouncedSearch, fieldErrors } from '@app/shared/utils';
 import { UiAutocompleteComponent, UiAutocompleteOption } from '@app/ui/autocomplete';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
 import { UiInputComponent } from '@app/ui/input';
-import {
-  CREATE_USER_FAILURE_MESSAGES,
-  CreateUserFailure,
-  toCreateUserFailure,
-} from './create-user-error';
-
-/** `client`: the role is fixed to Client. `admin`: the Admin chooses Provider or Client. */
-export type AddUserMode = 'client' | 'admin';
-
-type NewUserRole = Role.PROVIDER | Role.CLIENT;
+import { CREATE_USER_FAILURE_MESSAGES, toCreateUserFailure } from './create-user-error';
+import type { CreateUserFailure } from './create-user-error.types';
+import type { AddUserMode, NewUserRole } from './add-user.types';
 
 /** Optional; same rule as the backend: `05XXXXXXXX`, spaces and dashes allowed between digits. */
 function israeliMobileValidator(control: AbstractControl<string>): ValidationErrors | null {
@@ -191,7 +190,7 @@ export class AddUserPageComponent {
     const { firstName, lastName, email, password, phone, city } = this.form.getRawValue();
     const role = this.roleControl.value;
     const providerId = role === Role.CLIENT ? this.actingContext.providerIdForRequest() : null;
-    const payload: CreateUserPayload = {
+    const payload: CreateUserRequest = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       email: email.trim(),

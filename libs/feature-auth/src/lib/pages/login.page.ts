@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  GENERIC_ERROR_MESSAGE,
   PASSWORD_FIELD_ERROR_MESSAGES,
   authPasswordValidators,
   emailFieldValidators,
@@ -19,7 +20,6 @@ const LOGIN_ERROR_MESSAGES: Readonly<Record<number, string>> = {
   401: 'אימייל או סיסמה שגויים.',
   429: 'יותר מדי ניסיונות התחברות. נסו שוב בעוד דקה.',
 };
-const GENERIC_LOGIN_ERROR = 'אירעה שגיאה. נסו שוב מאוחר יותר.';
 
 @Component({
   selector: 'feature-auth-login-page',
@@ -81,7 +81,7 @@ export class LoginPage {
         },
         error: (error: HttpErrorResponse) => {
           this.submitting.set(false);
-          this.loginError.set(LOGIN_ERROR_MESSAGES[error.status] ?? GENERIC_LOGIN_ERROR);
+          this.loginError.set(LOGIN_ERROR_MESSAGES[error.status] ?? GENERIC_ERROR_MESSAGE);
         },
       });
   }

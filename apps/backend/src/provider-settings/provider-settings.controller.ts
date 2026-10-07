@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { Role } from '@app/shared/types';
+import { ProviderSettingsResponse, Role } from '@app/shared/types';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -7,7 +7,6 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { AuthenticatedUserPayload } from '../auth/interfaces';
 import { CreateProviderSettingsDto } from './dto/create-provider-settings.dto';
 import { ProviderTargetQueryDto } from './dto/provider-target-query.dto';
-import { ProviderSettings } from './entities/provider-settings.entity';
 import { ProviderSettingsService } from './provider-settings.service';
 
 @Controller('provider-settings')
@@ -21,7 +20,7 @@ export class ProviderSettingsController {
     @Body() createProviderSettingsDto: CreateProviderSettingsDto,
     @Query() query: ProviderTargetQueryDto,
     @CurrentUser() actor: AuthenticatedUserPayload,
-  ): Promise<ProviderSettings> {
+  ): Promise<ProviderSettingsResponse> {
     const providerId = await this.providerSettingsService.resolveTargetProviderId(
       actor,
       query.providerId,
@@ -36,7 +35,7 @@ export class ProviderSettingsController {
     @Body() createProviderSettingsDto: CreateProviderSettingsDto,
     @Query() query: ProviderTargetQueryDto,
     @CurrentUser() actor: AuthenticatedUserPayload,
-  ): Promise<ProviderSettings> {
+  ): Promise<ProviderSettingsResponse> {
     const providerId = await this.providerSettingsService.resolveTargetProviderId(
       actor,
       query.providerId,
@@ -50,7 +49,7 @@ export class ProviderSettingsController {
   async get(
     @Query() query: ProviderTargetQueryDto,
     @CurrentUser() actor: AuthenticatedUserPayload,
-  ): Promise<ProviderSettings> {
+  ): Promise<ProviderSettingsResponse> {
     const providerId = await this.providerSettingsService.resolveTargetProviderId(
       actor,
       query.providerId,

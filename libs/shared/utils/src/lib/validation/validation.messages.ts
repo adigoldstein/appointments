@@ -1,10 +1,7 @@
 import { Signal, computed } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { formChangeTick } from '../form-change-tick';
-
-/** A message for one validation rule; a function gets that rule's error details (e.g. `requiredLength`). */
-export type FieldErrorMessage = string | ((details: Readonly<Record<string, unknown>>) => string);
-export type FieldErrorMessages = Readonly<Record<string, FieldErrorMessage>>;
+import type { FieldErrorMessages } from './validation.types';
 
 /**
  * One Hebrew message per validation rule, shared by every form (ADR-0006). Keyed by the

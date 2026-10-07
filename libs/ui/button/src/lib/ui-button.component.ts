@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';
-
-export type UiButtonVariant = 'primary' | 'secondary' | 'ghost';
-export type UiButtonSize = 'sm' | 'md' | 'lg';
+import type { UiButtonVariant, UiButtonSize } from './ui-button.types';
 
 @Component({
   selector: 'ui-button',

@@ -14,24 +14,7 @@ import { catchError, filter, map, of, switchMap } from 'rxjs';
 import { SessionStore } from '@app/shared/auth';
 import { AuthUser, Role } from '@app/shared/types';
 import { UsersApiService } from '@app/shared/users';
-
-/** What the context bar needs to show a selection without a request (also what survives a refresh). */
-export interface ActingSelection {
-  readonly id: string;
-  readonly name: string;
-  readonly email: string;
-}
-
-interface ActingContextState {
-  /** Admin only: the Provider picked in the context bar. */
-  selectedProvider: ActingSelection | null;
-  /** Admin/Provider: the Client picked in the context bar. */
-  selectedClient: ActingSelection | null;
-}
-
-interface StoredSelection extends ActingContextState {
-  actorId: string;
-}
+import type { ActingSelection, ActingContextState, StoredSelection } from './acting-context.types';
 
 const STORAGE_KEY = 'schedula.acting.selection';
 

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-
-export type UiBadgeTone = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
+import type { UiBadgeTone } from './ui-badge.types';
 
 /**
  * Small status label (minimalist-ui: pastel pill, small text). The text itself carries the

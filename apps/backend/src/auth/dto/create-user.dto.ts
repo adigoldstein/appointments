@@ -12,6 +12,7 @@ import {
   MinLength,
 } from 'class-validator';
 import {
+  CreateUserRequest,
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   PASSWORD_PATTERN,
@@ -20,7 +21,7 @@ import {
 import { IsIsraelLocalityCityIdOptional } from '../validators/israel-locality-city-id-optional.validator';
 import { IsIsraeliMobileCellOptional } from '../validators/israeli-mobile-cell-optional.validator';
 
-export class CreateUserDto {
+export class CreateUserDto implements CreateUserRequest {
   @IsString()
   @IsNotEmpty() 
   @MinLength(2, {message: 'First name must be at least 2 characters long'})
