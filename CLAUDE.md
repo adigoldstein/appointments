@@ -65,6 +65,12 @@ Users have a `role` (`ADMIN` | `PROVIDER` | `CLIENT`) and an optional `providerI
 
 A more detailed technical inventory (written for a reviewing tech lead) exists at `README-STACK.md` in the repo root — consult it for the full backend auth table-by-table breakdown, but treat it as a snapshot that can drift from the code.
 
+### Types, constants and API contracts (ADR-0008)
+- **API shapes exist once**, in `@app/shared/types`: responses, and requests as `…Request` / `…Query` interfaces. Backend DTOs stay classes and declare `implements` the shared interface; the frontend uses the interface directly. Never write a request/response shape a second time.
+- **Shared rules** both sides enforce (limits, patterns) live in `@app/shared/types` (e.g. `PASSWORD_*`).
+- **No types/interfaces inside component, service or store files**: put them in a `*.types.ts` next to the code. Backend-internal types stay in the backend (`*.interface.ts` / `*.types.ts`).
+- **Constants** go in `*.constants.ts` only when used in more than one place; single-use constants stay private in their file.
+
 ### UI language
 Hebrew only, RTL (ADR-0006): every user-visible string and every selectable value (e.g. city = `hebrewName`) is Hebrew. Exceptions: inherently-Latin values like emails and passwords, rendered `dir="ltr"`. Backend messages stay English and are mapped to Hebrew in the frontend — never show a raw backend `message` to the user.
 
