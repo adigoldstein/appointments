@@ -12,6 +12,11 @@ export interface UserListItem {
   deactivatedAt: string | null;
 }
 
+/** Status filter for user listings; omitted = all users. */
+export type UserStatusFilter = 'active' | 'inactive';
+
+export const USER_STATUS_FILTERS: readonly UserStatusFilter[] = ['active', 'inactive'];
+
 export interface PaginatedUsersResponse {
   items: UserListItem[];
   page: number;

@@ -1,4 +1,4 @@
-import { Role } from '@app/shared/types';
+import { Role, USER_STATUS_FILTERS, UserStatusFilter } from '@app/shared/types';
 import { Transform, Type } from 'class-transformer';
 import {
   IsIn,
@@ -34,6 +34,11 @@ export class ListUsersQueryDto {
   @IsOptional()
   @IsUUID()
   providerId?: string;
+
+  /** `active` = not deactivated, `inactive` = deactivated; omitted = all. */
+  @IsOptional()
+  @IsIn(USER_STATUS_FILTERS)
+  status?: UserStatusFilter;
 
   /** Case-insensitive match on first name, last name, full name, or email. */
   @IsOptional()

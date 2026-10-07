@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
-import { AuthUser, PaginatedUsersResponse, Role } from '@app/shared/types';
+import { AuthUser, PaginatedUsersResponse, Role, UserStatusFilter } from '@app/shared/types';
 
 export interface ListUsersParams {
   page?: number;
@@ -12,6 +12,8 @@ export interface ListUsersParams {
   /** Admin only; restricts a CLIENT listing to one Provider. */
   providerId?: string;
   search?: string;
+  /** Omitted = all users. */
+  status?: UserStatusFilter;
 }
 
 export interface CreateUserPayload {

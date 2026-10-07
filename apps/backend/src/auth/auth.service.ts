@@ -222,6 +222,12 @@ export class AuthService {
       usersQuery.andWhere('user.providerId = :providerId', { providerId });
     }
 
+    if (query.status === 'active') {
+      usersQuery.andWhere('user.deactivatedAt IS NULL');
+    } else if (query.status === 'inactive') {
+      usersQuery.andWhere('user.deactivatedAt IS NOT NULL');
+    }
+
     if (query.search) {
       // Escape LIKE wildcards so the search text is matched literally.
       const pattern = `%${query.search.replace(/[\\%_]/g, '\\$&')}%`;
