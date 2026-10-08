@@ -41,7 +41,6 @@ npx nx graph               # visualize the project dependency graph
 ### Workspace layout
 - `apps/frontend` — the primary Angular 21 SPA (Angular Material/CDK, SCSS). Kept thin (ADR-0007): only `main.ts`, `app.config.ts`, `app.routes.ts`, `index.html`, global styles. Build features in libs, not here.
 - `libs/feature-shell` — the app layout (`ShellComponent`, context bar, `ShellNavigationService`); app-specific, not a generic component.
-- `apps/appointments` — an older/legacy Angular app scaffold; not the active frontend.
 - `apps/backend` — NestJS 11 REST API. Webpack build via `nx:run-commands` (not the Nx webpack executor directly).
 - `apps/backend-e2e` — e2e scaffold, currently empty.
 - `libs/feature-*` (`feature-auth`, `feature-admin`, `feature-provider`, `feature-client`, `feature-users`) — vertical-slice Angular route/page libraries consumed by `apps/frontend`.
