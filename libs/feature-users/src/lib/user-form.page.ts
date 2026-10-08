@@ -3,10 +3,13 @@ import {
   Component,
   DestroyRef,
   computed,
+  effect,
   inject,
   signal,
+  untracked,
 } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   AbstractControl,
   FormControl,
@@ -15,26 +18,36 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { ActingContextStore } from '@app/shared/acting-context';
 import { LocalitiesApiService } from '@app/shared/api';
 import {
+  AuthUser,
   CreateUserRequest,
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   PASSWORD_PATTERN,
   Role,
+  UpdateUserRequest,
 } from '@app/shared/types';
 import { UsersApiService } from '@app/shared/users';
 import { PASSWORD_FIELD_ERROR_MESSAGES, debouncedSearch, fieldErrors } from '@app/shared/utils';
 import { UiAutocompleteComponent, UiAutocompleteOption } from '@app/ui/autocomplete';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
+import { UiIconComponent } from '@app/ui/icons';
 import { UiInputComponent } from '@app/ui/input';
-import { CREATE_USER_FAILURE_MESSAGES, toCreateUserFailure } from './create-user-error';
+import {
+  CREATE_USER_FAILURE_MESSAGES,
+  EDIT_USER_FAILURE_MESSAGES,
+  toCreateUserFailure,
+} from './create-user-error';
 import type { CreateUserFailure } from './create-user-error.types';
-import type { NewUserRole, UserFormMode } from './user-form.types';
+import type { NewUserRole, UserFormLoadState, UserFormMode } from './user-form.types';
+import type { UsersListNavigationState } from './users-list.types';
+
+const MODES: readonly UserFormMode[] = ['client', 'admin', 'edit-client', 'edit-provider'];
 
 /** Optional; same rule as the backend: `05XXXXXXXX`, spaces and dashes allowed between digits. */
 function israeliMobileValidator(control: AbstractControl<string>): ValidationErrors | null {
@@ -44,20 +57,33 @@ function israeliMobileValidator(control: AbstractControl<string>): ValidationErr
     : { israeliMobile: true };
 }
 
+/** A resource wraps errors that aren't `Error`s (like HttpErrorResponse) in `cause`. */
+function httpStatus(error: unknown): number | null {
+  const cause = error instanceof HttpErrorResponse ? error : (error as { cause?: unknown }).cause;
+  return cause instanceof HttpErrorResponse ? cause.status : null;
+}
+
 /**
- * Adds a Provider or a Client (ADR-0004/0005). Mounted at `/provider/clients/new`,
- * `/admin/provider/clients/new` (both `client` mode) and `/admin/users/new` (`admin` mode).
- * A new Client always belongs to the Provider the screen works on: the Provider themselves,
- * or the one selected in the context bar.
+ * Adds or edits a Provider or a Client (ADR-0004/0005, docs/plans/edit-user.md).
+ *
+ * Create: `/provider/clients/new`, `/admin/provider/clients/new` (both `client` mode) and
+ * `/admin/users/new` (`admin` mode). A new Client always belongs to the Provider the screen works
+ * on: the Provider themselves, or the one selected in the context bar.
+ *
+ * Edit: `/provider/clients/:userId/edit`, `/admin/provider/clients/:userId/edit` (`edit-client`)
+ * and `/admin/providers/:userId/edit` (`edit-provider`). No password and no role here; saving
+ * sends only the changed fields and returns to the list.
  */
 @Component({
   selector: 'feature-user-form-page',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    RouterLink,
     UiAutocompleteComponent,
     UiButtonComponent,
     UiCardComponent,
+    UiIconComponent,
     UiInputComponent,
   ],
   templateUrl: './user-form.page.html',
@@ -66,13 +92,27 @@ function israeliMobileValidator(control: AbstractControl<string>): ValidationErr
 })
 export class UserFormPageComponent {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly usersApi = inject(UsersApiService);
   private readonly localitiesApi = inject(LocalitiesApiService);
   private readonly actingContext = inject(ActingContextStore);
 
   protected readonly Role = Role;
-  protected readonly mode: UserFormMode =
-    inject(ActivatedRoute).snapshot.data['mode'] === 'admin' ? 'admin' : 'client';
+  protected readonly mode: UserFormMode = MODES.includes(this.route.snapshot.data['mode'])
+    ? this.route.snapshot.data['mode']
+    : 'client';
+  protected readonly isEdit = this.mode === 'edit-client' || this.mode === 'edit-provider';
+
+  /** Edit only: the list this page was opened from, i.e. this URL without `/<userId>/edit`. */
+  protected readonly listUrl =
+    '/' +
+    this.route.snapshot.pathFromRoot
+      .flatMap((snapshot) => snapshot.url.map((segment) => segment.path))
+      .slice(0, -2)
+      .join('/');
+  protected readonly backLabel =
+    this.mode === 'edit-provider' ? 'חזרה לנותני שירות' : 'חזרה ללקוחות';
 
   protected readonly roleControl = new FormControl<NewUserRole>(
     this.mode === 'admin' ? Role.PROVIDER : Role.CLIENT,
@@ -122,6 +162,34 @@ export class UserFormPageComponent {
       ),
   );
 
+  /** Edit only: the user being edited (idle in create mode). */
+  protected readonly editedUser = rxResource({
+    params: () => (this.isEdit ? (this.route.snapshot.paramMap.get('userId') ?? undefined) : undefined),
+    stream: ({ params: userId }) => this.usersApi.get(userId),
+  });
+
+  protected readonly loadState = computed<UserFormLoadState>(() => {
+    if (!this.isEdit) {
+      return 'ready';
+    }
+
+    const error = this.editedUser.error();
+
+    if (error) {
+      // 400: the id in the URL isn't a valid id at all; retrying can't help.
+      const status = httpStatus(error);
+      return status === 400 || status === 403 || status === 404 ? 'not-found' : 'error';
+    }
+
+    const user = this.editedUser.hasValue() ? this.editedUser.value() : undefined;
+
+    if (this.editedUser.isLoading() || !user) {
+      return 'loading';
+    }
+
+    return this.belongsHere(user) ? 'ready' : 'not-found';
+  });
+
   /** The selected Provider's name when an Admin works on one; null for a Provider's own screen. */
   private readonly selectedProviderName = computed(() =>
     this.actingContext.actor()?.role === Role.ADMIN
@@ -132,16 +200,30 @@ export class UserFormPageComponent {
   /** An Admin adding a Client must first pick that Client's Provider in the context bar. */
   protected readonly missingProvider = computed(
     () =>
+      !this.isEdit &&
       this.role() === Role.CLIENT &&
       this.actingContext.actor()?.role === Role.ADMIN &&
       !this.actingContext.providerIdForRequest(),
   );
 
-  protected readonly title = computed(() =>
-    this.mode === 'admin' ? 'הוספת משתמש' : 'הוספת לקוח',
-  );
+  protected readonly title = computed(() => {
+    switch (this.mode) {
+      case 'admin':
+        return 'הוספת משתמש';
+      case 'edit-client':
+        return 'עריכת לקוח';
+      case 'edit-provider':
+        return 'עריכת נותן שירות';
+      default:
+        return 'הוספת לקוח';
+    }
+  });
 
   protected readonly subtitle = computed(() => {
+    if (this.isEdit) {
+      return null;
+    }
+
     if (this.role() === Role.PROVIDER) {
       return 'נותן השירות יוכל להתחבר מיד ולהשלים את הגדרות העסק שלו.';
     }
@@ -165,9 +247,8 @@ export class UserFormPageComponent {
 
   protected readonly failureMessage = computed(() => {
     const failure = this.failure();
-    return failure && failure.kind !== 'reactivatable'
-      ? CREATE_USER_FAILURE_MESSAGES[failure.kind]
-      : null;
+    const messages = this.isEdit ? EDIT_USER_FAILURE_MESSAGES : CREATE_USER_FAILURE_MESSAGES;
+    return failure && failure.kind !== 'reactivatable' ? messages[failure.kind] : null;
   });
 
   private readonly errors = fieldErrors(this.form, this.submitted);
@@ -176,6 +257,21 @@ export class UserFormPageComponent {
   protected readonly emailError = this.errors('email');
   protected readonly passwordError = this.errors('password', PASSWORD_FIELD_ERROR_MESSAGES);
   protected readonly phoneError = this.errors('phone');
+
+  constructor() {
+    if (this.isEdit) {
+      // Not shown and not sent: passwords are changed elsewhere (later plan).
+      this.form.controls.password.disable();
+    }
+
+    effect(() => {
+      const user = this.loadState() === 'ready' ? this.editedUser.value() : undefined;
+
+      if (user) {
+        untracked(() => this.fillForm(user));
+      }
+    });
+  }
 
   protected onSubmit(): void {
     this.submitted.set(true);
@@ -187,6 +283,52 @@ export class UserFormPageComponent {
       return;
     }
 
+    if (this.isEdit) {
+      this.saveChanges();
+    } else {
+      this.createUser();
+    }
+  }
+
+  protected onCancel(): void {
+    this.backToList();
+  }
+
+  protected onRetryLoad(): void {
+    this.editedUser.reload();
+  }
+
+  /** The email belongs to a deactivated account the actor may restore — restore it as it was. */
+  protected onReactivate(): void {
+    const failure = this.failure();
+
+    if (failure?.kind !== 'reactivatable' || this.reactivating()) {
+      return;
+    }
+
+    this.reactivating.set(true);
+    this.usersApi
+      .setDeactivated(failure.userId, false)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (user) => {
+          this.reactivating.set(false);
+          this.failure.set(null);
+          this.successMessage.set(`החשבון של ${user.firstName} ${user.lastName} הופעל מחדש.`);
+          this.resetForm();
+        },
+        error: () => {
+          this.reactivating.set(false);
+          this.failure.set({ kind: 'unknown' });
+        },
+      });
+  }
+
+  protected onDismissReactivate(): void {
+    this.failure.set(null);
+  }
+
+  private createUser(): void {
     const { firstName, lastName, email, password, phone, city } = this.form.getRawValue();
     const role = this.roleControl.value;
     const providerId = role === Role.CLIENT ? this.actingContext.providerIdForRequest() : null;
@@ -218,34 +360,94 @@ export class UserFormPageComponent {
       });
   }
 
-  /** The email belongs to a deactivated account the actor may restore — restore it as it was. */
-  protected onReactivate(): void {
-    const failure = this.failure();
+  private saveChanges(): void {
+    const user = this.editedUser.hasValue() ? this.editedUser.value() : undefined;
 
-    if (failure?.kind !== 'reactivatable' || this.reactivating()) {
+    if (!user || this.loadState() !== 'ready') {
       return;
     }
 
-    this.reactivating.set(true);
+    const changes = this.changesFrom(user);
+
+    if (Object.keys(changes).length === 0) {
+      this.backToList(this.savedNotice(user));
+      return;
+    }
+
+    this.submitting.set(true);
     this.usersApi
-      .setDeactivated(failure.userId, false)
+      .update(user.id, changes)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (user) => {
-          this.reactivating.set(false);
-          this.failure.set(null);
-          this.successMessage.set(`החשבון של ${user.firstName} ${user.lastName} הופעל מחדש.`);
-          this.resetForm();
+        next: (saved) => {
+          this.submitting.set(false);
+          this.backToList(this.savedNotice(saved));
         },
-        error: () => {
-          this.reactivating.set(false);
-          this.failure.set({ kind: 'unknown' });
+        error: (error: unknown) => {
+          this.submitting.set(false);
+          this.failure.set(toCreateUserFailure(error));
         },
       });
   }
 
-  protected onDismissReactivate(): void {
-    this.failure.set(null);
+  /** Only what differs from the loaded user; `phone: ''` and `cityId: null` clear those fields. */
+  private changesFrom(user: AuthUser): UpdateUserRequest {
+    const { firstName, lastName, email, phone, city } = this.form.getRawValue();
+    const cityId = city ? Number(city.id) : null;
+    const changes: UpdateUserRequest = {};
+
+    if (firstName.trim() !== user.firstName) {
+      changes.firstName = firstName.trim();
+    }
+
+    if (lastName.trim() !== user.lastName) {
+      changes.lastName = lastName.trim();
+    }
+
+    if (email.trim() !== user.email) {
+      changes.email = email.trim();
+    }
+
+    // The backend stores the phone compact (`05XXXXXXXX`).
+    if (phone.replace(/[\s-]/g, '') !== (user.phone ?? '')) {
+      changes.phone = phone.trim();
+    }
+
+    if (cityId !== (user.city?.cityId ?? null)) {
+      changes.cityId = cityId;
+    }
+
+    return changes;
+  }
+
+  /** The URL is for this list's kind of user only: a Client of the Provider on screen, or a Provider. */
+  private belongsHere(user: AuthUser): boolean {
+    if (this.mode === 'edit-provider') {
+      return user.role === Role.PROVIDER;
+    }
+
+    const providerId =
+      this.actingContext.providerIdForRequest() ?? this.actingContext.actor()?.id ?? null;
+    return user.role === Role.CLIENT && user.providerId === providerId;
+  }
+
+  private fillForm(user: AuthUser): void {
+    this.form.patchValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone ?? '',
+      city: user.city ? { id: String(user.city.cityId), label: user.city.hebrewName } : null,
+    });
+  }
+
+  private savedNotice(user: AuthUser): string {
+    return `הפרטים של ${user.firstName} ${user.lastName} נשמרו.`;
+  }
+
+  private backToList(notice?: string): void {
+    const state: UsersListNavigationState = notice ? { notice } : {};
+    void this.router.navigateByUrl(this.listUrl, { state });
   }
 
   /** Ready for the next user; the chosen role stays. */

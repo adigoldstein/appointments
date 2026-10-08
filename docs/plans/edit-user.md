@@ -1,6 +1,6 @@
 # Plan: edit a user (from the Clients and Providers lists)
 
-Status: **approved 2026-10-08**, in progress.
+Status: **approved 2026-10-08**; step 1 done, step 2 in review.
 Follows the user lists (docs/plans/client-list.md), ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0008 (types and contracts).
 
 ## Goal

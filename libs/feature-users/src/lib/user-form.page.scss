@@ -95,3 +95,53 @@
   display: flex;
   gap: var(--space-3);
 }
+
+.user-form__back {
+  align-items: center;
+  border-radius: var(--radius-sm);
+  color: var(--color-appointment-blocked-text);
+  display: inline-flex;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  text-decoration: none;
+}
+
+.user-form__back:hover {
+  color: var(--color-text);
+}
+
+/* Loading: one bar per field, in the form's own layout. */
+.user-form__bar {
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-sm);
+  display: block;
+  height: 2.75rem;
+}
+
+.user-form__message {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+
+  p {
+    margin: 0;
+  }
+
+  .user-form__back {
+    margin-bottom: 0;
+  }
+}
+
+.user-form__visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

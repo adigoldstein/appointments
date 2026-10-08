@@ -27,3 +27,8 @@ export interface RowActionError {
   userId: string;
   message: string;
 }
+
+/** Router navigation state the list reads on arrival, e.g. the notice after saving an edit. */
+export interface UsersListNavigationState {
+  notice?: string;
+}

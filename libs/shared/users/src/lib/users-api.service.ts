@@ -47,10 +47,15 @@ export class UsersApiService {
       .pipe(this.announceChange());
   }
 
-  setDeactivated(userId: string, deactivate: boolean): Observable<AuthUser> {
+  /** Sends only the given fields; `phone: ''` and `cityId: null` clear them. */
+  update(userId: string, changes: UpdateUserRequest): Observable<AuthUser> {
     return this.http
-      .patch<AuthUser>(`${this.apiBaseUrl}/auth/users/${userId}`, { deactivate } satisfies UpdateUserRequest)
+      .patch<AuthUser>(`${this.apiBaseUrl}/auth/users/${userId}`, changes)
       .pipe(this.announceChange());
+  }
+
+  setDeactivated(userId: string, deactivate: boolean): Observable<AuthUser> {
+    return this.update(userId, { deactivate });
   }
 
   private announceChange<T>() {

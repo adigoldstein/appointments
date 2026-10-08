@@ -33,3 +33,9 @@ export const CREATE_USER_FAILURE_MESSAGES: Readonly<
   invalid: 'חלק מהפרטים אינם תקינים. בדקו את השדות ונסו שוב.',
   unknown: GENERIC_ERROR_MESSAGE,
 };
+
+/** Saving an edit: same mapping (a 409 there is never `reactivatable`), its own wording for 403. */
+export const EDIT_USER_FAILURE_MESSAGES: typeof CREATE_USER_FAILURE_MESSAGES = {
+  ...CREATE_USER_FAILURE_MESSAGES,
+  forbidden: 'אין לך הרשאה לערוך את המשתמש הזה.',
+};

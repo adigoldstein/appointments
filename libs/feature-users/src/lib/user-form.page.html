@@ -1,108 +1,154 @@
 <div class="user-form-layout">
+  @if (isEdit) {
+    <a class="user-form__back" [routerLink]="listUrl">
+      <ui-icon name="caret-right" />
+      {{ backLabel }}
+    </a>
+  }
+
   <ui-card [title]="title()" [subtitle]="subtitle()">
-    <form class="user-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-      @if (mode === 'admin') {
-        <fieldset class="user-form-role">
-          <legend class="user-form-role__legend">סוג המשתמש</legend>
-          <label class="user-form-role__option">
-            <input type="radio" [formControl]="roleControl" [value]="Role.PROVIDER" />
-            נותן שירות
-          </label>
-          <label class="user-form-role__option">
-            <input type="radio" [formControl]="roleControl" [value]="Role.CLIENT" />
-            לקוח
-          </label>
-        </fieldset>
-      }
-
-      @if (missingProvider()) {
-        <p class="user-form__notice" role="status">
-          כדי להוסיף לקוח, בחרו קודם את נותן השירות שלו בסרגל העליון.
-        </p>
-      }
-
-      <div class="user-form__row">
-        <ui-input
-          formControlName="firstName"
-          label="שם פרטי"
-          autocomplete="off"
-          [error]="firstNameError()"
-        />
-        <ui-input
-          formControlName="lastName"
-          label="שם משפחה"
-          autocomplete="off"
-          [error]="lastNameError()"
-        />
-      </div>
-
-      <ui-input
-        formControlName="email"
-        label="אימייל"
-        type="email"
-        placeholder="name@example.com"
-        autocomplete="off"
-        [error]="emailError()"
-      />
-
-      <ui-input
-        formControlName="password"
-        label="סיסמה ראשונית"
-        type="password"
-        autocomplete="new-password"
-        hint="לפחות 6 תווים, עם אות אחת באנגלית וספרה אחת. העבירו אותה למשתמש."
-        [error]="passwordError()"
-      />
-
-      <ui-input
-        formControlName="phone"
-        label="טלפון נייד (לא חובה)"
-        type="tel"
-        placeholder="050-1234567"
-        autocomplete="off"
-        [error]="phoneError()"
-      />
-
-      <ui-autocomplete
-        formControlName="city"
-        label="עיר (לא חובה)"
-        placeholder="חיפוש עיר"
-        clearLabel="ניקוי העיר"
-        [(query)]="cityQuery"
-        [options]="cities.results()"
-        [loading]="cities.loading()"
-      />
-
-      @if (failure()?.kind === 'reactivatable') {
-        <div class="user-form__reactivate" role="alert">
-          <p>
-            קיים חשבון לא פעיל עם האימייל הזה. להפעיל אותו מחדש? החשבון יחזור בדיוק כפי שהיה — הפרטים
-            שהזנתם כאן לא יישמרו.
-          </p>
-          <div class="user-form__actions">
-            <ui-button type="button" [loading]="reactivating()" (click)="onReactivate()"
-              >הפעלה מחדש</ui-button
-            >
-            <ui-button type="button" variant="ghost" (click)="onDismissReactivate()"
-              >ביטול</ui-button
-            >
+    @switch (loadState()) {
+      @case ('loading') {
+        <div class="user-form" aria-hidden="true">
+          <div class="user-form__row">
+            <span class="user-form__bar"></span>
+            <span class="user-form__bar"></span>
           </div>
+          <span class="user-form__bar"></span>
+          <span class="user-form__bar"></span>
+          <span class="user-form__bar"></span>
+        </div>
+        <p class="user-form__visually-hidden" role="status">טוען את הפרטים…</p>
+      }
+
+      @case ('not-found') {
+        <div class="user-form__message" role="alert">
+          <p>לא מצאנו את המשתמש הזה, או שאין לך הרשאה לערוך אותו.</p>
+          <a class="user-form__back" [routerLink]="listUrl">
+            <ui-icon name="caret-right" />
+            {{ backLabel }}
+          </a>
         </div>
       }
 
-      @if (failureMessage()) {
-        <p class="user-form__alert" role="alert">{{ failureMessage() }}</p>
+      @case ('error') {
+        <div class="user-form__message" role="alert">
+          <p>לא הצלחנו לטעון את הפרטים.</p>
+          <ui-button variant="secondary" size="sm" (click)="onRetryLoad()">נסו שוב</ui-button>
+        </div>
       }
 
-      @if (successMessage()) {
-        <p class="user-form__success" role="status">{{ successMessage() }}</p>
-      }
+      @default {
+        <form class="user-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+          @if (mode === 'admin') {
+            <fieldset class="user-form-role">
+              <legend class="user-form-role__legend">סוג המשתמש</legend>
+              <label class="user-form-role__option">
+                <input type="radio" [formControl]="roleControl" [value]="Role.PROVIDER" />
+                נותן שירות
+              </label>
+              <label class="user-form-role__option">
+                <input type="radio" [formControl]="roleControl" [value]="Role.CLIENT" />
+                לקוח
+              </label>
+            </fieldset>
+          }
 
-      <div class="user-form__actions">
-        <ui-button type="submit" [loading]="submitting()" [disabled]="missingProvider()"
-          >הוספה</ui-button
-        >
-      </div>
-    </form>
+          @if (missingProvider()) {
+            <p class="user-form__notice" role="status">
+              כדי להוסיף לקוח, בחרו קודם את נותן השירות שלו בסרגל העליון.
+            </p>
+          }
+
+          <div class="user-form__row">
+            <ui-input
+              formControlName="firstName"
+              label="שם פרטי"
+              autocomplete="off"
+              [error]="firstNameError()"
+            />
+            <ui-input
+              formControlName="lastName"
+              label="שם משפחה"
+              autocomplete="off"
+              [error]="lastNameError()"
+            />
+          </div>
+
+          <ui-input
+            formControlName="email"
+            label="אימייל"
+            type="email"
+            placeholder="name@example.com"
+            autocomplete="off"
+            [error]="emailError()"
+          />
+
+          @if (!isEdit) {
+            <ui-input
+              formControlName="password"
+              label="סיסמה ראשונית"
+              type="password"
+              autocomplete="new-password"
+              hint="לפחות 6 תווים, עם אות אחת באנגלית וספרה אחת. העבירו אותה למשתמש."
+              [error]="passwordError()"
+            />
+          }
+
+          <ui-input
+            formControlName="phone"
+            label="טלפון נייד (לא חובה)"
+            type="tel"
+            placeholder="050-1234567"
+            autocomplete="off"
+            [error]="phoneError()"
+          />
+
+          <ui-autocomplete
+            formControlName="city"
+            label="עיר (לא חובה)"
+            placeholder="חיפוש עיר"
+            clearLabel="ניקוי העיר"
+            [(query)]="cityQuery"
+            [options]="cities.results()"
+            [loading]="cities.loading()"
+          />
+
+          @if (failure()?.kind === 'reactivatable') {
+            <div class="user-form__reactivate" role="alert">
+              <p>
+                קיים חשבון לא פעיל עם האימייל הזה. להפעיל אותו מחדש? החשבון יחזור בדיוק כפי שהיה — הפרטים
+                שהזנתם כאן לא יישמרו.
+              </p>
+              <div class="user-form__actions">
+                <ui-button type="button" [loading]="reactivating()" (click)="onReactivate()"
+                  >הפעלה מחדש</ui-button
+                >
+                <ui-button type="button" variant="ghost" (click)="onDismissReactivate()"
+                  >ביטול</ui-button
+                >
+              </div>
+            </div>
+          }
+
+          @if (failureMessage()) {
+            <p class="user-form__alert" role="alert">{{ failureMessage() }}</p>
+          }
+
+          @if (successMessage()) {
+            <p class="user-form__success" role="status">{{ successMessage() }}</p>
+          }
+
+          <div class="user-form__actions">
+            <ui-button type="submit" [loading]="submitting()" [disabled]="missingProvider()">{{
+              isEdit ? 'שמירה' : 'הוספה'
+            }}</ui-button>
+            @if (isEdit) {
+              <ui-button type="button" variant="ghost" (click)="onCancel()">ביטול</ui-button>
+            }
+          </div>
+        </form>
+      }
+    }
   </ui-card>
 </div>

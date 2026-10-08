@@ -26,6 +26,7 @@ import type {
   RowActionError,
   StatusFilter,
   UsersListMode,
+  UsersListNavigationState,
   UsersListTexts,
 } from './users-list.types';
 
@@ -232,10 +233,25 @@ export class UsersListPageComponent {
   protected readonly pendingUserId = signal<string | null>(null);
   protected readonly rowError = signal<RowActionError | null>(null);
   /** Result of the last action, announced politely to screen readers. */
-  protected readonly statusMessage = signal<string | null>(null);
+  protected readonly statusMessage = signal<string | null>(this.arrivalNotice());
 
   protected fullName(user: UserListItem): string {
     return `${user.firstName} ${user.lastName}`;
+  }
+
+  /**
+   * The notice this page was opened with (e.g. "saved" from the edit page). Only for an in-app
+   * navigation: the router replays history state on Back/Forward and on a reload, and the notice
+   * must not come back then.
+   */
+  private arrivalNotice(): string | null {
+    const navigation = this.router.currentNavigation();
+
+    if (navigation?.trigger !== 'imperative' || !navigation.previousNavigation) {
+      return null;
+    }
+
+    return (navigation.extras.state as UsersListNavigationState | undefined)?.notice ?? null;
   }
 
   protected onAskDeactivate(user: UserListItem): void {

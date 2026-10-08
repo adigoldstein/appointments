@@ -2,7 +2,10 @@ import { Route } from '@angular/router';
 import { UserFormPageComponent } from './user-form.page';
 import { UsersListPageComponent } from './users-list.page';
 
-/** Mounted by the app with route data `{ mode: 'client' | 'admin' }` (see UserFormMode). */
+/**
+ * Mounted by the app with route data `{ mode }` (see UserFormMode): `client` / `admin` to add,
+ * `edit-client` / `edit-provider` under a `:userId/edit` path to edit.
+ */
 export const featureUserFormRoutes: Route[] = [
   {
     path: '',

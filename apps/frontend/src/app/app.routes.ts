@@ -42,6 +42,11 @@ export const appRoutes: Route[] = [
             loadChildren: userFormPage,
           },
           {
+            path: 'providers/:userId/edit',
+            data: { mode: 'edit-provider' },
+            loadChildren: userFormPage,
+          },
+          {
             path: 'providers',
             data: { mode: 'providers' },
             loadChildren: usersListPage,
@@ -50,6 +55,12 @@ export const appRoutes: Route[] = [
             path: 'provider/clients/new',
             canActivate: [requireProviderGuard],
             data: { mode: 'client' },
+            loadChildren: userFormPage,
+          },
+          {
+            path: 'provider/clients/:userId/edit',
+            canActivate: [requireProviderGuard],
+            data: { mode: 'edit-client' },
             loadChildren: userFormPage,
           },
           {
@@ -83,6 +94,11 @@ export const appRoutes: Route[] = [
           {
             path: 'clients/new',
             data: { mode: 'client' },
+            loadChildren: userFormPage,
+          },
+          {
+            path: 'clients/:userId/edit',
+            data: { mode: 'edit-client' },
             loadChildren: userFormPage,
           },
           { path: 'clients', data: { mode: 'clients' }, loadChildren: usersListPage },
