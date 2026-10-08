@@ -1,7 +1,10 @@
 @if (open()) {
   <div class="ui-modal-backdrop" (click)="handleBackdropClick($event)">
+    <!-- Auto-capture: focus moves into the dialog on open (so Escape and screen readers work)
+         and returns to the element that opened it on close. -->
     <section
       cdkTrapFocus
+      [cdkTrapFocusAutoCapture]="true"
       class="ui-modal"
       role="dialog"
       aria-modal="true"

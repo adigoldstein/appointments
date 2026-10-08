@@ -10,10 +10,11 @@
   white-space: nowrap;
 }
 
-// --color-text-muted on this background is 4.04:1, below WCAG AA (4.5:1) for small text.
-// #57534e (6.88:1) is the existing token below; a neutral-named token needs sign-off (ROADMAP).
+// Background: border-strong, so the pill stays visible on muted surfaces (e.g. inactive list rows,
+// which use --color-surface-muted). Text: #57534e (5.22:1 here, WCAG AA); --color-text-muted would
+// fail. #57534e is the existing token below; a neutral-named token needs sign-off (ROADMAP).
 :host(.ui-badge--neutral) {
-  background: var(--color-surface-muted);
+  background: var(--color-border-strong);
   color: var(--color-appointment-blocked-text);
 }
 

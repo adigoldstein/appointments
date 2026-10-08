@@ -108,7 +108,7 @@
   align-items: center;
   display: grid;
   gap: var(--space-2) var(--space-4);
-  grid-template-columns: minmax(8rem, 1.2fr) minmax(10rem, 1.6fr) minmax(7rem, 1fr) minmax(6rem, 1fr) auto;
+  grid-template-columns: minmax(8rem, 1.2fr) minmax(10rem, 1.6fr) minmax(7rem, 1fr) minmax(6rem, 1fr) auto 8.5rem;
   padding: var(--space-4) var(--space-3);
 
   & + & {
@@ -139,6 +139,39 @@
 
 .users-list__status {
   justify-self: end;
+}
+
+.users-list__actions {
+  justify-self: end;
+}
+
+.users-list__row-error {
+  align-items: center;
+  color: var(--color-danger);
+  display: flex;
+  font-size: var(--font-size-sm);
+  gap: var(--space-2);
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.users-list__notice {
+  background: var(--color-pastel-green-bg);
+  border-radius: var(--radius-sm);
+  color: var(--color-pastel-green-text);
+  font-size: var(--font-size-sm);
+  margin: 0;
+  padding: var(--space-3);
+}
+
+.users-list__confirm-text {
+  margin: 0 0 var(--space-6);
+  max-width: 50ch;
+}
+
+.users-list__confirm-actions {
+  display: flex;
+  gap: var(--space-3);
 }
 
 // Skeleton rows in the shape of real rows (taste: no spinners).
@@ -222,6 +255,11 @@
   // The "-" placeholder keeps desktop columns aligned; stacked on a phone it is just noise.
   .users-list__detail--empty {
     display: none;
+  }
+
+  .users-list__actions {
+    grid-column: 1 / -1;
+    justify-self: start;
   }
 
   .users-list__row--skeleton .users-list__bar:not(.users-list__bar--name, .users-list__bar--badge) {

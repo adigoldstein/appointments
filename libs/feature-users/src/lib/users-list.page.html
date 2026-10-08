@@ -47,6 +47,10 @@
     </fieldset>
   </div>
 
+  @if (statusMessage()) {
+    <p class="users-list__notice" role="status">{{ statusMessage() }}</p>
+  }
+
   @switch (view()) {
     @case ('loading') {
       <ul class="users-list__rows" aria-hidden="true">
@@ -108,6 +112,37 @@
                 <ui-badge tone="success">פעיל</ui-badge>
               }
             </span>
+            <span class="users-list__actions">
+              @if (user.deactivatedAt) {
+                <ui-button
+                  variant="secondary"
+                  size="sm"
+                  [loading]="pendingUserId() === user.id"
+                  [disabled]="pendingUserId() !== null"
+                  (click)="onReactivate(user)"
+                >
+                  <ui-icon name="undo" />
+                  הפעלה מחדש<span class="users-list__visually-hidden"> של {{ fullName(user) }}</span>
+                </ui-button>
+              } @else {
+                <ui-button
+                  variant="ghost"
+                  size="sm"
+                  [loading]="pendingUserId() === user.id"
+                  [disabled]="pendingUserId() !== null"
+                  (click)="onAskDeactivate(user)"
+                >
+                  <ui-icon name="prohibit" />
+                  השבתה<span class="users-list__visually-hidden"> של {{ fullName(user) }}</span>
+                </ui-button>
+              }
+            </span>
+            @if (rowError()?.userId === user.id) {
+              <p class="users-list__row-error" role="alert">
+                <ui-icon name="warning" />
+                {{ rowError()?.message }}
+              </p>
+            }
           </li>
         }
       </ul>
@@ -115,4 +150,21 @@
       <ui-pagination class="users-list__pagination" [(page)]="page" [totalPages]="totalPages()" label="דפי רשימת הלקוחות" />
     }
   }
+
+  <ui-modal
+    [open]="confirmTarget() !== null"
+    [title]="confirmTitle()"
+    (close)="onCancelDeactivate()"
+  >
+    <p class="users-list__confirm-text">
+      לא תהיה אפשרות להתחבר לחשבון הזה עד שתפעילו אותו מחדש. הפרטים נשמרים, ואפשר להפעיל מחדש בכל רגע.
+    </p>
+    <div class="users-list__confirm-actions">
+      <ui-button [loading]="pendingUserId() !== null" (click)="onConfirmDeactivate()">
+        <ui-icon name="prohibit" />
+        השבתה
+      </ui-button>
+      <ui-button variant="ghost" [disabled]="pendingUserId() !== null" (click)="onCancelDeactivate()">ביטול</ui-button>
+    </div>
+  </ui-modal>
 </section>

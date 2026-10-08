@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   computed,
   inject,
   linkedSignal,
   signal,
 } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,8 +20,9 @@ import { UiBadgeComponent } from '@app/ui/badge';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiIconComponent } from '@app/ui/icons';
 import { UiInputComponent } from '@app/ui/input';
+import { UiModalComponent } from '@app/ui/modal';
 import { UiPaginationComponent } from '@app/ui/pagination';
-import type { StatusFilter } from './users-list.types';
+import type { RowActionError, StatusFilter } from './users-list.types';
 
 const PAGE_SIZE = 20;
 const SKELETON_ROWS = [1, 2, 3, 4, 5];
@@ -37,8 +40,8 @@ function formatPhone(phone: string | null): string | null {
 
 /**
  * The Clients of the Provider on screen (the Provider themselves, or the one selected in the
- * context bar), with search, status filter and paging (docs/plans/client-list.md, steps 3-5).
- * Read-only for now: row actions come in step 6.
+ * context bar), with search, status filter, paging and deactivate / reactivate per row
+ * (docs/plans/client-list.md, steps 3-6). Deactivating asks for confirmation; reactivating doesn't.
  *
  * Each (search, status, page) response is cached until users change in this tab, so going back
  * to a combination already seen costs no request.
@@ -52,6 +55,7 @@ function formatPhone(phone: string | null): string | null {
     UiButtonComponent,
     UiIconComponent,
     UiInputComponent,
+    UiModalComponent,
     UiPaginationComponent,
   ],
   templateUrl: './users-list.page.html',
@@ -62,6 +66,7 @@ export class UsersListPageComponent {
   private readonly usersApi = inject(UsersApiService);
   private readonly actingContext = inject(ActingContextStore);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly statusOptions = STATUS_FILTER_OPTIONS;
   protected readonly skeletonRows = SKELETON_ROWS;
@@ -170,5 +175,81 @@ export class UsersListPageComponent {
 
   protected onRetry(): void {
     this.users.reload();
+  }
+
+  /** The user whose deactivation waits for confirmation; null when the dialog is closed. */
+  protected readonly confirmTarget = signal<UserListItem | null>(null);
+  protected readonly confirmTitle = computed(() => {
+    const user = this.confirmTarget();
+    return user ? `להשבית את ${this.fullName(user)}?` : '';
+  });
+  /** The row whose action is running (its button shows a loading state). */
+  protected readonly pendingUserId = signal<string | null>(null);
+  protected readonly rowError = signal<RowActionError | null>(null);
+  /** Result of the last action, announced politely to screen readers. */
+  protected readonly statusMessage = signal<string | null>(null);
+
+  protected fullName(user: UserListItem): string {
+    return `${user.firstName} ${user.lastName}`;
+  }
+
+  protected onAskDeactivate(user: UserListItem): void {
+    this.rowError.set(null);
+    this.confirmTarget.set(user);
+  }
+
+  protected onCancelDeactivate(): void {
+    this.confirmTarget.set(null);
+  }
+
+  protected onConfirmDeactivate(): void {
+    const user = this.confirmTarget();
+
+    if (user) {
+      this.setActive(user, false);
+    }
+  }
+
+  protected onReactivate(user: UserListItem): void {
+    this.setActive(user, true);
+  }
+
+  /** The list refreshes by itself afterwards: the API announces the change (usersChanged$). */
+  private setActive(user: UserListItem, active: boolean): void {
+    if (this.pendingUserId()) {
+      return;
+    }
+
+    this.pendingUserId.set(user.id);
+    this.rowError.set(null);
+    this.statusMessage.set(null);
+
+    this.usersApi
+      .setDeactivated(user.id, !active)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.pendingUserId.set(null);
+          this.confirmTarget.set(null);
+          this.statusMessage.set(
+            active
+              ? `החשבון של ${this.fullName(user)} הופעל מחדש.`
+              : `החשבון של ${this.fullName(user)} הושבת.`,
+          );
+        },
+        error: (error: unknown) => {
+          this.pendingUserId.set(null);
+          this.confirmTarget.set(null);
+          this.rowError.set({
+            userId: user.id,
+            message:
+              error instanceof HttpErrorResponse && error.status === 403
+                ? 'אין לך הרשאה לשנות את הסטטוס של משתמש זה.'
+                : active
+                  ? 'לא הצלחנו להפעיל מחדש. נסו שוב.'
+                  : 'לא הצלחנו להשבית. נסו שוב.',
+          });
+        },
+      });
   }
 }
