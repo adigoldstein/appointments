@@ -10,7 +10,10 @@ export const featureUsersRoutes: Route[] = [
   },
 ];
 
-/** The Clients list of the Provider on screen (docs/plans/client-list.md). */
+/**
+ * The users list (docs/plans/client-list.md), mounted with route data
+ * `{ mode: 'clients' | 'providers' }` (see UsersListMode).
+ */
 export const featureUsersListRoutes: Route[] = [
   {
     path: '',

@@ -1,6 +1,6 @@
 # Plan: user lists (Clients for a Provider, Providers for the Admin)
 
-Status: **all questions answered (2026-10-07), waiting for final approval**. Nothing is built until this is approved.
+Status: **steps 1-6 and 8 done (2026-10-08); step 7 parked** (see below).
 Closes Epic 3's frontend (see ROADMAP.md). Follows ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0007 (libs, stores).
 
 ## Goal
@@ -102,7 +102,7 @@ The add-user nav items ("הוספת לקוח", "הוספת משתמש") stay in 
 2. **`ui-icons`**: `<ui-icon>` + the first Phosphor icons (search, row actions, chevrons) + story.
 3-5. **List page, read-only, including `ui-badge` and `ui-pagination`** (steps 3 and 4 merged into 5 on 2026-10-07, so the list is reviewed as one working page): badge + pagination components with stories, route, nav, title + count, add button, rows, search, status filter, paging, client-side cache, all states. No actions yet.
 6. **Row actions**: deactivate (with confirmation) / reactivate, inline action errors, cache cleared on change.
-7. **"עבודה בשמו"**: selects the Client in the context bar.
+7. **"עבודה בשמו"**: selects the Client in the context bar. **Parked (2026-10-08)**: it works through the context bar's client picker, which may change (open discussion). Build after that is decided.
 8. **Admin Providers mode**: same page with `mode: 'providers'`, the Provider-specific confirmation text.
 
 ## How each step is tested

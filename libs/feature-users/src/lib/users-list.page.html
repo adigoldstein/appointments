@@ -2,7 +2,7 @@
   <header class="users-list__header">
     <div>
       <h1 class="users-list__title">
-        לקוחות
+        {{ texts.title }}
         @if (providerName) {
           <span class="users-list__title-owner">של {{ providerName }}</span>
         }
@@ -12,9 +12,9 @@
       }
     </div>
 
-    <ui-button (click)="onAddClient()">
+    <ui-button (click)="onAdd()">
       <ui-icon name="user-plus" />
-      הוספת לקוח
+      {{ texts.addLabel }}
     </ui-button>
   </header>
 
@@ -64,32 +64,32 @@
           </li>
         }
       </ul>
-      <p class="users-list__visually-hidden" role="status">טוען את רשימת הלקוחות</p>
+      <p class="users-list__visually-hidden" role="status">{{ texts.loading }}</p>
     }
 
     @case ('error') {
       <div class="users-list__message users-list__message--error" role="alert">
         <ui-icon name="warning" size="1.25rem" />
-        <p>לא הצלחנו לטעון את רשימת הלקוחות.</p>
+        <p>{{ texts.loadError }}</p>
         <ui-button variant="secondary" size="sm" (click)="onRetry()">נסו שוב</ui-button>
       </div>
     }
 
     @case ('empty') {
       <div class="users-list__message">
-        <p class="users-list__message-title">עדיין אין לקוחות</p>
-        <p>לקוחות שתוסיפו יופיעו כאן, ותוכלו לחפש, לסנן ולנהל אותם.</p>
-        <ui-button (click)="onAddClient()">
+        <p class="users-list__message-title">{{ texts.emptyTitle }}</p>
+        <p>{{ texts.emptyBody }}</p>
+        <ui-button (click)="onAdd()">
           <ui-icon name="user-plus" />
-          הוספת לקוח
+          {{ texts.addLabel }}
         </ui-button>
       </div>
     }
 
     @case ('no-results') {
       <div class="users-list__message">
-        <p class="users-list__message-title">לא נמצאו לקוחות</p>
-        <p>אין לקוחות שתואמים לחיפוש או לסינון שבחרתם.</p>
+        <p class="users-list__message-title">{{ texts.noResultsTitle }}</p>
+        <p>{{ texts.noResultsBody }}</p>
         <ui-button variant="secondary" size="sm" (click)="onClearFilters()">
           <ui-icon name="close" />
           ניקוי החיפוש והסינון
@@ -147,7 +147,7 @@
         }
       </ul>
 
-      <ui-pagination class="users-list__pagination" [(page)]="page" [totalPages]="totalPages()" label="דפי רשימת הלקוחות" />
+      <ui-pagination class="users-list__pagination" [(page)]="page" [totalPages]="totalPages()" [label]="texts.paginationLabel" />
     }
   }
 
@@ -158,6 +158,9 @@
   >
     <p class="users-list__confirm-text">
       לא תהיה אפשרות להתחבר לחשבון הזה עד שתפעילו אותו מחדש. הפרטים נשמרים, ואפשר להפעיל מחדש בכל רגע.
+      @if (texts.deactivateWarning) {
+        <strong class="users-list__confirm-warning">{{ texts.deactivateWarning }}</strong>
+      }
     </p>
     <div class="users-list__confirm-actions">
       <ui-button [loading]="pendingUserId() !== null" (click)="onConfirmDeactivate()">

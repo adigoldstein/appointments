@@ -169,6 +169,13 @@
   max-width: 50ch;
 }
 
+.users-list__confirm-warning {
+  color: var(--color-danger);
+  display: block;
+  font-weight: var(--font-weight-medium);
+  margin-top: var(--space-3);
+}
+
 .users-list__confirm-actions {
   display: flex;
   gap: var(--space-3);

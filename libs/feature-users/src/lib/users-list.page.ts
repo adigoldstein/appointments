@@ -10,7 +10,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, of, tap } from 'rxjs';
 import { ActingContextStore } from '@app/shared/acting-context';
 import { PaginatedUsersResponse, Role, UserListItem } from '@app/shared/types';
@@ -22,7 +22,12 @@ import { UiIconComponent } from '@app/ui/icons';
 import { UiInputComponent } from '@app/ui/input';
 import { UiModalComponent } from '@app/ui/modal';
 import { UiPaginationComponent } from '@app/ui/pagination';
-import type { RowActionError, StatusFilter } from './users-list.types';
+import type {
+  RowActionError,
+  StatusFilter,
+  UsersListMode,
+  UsersListTexts,
+} from './users-list.types';
 
 const PAGE_SIZE = 20;
 const SKELETON_ROWS = [1, 2, 3, 4, 5];
@@ -33,15 +38,51 @@ export const STATUS_FILTER_OPTIONS: readonly { value: StatusFilter; label: strin
   { value: 'inactive', label: 'לא פעילים' },
 ];
 
+/** The only differences between the two lists; the page itself is shared. */
+const TEXTS: Readonly<Record<UsersListMode, UsersListTexts>> = {
+  clients: {
+    title: 'לקוחות',
+    count: (total) => (total === 1 ? 'לקוח אחד' : `${total} לקוחות`),
+    found: (total) => (total === 1 ? 'נמצא לקוח אחד' : `נמצאו ${total} לקוחות`),
+    addLabel: 'הוספת לקוח',
+    loading: 'טוען את רשימת הלקוחות',
+    loadError: 'לא הצלחנו לטעון את רשימת הלקוחות.',
+    emptyTitle: 'עדיין אין לקוחות',
+    emptyBody: 'לקוחות שתוסיפו יופיעו כאן, ותוכלו לחפש, לסנן ולנהל אותם.',
+    noResultsTitle: 'לא נמצאו לקוחות',
+    noResultsBody: 'אין לקוחות שתואמים לחיפוש או לסינון שבחרתם.',
+    paginationLabel: 'דפי רשימת הלקוחות',
+    deactivateWarning: null,
+  },
+  providers: {
+    title: 'נותני שירות',
+    count: (total) => (total === 1 ? 'נותן שירות אחד' : `${total} נותני שירות`),
+    found: (total) => (total === 1 ? 'נמצא נותן שירות אחד' : `נמצאו ${total} נותני שירות`),
+    addLabel: 'הוספת נותן שירות',
+    loading: 'טוען את רשימת נותני השירות',
+    loadError: 'לא הצלחנו לטעון את רשימת נותני השירות.',
+    emptyTitle: 'עדיין אין נותני שירות',
+    emptyBody: 'נותני שירות שתוסיפו יופיעו כאן, ותוכלו לחפש, לסנן ולנהל אותם.',
+    noResultsTitle: 'לא נמצאו נותני שירות',
+    noResultsBody: 'אין נותני שירות שתואמים לחיפוש או לסינון שבחרתם.',
+    paginationLabel: 'דפי רשימת נותני השירות',
+    // Deactivating a Provider also blocks every one of their Clients (Epic 3).
+    deactivateWarning: 'גם כל הלקוחות של נותן השירות הזה לא יוכלו להתחבר עד שתפעילו אותו מחדש.',
+  },
+};
+
 /** `0501234567` → `050-1234567`; anything else is shown as stored. */
 function formatPhone(phone: string | null): string | null {
   return phone && /^05\d{8}$/.test(phone) ? `${phone.slice(0, 3)}-${phone.slice(3)}` : phone;
 }
 
 /**
- * The Clients of the Provider on screen (the Provider themselves, or the one selected in the
- * context bar), with search, status filter, paging and deactivate / reactivate per row
- * (docs/plans/client-list.md, steps 3-6). Deactivating asks for confirmation; reactivating doesn't.
+ * A list of users with search, status filter, paging and deactivate / reactivate per row
+ * (docs/plans/client-list.md). One page, two modes from the route data:
+ * - `clients`: the Clients of the Provider on screen (the Provider, or the one selected in the
+ *   context bar); mounted at /provider/clients and /admin/provider/clients.
+ * - `providers`: the Admin's list of Providers, at /admin/providers.
+ * Deactivating asks for confirmation; reactivating doesn't.
  *
  * Each (search, status, page) response is cached until users change in this tab, so going back
  * to a combination already seen costs no request.
@@ -68,6 +109,10 @@ export class UsersListPageComponent {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
+  protected readonly mode: UsersListMode =
+    inject(ActivatedRoute).snapshot.data['mode'] === 'providers' ? 'providers' : 'clients';
+  protected readonly texts = TEXTS[this.mode];
+
   protected readonly statusOptions = STATUS_FILTER_OPTIONS;
   protected readonly skeletonRows = SKELETON_ROWS;
   protected readonly formatPhone = formatPhone;
@@ -77,7 +122,7 @@ export class UsersListPageComponent {
 
   /** Set when an Admin works on a selected Provider, so the title says whose Clients these are. */
   protected readonly providerName =
-    this.actingContext.actor()?.role === Role.ADMIN
+    this.mode === 'clients' && this.actingContext.actor()?.role === Role.ADMIN
       ? (this.actingContext.selectedProvider()?.name ?? null)
       : null;
 
@@ -115,7 +160,9 @@ export class UsersListPageComponent {
           limit: PAGE_SIZE,
           search: params.search || undefined,
           status: params.status === 'all' ? undefined : params.status,
-          providerId: this.providerId ?? undefined,
+          ...(this.mode === 'providers'
+            ? { role: Role.PROVIDER }
+            : { providerId: this.providerId ?? undefined }),
         })
         .pipe(tap((response) => this.cache.set(key, response)));
     },
@@ -146,15 +193,9 @@ export class UsersListPageComponent {
     return 'list';
   });
 
-  protected readonly countLabel = computed(() => {
-    const total = this.total();
-
-    if (this.isFiltered()) {
-      return total === 1 ? 'נמצא לקוח אחד' : `נמצאו ${total} לקוחות`;
-    }
-
-    return total === 1 ? 'לקוח אחד' : `${total} לקוחות`;
-  });
+  protected readonly countLabel = computed(() =>
+    this.isFiltered() ? this.texts.found(this.total()) : this.texts.count(this.total()),
+  );
 
   constructor() {
     // Any add / (de)activation in this tab makes cached pages stale.
@@ -164,8 +205,12 @@ export class UsersListPageComponent {
     });
   }
 
-  protected onAddClient(): void {
-    this.router.navigateByUrl(`${this.actingContext.providerBaseUrl() ?? '/provider'}/clients/new`);
+  protected onAdd(): void {
+    this.router.navigateByUrl(
+      this.mode === 'providers'
+        ? '/admin/users/new'
+        : `${this.actingContext.providerBaseUrl() ?? '/provider'}/clients/new`,
+    );
   }
 
   protected onClearFilters(): void {

@@ -42,6 +42,11 @@ export const appRoutes: Route[] = [
             loadChildren: addUserPage,
           },
           {
+            path: 'providers',
+            data: { mode: 'providers' },
+            loadChildren: usersListPage,
+          },
+          {
             path: 'provider/clients/new',
             canActivate: [requireProviderGuard],
             data: { mode: 'client' },
@@ -50,6 +55,7 @@ export const appRoutes: Route[] = [
           {
             path: 'provider/clients',
             canActivate: [requireProviderGuard],
+            data: { mode: 'clients' },
             loadChildren: usersListPage,
           },
           {
@@ -79,7 +85,7 @@ export const appRoutes: Route[] = [
             data: { mode: 'client' },
             loadChildren: addUserPage,
           },
-          { path: 'clients', loadChildren: usersListPage },
+          { path: 'clients', data: { mode: 'clients' }, loadChildren: usersListPage },
           {
             path: 'client',
             canActivate: [requireClientGuard],
