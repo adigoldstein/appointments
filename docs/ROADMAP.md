@@ -16,7 +16,12 @@ Sequenced by dependency; each epic is independently shippable once its dependenc
 6. **Cancellation** — unbook/cancel endpoint (shared for Client and Provider actors), cancellation-window enforcement (Client only, Provider/Admin exempt), `AppointmentEvent` entity + migration, wiring booking/cancellation to write events.
 7. **In-App Notifications** — `notificationsLastViewedAt` cursor on `User` + migration, notification-feed endpoint (symmetric by role, cursor-based), mark-as-viewed endpoint, frontend inbox for both dashboards.
 
-**Next plan after the user lists** (decided 2026-10-07): a user details / edit page, opened from a row in the list (name, phone, city, email; possibly a password reset). Its own plan in `docs/plans/`.
+**Next plan after the user lists** (decided 2026-10-07): a user details / edit page, opened from a row in the list. Planned in `docs/plans/edit-user.md` (approved 2026-10-08); no password on that screen.
+
+**Waiting in line** (2026-10-08):
+- **Client picker in the context bar**: keep, change or remove it; decides client-list plan step 7 ("עבודה בשמו", parked).
+- **Changing passwords**, to discuss: a user changing their own (old + new + confirm), a Provider setting one for their Clients, the Admin for anyone.
+- **Redesign audit** of the existing screens against the design skills (collected so far: em-dashes in UI text, the hand-drawn eye icon in `ui-input`, `--color-text-muted` below WCAG AA, the loud `secondary` button, Latin text in RTL inputs such as search, a neutral-named secondary text token).
 
 **Cross-cutting — acting on behalf ([ADR-0004](adr/0004-acting-on-behalf-of-lower-roles.md))**: every role can use the pages of the roles below it. Admin picks a Provider (and optionally one of that Provider's Clients); a Provider picks one of their Clients. Pages are reusable lib components that take the acting target as input; backend endpoints from Epic 3 onward take the target id explicitly and authorize it against the real actor. Needs: an acting-context service on the frontend, autocomplete pickers, hierarchical route guards. Admin acting for a not-yet-onboarded Provider is offered the onboarding form (fill it in for them, or skip and leave it to the Provider's first login) — provider-settings endpoints must accept a target Provider id for Admin. Open question: picker placement (global in the shell header vs. per page).
 
