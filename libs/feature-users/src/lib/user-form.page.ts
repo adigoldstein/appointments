@@ -34,7 +34,7 @@ import { UiCardComponent } from '@app/ui/card';
 import { UiInputComponent } from '@app/ui/input';
 import { CREATE_USER_FAILURE_MESSAGES, toCreateUserFailure } from './create-user-error';
 import type { CreateUserFailure } from './create-user-error.types';
-import type { AddUserMode, NewUserRole } from './add-user.types';
+import type { NewUserRole, UserFormMode } from './user-form.types';
 
 /** Optional; same rule as the backend: `05XXXXXXXX`, spaces and dashes allowed between digits. */
 function israeliMobileValidator(control: AbstractControl<string>): ValidationErrors | null {
@@ -51,7 +51,7 @@ function israeliMobileValidator(control: AbstractControl<string>): ValidationErr
  * or the one selected in the context bar.
  */
 @Component({
-  selector: 'feature-add-user-page',
+  selector: 'feature-user-form-page',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -60,18 +60,18 @@ function israeliMobileValidator(control: AbstractControl<string>): ValidationErr
     UiCardComponent,
     UiInputComponent,
   ],
-  templateUrl: './add-user.page.html',
-  styleUrl: './add-user.page.scss',
+  templateUrl: './user-form.page.html',
+  styleUrl: './user-form.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddUserPageComponent {
+export class UserFormPageComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly usersApi = inject(UsersApiService);
   private readonly localitiesApi = inject(LocalitiesApiService);
   private readonly actingContext = inject(ActingContextStore);
 
   protected readonly Role = Role;
-  protected readonly mode: AddUserMode =
+  protected readonly mode: UserFormMode =
     inject(ActivatedRoute).snapshot.data['mode'] === 'admin' ? 'admin' : 'client';
 
   protected readonly roleControl = new FormControl<NewUserRole>(

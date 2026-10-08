@@ -11,8 +11,8 @@ const providerArea = () =>
   import('@app/feature-provider').then((m) => m.featureProviderRoutes);
 const clientArea = () =>
   import('@app/feature-client').then((m) => m.featureClientRoutes);
-const addUserPage = () =>
-  import('@app/feature-users').then((m) => m.featureUsersRoutes);
+const userFormPage = () =>
+  import('@app/feature-users').then((m) => m.featureUserFormRoutes);
 const usersListPage = () =>
   import('@app/feature-users').then((m) => m.featureUsersListRoutes);
 
@@ -39,7 +39,7 @@ export const appRoutes: Route[] = [
           {
             path: 'users/new',
             data: { mode: 'admin' },
-            loadChildren: addUserPage,
+            loadChildren: userFormPage,
           },
           {
             path: 'providers',
@@ -50,7 +50,7 @@ export const appRoutes: Route[] = [
             path: 'provider/clients/new',
             canActivate: [requireProviderGuard],
             data: { mode: 'client' },
-            loadChildren: addUserPage,
+            loadChildren: userFormPage,
           },
           {
             path: 'provider/clients',
@@ -83,7 +83,7 @@ export const appRoutes: Route[] = [
           {
             path: 'clients/new',
             data: { mode: 'client' },
-            loadChildren: addUserPage,
+            loadChildren: userFormPage,
           },
           { path: 'clients', data: { mode: 'clients' }, loadChildren: usersListPage },
           {

@@ -1,2 +1,2 @@
 export * from './lib/routes';
-export type { AddUserMode } from './lib/add-user.types';
+export type { UserFormMode } from './lib/user-form.types';

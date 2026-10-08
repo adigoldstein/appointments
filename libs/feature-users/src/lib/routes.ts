@@ -1,12 +1,12 @@
 import { Route } from '@angular/router';
-import { AddUserPageComponent } from './add-user.page';
+import { UserFormPageComponent } from './user-form.page';
 import { UsersListPageComponent } from './users-list.page';
 
-/** Mounted by the app with route data `{ mode: 'client' | 'admin' }` (see AddUserMode). */
-export const featureUsersRoutes: Route[] = [
+/** Mounted by the app with route data `{ mode: 'client' | 'admin' }` (see UserFormMode). */
+export const featureUserFormRoutes: Route[] = [
   {
     path: '',
-    component: AddUserPageComponent,
+    component: UserFormPageComponent,
   },
 ];
 
