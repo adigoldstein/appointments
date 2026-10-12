@@ -113,6 +113,15 @@
               }
             </span>
             <span class="users-list__actions">
+              <ui-button
+                variant="ghost"
+                size="sm"
+                [disabled]="pendingUserId() !== null"
+                (click)="onEdit(user)"
+              >
+                <ui-icon name="edit" />
+                עריכה<span class="users-list__visually-hidden"> של {{ fullName(user) }}</span>
+              </ui-button>
               @if (user.deactivatedAt) {
                 <ui-button
                   variant="secondary"

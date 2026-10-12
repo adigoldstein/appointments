@@ -108,10 +108,11 @@ export class UsersListPageComponent {
   private readonly usersApi = inject(UsersApiService);
   private readonly actingContext = inject(ActingContextStore);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
 
   protected readonly mode: UsersListMode =
-    inject(ActivatedRoute).snapshot.data['mode'] === 'providers' ? 'providers' : 'clients';
+    this.route.snapshot.data['mode'] === 'providers' ? 'providers' : 'clients';
   protected readonly texts = TEXTS[this.mode];
 
   protected readonly statusOptions = STATUS_FILTER_OPTIONS;
@@ -252,6 +253,11 @@ export class UsersListPageComponent {
     }
 
     return (navigation.extras.state as UsersListNavigationState | undefined)?.notice ?? null;
+  }
+
+  /** Opens the edit page; saving or cancelling there comes back to this list. */
+  protected onEdit(user: UserListItem): void {
+    void this.router.navigate([user.id, 'edit'], { relativeTo: this.route });
   }
 
   protected onAskDeactivate(user: UserListItem): void {

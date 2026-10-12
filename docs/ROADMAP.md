@@ -16,14 +16,33 @@ Sequenced by dependency; each epic is independently shippable once its dependenc
 6. **Cancellation** — unbook/cancel endpoint (shared for Client and Provider actors), cancellation-window enforcement (Client only, Provider/Admin exempt), `AppointmentEvent` entity + migration, wiring booking/cancellation to write events.
 7. **In-App Notifications** — `notificationsLastViewedAt` cursor on `User` + migration, notification-feed endpoint (symmetric by role, cursor-based), mark-as-viewed endpoint, frontend inbox for both dashboards.
 
-**Next plan after the user lists** (decided 2026-10-07): a user details / edit page, opened from a row in the list. Planned in `docs/plans/edit-user.md` (approved 2026-10-08); no password on that screen.
+## Progress (2026-10-08)
 
-**Waiting in line** (2026-10-08):
+| | Status |
+|---|---|
+| 1. App Shell & Navigation | ✅ done |
+| 2. Provider Onboarding & Settings | ✅ done |
+| 3. Active/Inactive Users | ✅ done: backend, add-user page, Clients and Providers lists with deactivate / reactivate, edit page (`docs/plans/client-list.md`, `docs/plans/edit-user.md`). Only the "עבודה בשמו" row shortcut is parked (below). |
+| Acting on behalf (cross-cutting) | ✅ done: acting context held as state, context bar with Provider / Client pickers (ADR-0004, ADR-0005) |
+| Conventions | ✅ thin app + Signal Stores (ADR-0007), Hebrew-only UI (ADR-0006), types and API contracts (ADR-0008) |
+| 4. Slot Management | not started |
+| 5. Client Booking | not started |
+| 6. Cancellation | not started |
+| 7. In-App Notifications | not started |
+
+**Waiting in line** (2026-10-08), before or alongside Epic 4:
 - **Client picker in the context bar**: keep, change or remove it; decides client-list plan step 7 ("עבודה בשמו", parked).
 - **Changing passwords**, to discuss: a user changing their own (old + new + confirm), a Provider setting one for their Clients, the Admin for anyone.
-- **Redesign audit** of the existing screens against the design skills (collected so far: em-dashes in UI text, the hand-drawn eye icon in `ui-input`, `--color-text-muted` below WCAG AA, the loud `secondary` button, Latin text in RTL inputs such as search, a neutral-named secondary text token, `ui-input` renders its error inside the `<label>` so the field's accessible name becomes "label + error").
+- **Redesign audit** of the existing screens against the design skills. Collected so far:
+  - em-dashes in UI text;
+  - the hand-drawn eye icon in `ui-input`;
+  - `--color-text-muted` below WCAG AA, and a neutral-named secondary text token to replace the borrowed one;
+  - the loud `secondary` button;
+  - Latin text in RTL inputs such as search;
+  - `ui-input` renders its error inside the `<label>`, so the field's accessible name becomes "label + error";
+  - **component style budget** (`users-list.page.scss` is ~4.5 kB against the 4 kB warning): move repeated helpers (e.g. `visually-hidden`, skeleton bars) into `libs/design-system` once, and split the users list into smaller components (row, empty / error states), each with its own styles. Don't raise the budget.
 
-**Cross-cutting — acting on behalf ([ADR-0004](adr/0004-acting-on-behalf-of-lower-roles.md))**: every role can use the pages of the roles below it. Admin picks a Provider (and optionally one of that Provider's Clients); a Provider picks one of their Clients. Pages are reusable lib components that take the acting target as input; backend endpoints from Epic 3 onward take the target id explicitly and authorize it against the real actor. Needs: an acting-context service on the frontend, autocomplete pickers, hierarchical route guards. Admin acting for a not-yet-onboarded Provider is offered the onboarding form (fill it in for them, or skip and leave it to the Provider's first login) — provider-settings endpoints must accept a target Provider id for Admin. Open question: picker placement (global in the shell header vs. per page).
+**Cross-cutting — acting on behalf ([ADR-0004](adr/0004-acting-on-behalf-of-lower-roles.md))**: every role can use the pages of the roles below it. Admin picks a Provider (and optionally one of that Provider's Clients); a Provider picks one of their Clients. Pages are reusable lib components that take the acting target as input; backend endpoints from Epic 3 onward take the target id explicitly and authorize it against the real actor. Needs: an acting-context service on the frontend, autocomplete pickers, hierarchical route guards. Admin acting for a not-yet-onboarded Provider is offered the onboarding form (fill it in for them, or skip and leave it to the Provider's first login) — provider-settings endpoints must accept a target Provider id for Admin. Picker placement: decided, the context bar under the shell header (ADR-0005).
 
 **Fast-follow, once Epic 4 is solid**: whole-day bulk delete/withdraw endpoint + UI (atomic — unbooks any `BOOKED` rows for that Provider+date, then deletes the resulting `OPEN` rows).
 
