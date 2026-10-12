@@ -77,7 +77,7 @@ Weekly view: a column per day (one day on a phone), hours down the side. Windows
 
 ## Steps (each reviewed and committed separately)
 
-1. **ADR-0009 accepted + CONTEXT.md vocabulary** (docs only). ADR-0001 marked replaced.
+1. **ADR-0009 accepted + CONTEXT.md vocabulary** (docs only). ADR-0001 marked replaced. ROADMAP Epics 4-6 and the deferred list aligned.
 2. **Backend: settings model.** Time unit, meeting types (lengths validated against it), weekly windows, cancellation window, migration from allowed durations, `client_meeting_types` defaults. CRUD endpoints, Admin with `providerId`.
 3. **Frontend: split settings.** Onboarding = business details. New "הגדרות תורים" page.
 4. **Backend: availability.** `appointments` table + exclusion constraint, extra windows, the free-time calculation, open period (preview + apply), "open until".

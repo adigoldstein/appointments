@@ -1,6 +1,6 @@
 # Availability windows, meeting types, and bookings as the only appointment rows
 
-Status: **proposed 2026-10-12, waiting for review.** Replaces [ADR-0001](0001-single-reusable-appointment-row.md) once accepted.
+Status: **accepted 2026-10-12.** Replaces [ADR-0001](0001-single-reusable-appointment-row.md).
 
 ## Context
 

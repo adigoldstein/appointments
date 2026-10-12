@@ -22,27 +22,53 @@ _Avoid_: Organization, account, workspace
 
 ## Scheduling
 
+See ADR-0009 for the model behind these terms.
+
 **Appointment**:
-A single row representing one bookable time slot for a Provider, reused across its entire lifecycle. Its `status` (`OPEN` or `BOOKED`) and `clientId` change as it's booked and cancelled, but the row itself is never duplicated for the same time slot.
-_Avoid_: Slot, booking, reservation (used interchangeably in conversation, but "Appointment" is the canonical row — see also Cancel and Delete, which are easy to conflate)
+One booked meeting: a Provider, a Client, a Meeting type, a start and an end. A row exists only once something is booked; free time is never stored as rows. Its `status` is `BOOKED` or `CANCELLED`.
+_Avoid_: Slot, booking, reservation (used interchangeably in conversation, but "Appointment" is the canonical row)
+
+**Meeting type**:
+A kind of meeting a Provider offers, with a name and a total length that is a multiple of the Time unit (e.g. "פגישה רגילה", 1 hour; "פגישת היכרות", 3 hours). There is no separate break: any time the Provider wants to themselves is inside the length. A type that has Appointments is archived, never deleted.
+_Avoid_: Service, duration
+
+**Time unit**:
+A Provider's scheduling grid, 30 or 60 minutes. Every Meeting type's length is a multiple of it, and Appointments start only on its grid, counted from the start of each Window. This is what keeps a day free of unusable gaps.
+_Avoid_: Slot length, step
+
+**Window**:
+A stretch of time when a Provider takes Appointments. Weekly windows repeat every week (several per day; a break inside the day is the gap between two windows). An extra window is a one-off on a specific date.
+_Avoid_: Working hours (fine in UI copy, but in the model it's Windows), availability block
+
+**Open until**:
+The last date a Provider's calendar is open. Clients can book only up to it; the Provider (and the Admin) may book beyond it. Opening a period moves it forward and books Recurring appointments into the newly open dates.
+_Avoid_: Booking horizon, publish date
+
+**Recurring appointment**:
+A rule that books the same Client, Meeting type, weekday and start time every week ("Dana, every Wednesday at 15:00"), turned into Appointments for every open date. Dates that can't be booked are skipped and reported, never dropped silently.
+_Avoid_: Series (fine in conversation and in UI copy), subscription, standing booking
+
+**Free time**:
+What can be booked on a day: the day's Windows, up to Open until, minus `BOOKED` Appointments, offered at the Time unit grid. Always calculated, never stored.
+_Avoid_: Open slots, availability
 
 **Cancel**:
-Releasing a Client from a `BOOKED` Appointment, returning the same row to `OPEN`. Not a terminal action — the Appointment can be rebooked by anyone afterward. Performed by the Client (only outside their Provider's cancellation window) or by the Provider/Admin (always exempt from the window). The fact that a cancellation happened lives only in an AppointmentEvent, never on the Appointment row itself.
-_Avoid_: Unbook, delete, withdraw (Delete is a distinct, separate operation — see Delete)
-
-**Delete** (of an Appointment):
-Permanently removing an `OPEN` Appointment row from existence. Only possible on `OPEN` rows — a `BOOKED` row must be cancelled first. Only a Provider or Admin can delete.
-_Avoid_: Cancel, withdraw, close
+Marking a `BOOKED` Appointment `CANCELLED`, which frees its time. Performed by the Client (only outside their Provider's cancellation window) or by the Provider/Admin (always exempt from the window); also happens when a Provider shrinks their Windows over booked time, after confirming. The row stays as history; who cancelled and when lives in an AppointmentEvent.
+_Avoid_: Unbook, delete, withdraw (Appointments are never deleted)
 
 **AppointmentEvent**:
-An immutable log entry recording that an Appointment was booked or cancelled — who did it and when. This is the only place appointment history lives; it also doubles as the source for both Provider- and Client-facing in-app notifications. The Appointment row itself holds no history.
+An immutable log entry recording that an Appointment was booked or cancelled — who did it and when. It also doubles as the source for both Provider- and Client-facing in-app notifications.
 _Avoid_: Notification, log, audit record
 
+**Client meeting types**:
+The Meeting types a Client may book themselves (e.g. not the intake). Filled from the types marked "for new Clients by default" when the Client is created. The Provider and the Admin can book any type for a Client.
+_Avoid_: Permissions, entitlements
+
 **Onboarding gate**:
-The rule that a Provider cannot create any Appointment until their ProviderSettings row exists, created via one atomic setup form.
+The rule that a Provider must complete onboarding (ProviderSettings: business name and Client label) before using their area. Opening a period additionally needs the appointment settings: a Time unit, at least one Meeting type and one Window.
 
 **ProviderSettings**:
-Per-Provider configuration — cancellation window, allowed appointment durations, the label used for "Client" in that Provider's UI, business name, and onboarding completion. One row per Provider.
+Per-Provider configuration — business name, the label used for "Client" in that Provider's UI, the cancellation window, the Time unit, and Open until. One row per Provider. Meeting types and Windows are their own rows.
 _Avoid_: Preferences, config
 
 ## Account Lifecycle

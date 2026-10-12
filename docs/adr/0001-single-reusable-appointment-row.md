@@ -1,5 +1,7 @@
 # Single reusable Appointment row, non-terminal cancellation
 
+Status: **replaced 2026-10-12 by [ADR-0009](0009-availability-windows-and-meeting-types.md)**, before any of it was built. Pre-created fixed-size slots couldn't hold several meeting lengths on the same day; ADR-0009 stores availability as windows and creates a row only for a booking. Kept for the reasoning.
+
 We considered two shapes for scheduling data: one `Appointment` entity whose `status` toggles between `OPEN` and `BOOKED`, versus splitting `Availability`/`Slot` (what a Provider offers) from `Appointment` (a specific booking). We chose the single-entity model: the same row is created once by a Provider and is reused indefinitely as it cycles between `OPEN` and `BOOKED`.
 
 This has a direct consequence a reader might not expect: **cancelling is not terminal.** It doesn't produce a `CANCELLED` status — it clears `clientId` and flips the row back to `OPEN`, ready to be rebooked by anyone. There is no `CANCELLED` value in the `status` enum at all. The record that a cancellation happened lives entirely in a separate `AppointmentEvent` log, never on the `Appointment` row.
