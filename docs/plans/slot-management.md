@@ -1,6 +1,6 @@
 # Plan: slot management (Epic 4)
 
-Status: **approved 2026-10-12**, in progress.
+Status: **approved 2026-10-12**; steps 1-2 done.
 Builds on ADR-0009 (availability windows, meeting types, bookings as the only appointment rows), ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0007/0008 (libs, stores, contracts).
 
 ## Goal
@@ -102,3 +102,9 @@ The `ScheduleStore` and the refresh button arrive with the first screen that loa
 4. **Removing a meeting type that has appointments**: decided (2026-10-12), it is archived (hidden for new bookings, kept on existing ones). A type with no appointments is deleted.
 5. **Changing windows when the period is already open**: decided (2026-10-12). New bookings follow the new windows immediately. Booked appointments that fall outside the new windows are **cancelled**, not kept: before saving, the Provider sees them listed in a strong warning ("3 פגישות יבוטלו: ...") and confirms. The Client and the Provider are notified (in-app, Epic 7; until then the warning on save is the only signal). Cancelled = marked `CANCELLED` with an `AppointmentEvent`, as every cancel (ADR-0009).
 6. **Series dates that aren't open yet**: decided (2026-10-12). They can only be taken by a Provider booking beyond "open until", and that booking is warned about the series at the time (ADR-0009). When the period opens, such a date is skipped and shown in the opening preview (and, once Epic 7 exists, notified to the Client).
+
+## Open, later (raised 2026-10-12, deferred "if needed")
+
+- **Time unit guidance**: recommend "unit = the shortest meeting type" on the settings screen, and warn when the unit is shorter than every type (a gap of one unit can then be unusable). ADR-0009 says every gap "is still bookable"; that holds only when a type of the unit's length exists. Fix the wording with this.
+- **More time units** (15, 45): one constant, the type, and a DB check (migration).
+- **Backend lint**: the backend project has no Nx tags, so every `@app/shared/*` import fails `@nx/enforce-module-boundaries` (pre-existing). Tag it and allow it to depend on shared libs.

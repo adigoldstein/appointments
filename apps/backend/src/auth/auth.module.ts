@@ -7,6 +7,7 @@ import type { StringValue } from 'ms';
 import { ENV_KEYS } from '../config/env.constants';
 import type { EnvironmentVariables } from '../config/env.types';
 import { ProviderSettingsModule } from '../provider-settings/provider-settings.module';
+import { SchedulingModule } from '../scheduling/scheduling.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { RefreshToken } from './entities/refresh-token.entity';
@@ -20,6 +21,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   imports: [
     TypeOrmModule.forFeature([User, RefreshToken]),
     ProviderSettingsModule,
+    SchedulingModule,
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

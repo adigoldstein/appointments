@@ -7,6 +7,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import type { TimeUnitMinutes } from '@app/shared/types';
 import { User } from '../../auth/entities/user.entity';
 
 @Entity({ name: 'provider_settings' })
@@ -29,6 +30,10 @@ export class ProviderSettings {
 
   @Column({ name: 'allowed_durations_minutes', type: 'integer', array: true })
   allowedDurationsMinutes: number[];
+
+  /** The scheduling grid (ADR-0009): 30 or 60. */
+  @Column({ name: 'time_unit_minutes', type: 'integer', default: 60 })
+  timeUnitMinutes: TimeUnitMinutes;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   createdAt: Date;

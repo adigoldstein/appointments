@@ -8,6 +8,7 @@ import type { EnvironmentVariables } from '../config/env.types';
 import { validateEnvironment } from '../config/env.validation';
 import { LocalitiesModule } from '../localities/localities.module';
 import { ProviderSettingsModule } from '../provider-settings/provider-settings.module';
+import { SchedulingModule } from '../scheduling/scheduling.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -43,6 +44,7 @@ import { AppService } from './app.service';
     AuthModule,
     LocalitiesModule,
     ProviderSettingsModule,
+    SchedulingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

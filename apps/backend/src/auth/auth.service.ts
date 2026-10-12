@@ -25,6 +25,7 @@ import { Brackets, IsNull, Repository } from 'typeorm';
 import { ENV_KEYS } from '../config/env.constants';
 import type { EnvironmentVariables } from '../config/env.types';
 import { ProviderSettingsService } from '../provider-settings/provider-settings.service';
+import { ScheduleSettingsService } from '../scheduling/schedule-settings.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ListUsersQueryDto } from './dto/list-users-query.dto';
 import { LoginDto } from './dto/login.dto';
@@ -60,6 +61,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService<EnvironmentVariables, true>,
     private readonly providerSettingsService: ProviderSettingsService,
+    private readonly scheduleSettingsService: ScheduleSettingsService,
   ) {}
 
   async createUser(
@@ -102,19 +104,32 @@ export class AuthService {
       actor,
     );
 
-    const user = await this.usersRepository.save(
-      this.usersRepository.create({
-        email: createUserDto.email,
-        firstName: createUserDto.firstName,
-        lastName: createUserDto.lastName,
-        passwordHash,
-        role: createUserDto.role,
-        providerId,
-        phone: parseIsraeliMobile(createUserDto.phone),
-        cityId:
-          createUserDto.cityId === undefined ? null : createUserDto.cityId,
-      }),
-    );
+    // One transaction: a Client never exists without their default meeting types (ADR-0009).
+    const user = await this.usersRepository.manager.transaction(async (manager) => {
+      const saved = await manager.save(
+        manager.create(User, {
+          email: createUserDto.email,
+          firstName: createUserDto.firstName,
+          lastName: createUserDto.lastName,
+          passwordHash,
+          role: createUserDto.role,
+          providerId,
+          phone: parseIsraeliMobile(createUserDto.phone),
+          cityId:
+            createUserDto.cityId === undefined ? null : createUserDto.cityId,
+        }),
+      );
+
+      if (saved.role === Role.CLIENT && saved.providerId) {
+        await this.scheduleSettingsService.grantDefaultMeetingTypes(
+          manager,
+          saved.id,
+          saved.providerId,
+        );
+      }
+
+      return saved;
+    });
 
     return await this.toAuthUser(user);
   }
