@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
-import { ActingContextStore } from '@app/shared/acting-context';
 import { SessionStore } from '@app/shared/auth';
 import { UsersApiService } from '@app/shared/users';
-import { OnboardingSkipService } from '../onboarding-skip.service';
+import { ActingContextStore } from './acting-context.store';
+import { OnboardingSkipService } from './onboarding-skip.service';
 
 /**
  * Sends the Provider pages to the settings form until onboarding is done.

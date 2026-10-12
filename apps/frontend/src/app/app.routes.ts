@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { ShellComponent } from '@app/feature-shell';
-import { requireClientGuard, requireProviderGuard } from '@app/shared/acting-context';
+import { onboardingGuard, requireClientGuard, requireProviderGuard } from '@app/shared/acting-context';
 import { authGuard } from '@app/shared/auth';
 import { Role } from '@app/shared/types';
 
@@ -15,6 +15,8 @@ const userFormPage = () =>
   import('@app/feature-users').then((m) => m.featureUserFormRoutes);
 const usersListPage = () =>
   import('@app/feature-users').then((m) => m.featureUsersListRoutes);
+const scheduleSettingsPage = () =>
+  import('@app/feature-schedule').then((m) => m.featureScheduleSettingsRoutes);
 
 export const appRoutes: Route[] = [
   {
@@ -70,6 +72,13 @@ export const appRoutes: Route[] = [
             loadChildren: usersListPage,
           },
           {
+            path: 'provider/schedule-settings',
+            canActivate: [requireProviderGuard, onboardingGuard],
+            // Re-check when an Admin switches Provider on this page (same URL).
+            runGuardsAndResolvers: 'always',
+            loadChildren: scheduleSettingsPage,
+          },
+          {
             path: 'provider',
             canActivate: [requireProviderGuard],
             loadChildren: providerArea,
@@ -102,6 +111,11 @@ export const appRoutes: Route[] = [
             loadChildren: userFormPage,
           },
           { path: 'clients', data: { mode: 'clients' }, loadChildren: usersListPage },
+          {
+            path: 'schedule-settings',
+            canActivate: [onboardingGuard],
+            loadChildren: scheduleSettingsPage,
+          },
           {
             path: 'client',
             canActivate: [requireClientGuard],

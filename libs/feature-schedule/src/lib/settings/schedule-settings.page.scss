@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.page {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0 auto;
+  max-width: 48rem;
+}
+
+.page__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.page__subtitle {
+  // AA-safe secondary grey (see the redesign audit on --color-text-muted).
+  color: var(--color-appointment-blocked-text);
+  margin: var(--space-2) 0 0;
+}
+
+.page__message {
+  align-items: center;
+  border: var(--border-width-thin) dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: var(--space-6);
+  text-align: center;
+
+  p {
+    margin: 0;
+  }
+}
+
+.page__link {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}
+
+.page__skeleton {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.page__bar {
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-lg);
+  height: 9rem;
+}
+
+.page__bar--tall {
+  height: 22rem;
+}
+
+.page__visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

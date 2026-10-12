@@ -1,0 +1,112 @@
+@use 'section';
+
+.types {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.types__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.types__row {
+  align-items: center;
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  display: grid;
+  gap: var(--space-2) var(--space-4);
+  grid-template-columns: minmax(8rem, 1fr) 6rem 8rem auto;
+  padding: var(--space-3) 0;
+}
+
+.types__row--editing {
+  display: block;
+}
+
+.types__name {
+  font-weight: var(--font-weight-medium);
+}
+
+.types__length {
+  color: var(--section-secondary);
+}
+
+.types__actions {
+  display: flex;
+  gap: var(--space-1);
+  justify-self: end;
+}
+
+.types__form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.types__field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.types__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.types__select {
+  background: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font: inherit;
+  max-width: 14rem;
+  padding: var(--space-2) var(--space-3);
+}
+
+.types__check {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  gap: var(--space-2);
+
+  input {
+    accent-color: var(--color-accent);
+    margin-top: var(--space-1);
+  }
+
+  .hint {
+    display: block;
+  }
+}
+
+.types__confirm {
+  display: grid;
+  gap: var(--space-4);
+
+  p {
+    margin: 0;
+  }
+}
+
+.types__visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+// Phones: name and length on top, badge and actions below.
+@media (max-width: 599px) {
+  .types__row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .types__badge,
+  .types__actions {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

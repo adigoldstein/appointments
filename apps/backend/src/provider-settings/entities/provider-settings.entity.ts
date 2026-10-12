@@ -7,7 +7,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import type { TimeUnitMinutes } from '@app/shared/types';
+import { CANCELLATION_WINDOW_DEFAULT_MINUTES, type TimeUnitMinutes } from '@app/shared/types';
 import { User } from '../../auth/entities/user.entity';
 
 @Entity({ name: 'provider_settings' })
@@ -25,11 +25,13 @@ export class ProviderSettings {
   @Column({ name: 'client_label', type: 'varchar', length: 50 })
   clientLabel: string;
 
-  @Column({ name: 'cancellation_window_minutes', type: 'integer' })
+  /** Edited through `/schedule/settings`; a new Provider starts with 24 hours. */
+  @Column({
+    name: 'cancellation_window_minutes',
+    type: 'integer',
+    default: CANCELLATION_WINDOW_DEFAULT_MINUTES,
+  })
   cancellationWindowMinutes: number;
-
-  @Column({ name: 'allowed_durations_minutes', type: 'integer', array: true })
-  allowedDurationsMinutes: number[];
 
   /** The scheduling grid (ADR-0009): 30 or 60. */
   @Column({ name: 'time_unit_minutes', type: 'integer', default: 60 })

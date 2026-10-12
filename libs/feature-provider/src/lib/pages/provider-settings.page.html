@@ -1,14 +1,19 @@
 <div class="provider-settings-layout">
   <ui-card
-    [title]="
-      actingProviderName()
-        ? 'הגדרת העסק של ' + actingProviderName()
-        : 'הגדרת העסק שלכם'
+    [title]="title()"
+    [subtitle]="
+      isEditing()
+        ? null
+        : 'שני פרטים קצרים על העסק. מיד אחריהם נגדיר את שעות הפעילות וסוגי הפגישות.'
     "
-    subtitle="נעדכן את הפרטים האלה כדי להתחיל לקבל תורים. ניתן יהיה לשנות אותם בהמשך."
   >
     @if (loading()) {
     <p class="provider-settings-loading">טוען...</p>
+    } @else if (loadFailed()) {
+    <div class="provider-settings-form__alert" role="alert">
+      <p class="provider-settings-load-error">לא הצלחנו לטעון את פרטי העסק.</p>
+      <ui-button variant="secondary" size="sm" (click)="load()">נסו שוב</ui-button>
+    </div>
     } @else {
     <form
       class="provider-settings-form"
@@ -30,54 +35,6 @@
         [error]="clientLabelError()"
       />
 
-      <ui-input
-        formControlName="cancellationWindow"
-        label="חלון ביטול (שעות:דקות)"
-        placeholder="לדוגמה: 24:00"
-        hint="כמה זמן לפני התור לקוח יכול לבטל בעצמו"
-        [error]="cancellationWindowError()"
-      />
-
-      <div class="provider-settings-durations">
-        <span class="provider-settings-durations__label"
-          >משכי תורים אפשריים</span
-        >
-
-        <div class="provider-settings-durations__add">
-          <ui-input
-            [formControl]="durationInputControl"
-            placeholder="שעות:דקות, לדוגמה 1:00"
-            [error]="durationInputError()"
-            (keydown.enter)="$event.preventDefault(); addDuration()"
-          />
-          <ui-button type="button" variant="secondary" (click)="addDuration()">
-            הוספה
-          </ui-button>
-        </div>
-
-        @if (selectedDurations().length > 0) {
-        <div class="provider-settings-durations__chips">
-          @for (minutes of selectedDurations(); track minutes) {
-          <span class="provider-settings-chip">
-            {{ formatDuration(minutes) }}
-            <button
-              type="button"
-              class="provider-settings-chip__remove"
-              [attr.aria-label]="'הסרת משך ' + formatDuration(minutes)"
-              (click)="removeDuration(minutes)"
-            >
-              ✕
-            </button>
-          </span>
-          }
-        </div>
-        } @if (durationsError()) {
-        <span class="provider-settings-durations__error" role="alert">
-          {{ durationsError() }}
-        </span>
-        }
-      </div>
-
       @if (submitError()) {
       <p class="provider-settings-form__alert" role="alert">
         {{ submitError() }}
@@ -97,7 +54,7 @@
         >
         } @else if (actingProviderId()) {
         <ui-button type="button" variant="ghost" (click)="onSkip()"
-          >דילוג — נותן השירות ישלים בעצמו</ui-button
+          >דילוג, נותן השירות ישלים בעצמו</ui-button
         >
         }
       </div>

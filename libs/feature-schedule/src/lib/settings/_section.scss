@@ -1,0 +1,79 @@
+// Shared by the appointment settings sections: messages, hints and the segmented choice.
+
+:host {
+  display: block;
+  // Secondary text: --color-text-muted is below WCAG AA (see the redesign audit), so the AA-safe grey.
+  --section-secondary: var(--color-appointment-blocked-text);
+}
+
+.hint {
+  color: var(--section-secondary);
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+.error,
+.success,
+.notice {
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  margin: 0;
+  padding: var(--space-3);
+}
+
+.error {
+  background: var(--color-pastel-red-bg);
+  color: var(--color-pastel-red-text);
+}
+
+.success {
+  background: var(--color-pastel-green-bg);
+  color: var(--color-pastel-green-text);
+}
+
+.notice {
+  background: var(--color-pastel-yellow-bg);
+  color: var(--color-pastel-yellow-text);
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.segmented {
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  padding: var(--space-half);
+}
+
+.segmented__option {
+  border-radius: var(--radius-sm);
+  color: var(--section-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  padding: var(--space-2) var(--space-4);
+  position: relative;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard);
+
+  input {
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+  }
+
+  &:has(input:focus-visible) {
+    outline: var(--outline-width-focus-visible) solid var(--color-focus-ring);
+  }
+}
+
+.segmented__option--selected {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}

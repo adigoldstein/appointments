@@ -20,6 +20,7 @@
       "@app/feature-auth": ["libs/feature-auth/src/index.ts"],
       "@app/feature-client": ["libs/feature-client/src/index.ts"],
       "@app/feature-provider": ["libs/feature-provider/src/index.ts"],
+      "@app/feature-schedule": ["libs/feature-schedule/src/index.ts"],
       "@app/feature-shell": ["libs/feature-shell/src/index.ts"],
       "@app/feature-users": ["libs/feature-users/src/index.ts"],
       "@app/shared/acting-context": [
@@ -28,6 +29,7 @@
       "@app/shared/api": ["libs/shared/api/src/index.ts"],
       "@app/shared/auth": ["libs/shared/auth/src/index.ts"],
       "@app/shared/navigation": ["libs/shared/navigation/src/index.ts"],
+      "@app/shared/schedule": ["libs/shared/schedule/src/index.ts"],
       "@app/shared/types": ["libs/shared/types/src/index.ts"],
       "@app/shared/users": ["libs/shared/users/src/index.ts"],
       "@app/shared/utils": ["libs/shared/utils/src/index.ts"],

@@ -105,6 +105,11 @@ export const ActingContextStore = signalStore(
         role() === Role.ADMIN ? (selectedProvider()?.id ?? null) : null,
       ),
 
+      /** The selected Provider's name when an Admin acts for one ("עבור …" on pages); null otherwise. */
+      actingProviderName: computed(() =>
+        role() === Role.ADMIN ? (selectedProvider()?.name ?? null) : null,
+      ),
+
       /** Where the Provider pages are mounted for this actor; null if they can't reach them. */
       providerBaseUrl: computed(() => {
         switch (role()) {

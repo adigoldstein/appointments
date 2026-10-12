@@ -1,0 +1,22 @@
+@use 'section';
+
+.general {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.general__unit {
+  border: none;
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+  margin: 0;
+  padding: 0;
+}
+
+.general__legend {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-2);
+  padding: 0;
+}

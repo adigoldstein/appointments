@@ -1,0 +1,103 @@
+<ui-card title="סוגי פגישות" subtitle="האורך כולל את הזמן שתרצו לעצמכם אחרי הפגישה.">
+  <div class="types">
+    @if (meetingTypes().length === 0 && editing() === null) {
+      <p class="notice">עדיין אין סוגי פגישות. בלי לפחות סוג אחד אי אפשר לפתוח תורים.</p>
+    }
+
+    @if (meetingTypes().length > 0) {
+      <ul class="types__list">
+        @for (type of meetingTypes(); track type.id) {
+          @if (editing() === type.id) {
+            <li class="types__row types__row--editing">
+              <ng-container *ngTemplateOutlet="typeForm" />
+            </li>
+          } @else {
+            <li class="types__row">
+              <span class="types__name">{{ type.name }}</span>
+              <span class="types__length">{{ formatLength(type.lengthMinutes) }}</span>
+              <span class="types__badge">
+                @if (type.defaultForClients) {
+                  <ui-badge tone="info">לכל לקוח חדש</ui-badge>
+                }
+              </span>
+              <span class="types__actions">
+                <ui-button variant="ghost" size="sm" [disabled]="pending() || editing() !== null" (click)="onEdit(type)">
+                  <ui-icon name="edit" />
+                  עריכה<span class="types__visually-hidden"> של {{ type.name }}</span>
+                </ui-button>
+                <ui-button variant="ghost" size="sm" [disabled]="pending() || editing() !== null" (click)="onAskDelete(type)">
+                  <ui-icon name="delete" />
+                  מחיקה<span class="types__visually-hidden"> של {{ type.name }}</span>
+                </ui-button>
+              </span>
+            </li>
+          }
+        }
+      </ul>
+    }
+
+    @if (editing() === 'new') {
+      <div class="types__row types__row--editing">
+        <ng-container *ngTemplateOutlet="typeForm" />
+      </div>
+    }
+
+    @if (actionError() && editing() === null) {
+      <p class="error" role="alert">{{ actionError() }}</p>
+    }
+
+    @if (editing() === null) {
+      <div class="actions">
+        @if (meetingTypes().length < maxCount) {
+          <ui-button variant="secondary" [disabled]="pending()" (click)="onAdd()">הוספת סוג פגישה</ui-button>
+        } @else {
+          <p class="hint">הגעתם למקסימום של {{ maxCount }} סוגי פגישות.</p>
+        }
+      </div>
+    }
+  </div>
+</ui-card>
+
+<ng-template #typeForm>
+  <form class="types__form" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+    <ui-input formControlName="name" label="שם" placeholder="לדוגמה: פגישה רגילה" [error]="nameError()" />
+
+    <label class="types__field">
+      <span class="types__label">אורך</span>
+      <select class="types__select" formControlName="lengthMinutes">
+        @for (minutes of lengthOptions(); track minutes) {
+          <option [ngValue]="minutes">{{ formatLength(minutes) }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="types__check">
+      <input type="checkbox" formControlName="defaultForClients" />
+      <span>
+        לכל לקוח חדש
+        <span class="hint">לקוח חדש יוכל לקבוע פגישה מהסוג הזה בעצמו.</span>
+      </span>
+    </label>
+
+    @if (actionError()) {
+      <p class="error" role="alert">{{ actionError() }}</p>
+    }
+
+    <div class="actions">
+      <ui-button type="submit" [loading]="pending()">שמירה</ui-button>
+      <ui-button variant="ghost" (click)="onCancelEdit()">ביטול</ui-button>
+    </div>
+  </form>
+</ng-template>
+
+<ui-modal [open]="confirmDelete() !== null" title="מחיקת סוג פגישה" (close)="confirmDelete.set(null)">
+  <div class="types__confirm">
+    <p>
+      למחוק את "{{ confirmDelete()?.name }}"? לא תהיה אפשרות לקבוע עוד פגישות מהסוג הזה.
+    </p>
+    <div class="actions">
+      <ui-button [loading]="pending()" (click)="onConfirmDelete()">מחיקה</ui-button>
+      <ui-button variant="ghost" (click)="confirmDelete.set(null)">ביטול</ui-button>
+    </div>
+  </div>
+</ui-modal>

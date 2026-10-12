@@ -117,8 +117,6 @@ export class ProviderSettingsService {
       providerId: settings.providerId,
       businessName: settings.businessName,
       clientLabel: settings.clientLabel,
-      cancellationWindowMinutes: settings.cancellationWindowMinutes,
-      allowedDurationsMinutes: settings.allowedDurationsMinutes,
       createdAt: settings.createdAt.toISOString(),
       updatedAt: settings.updatedAt.toISOString(),
     };

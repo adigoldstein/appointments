@@ -1,0 +1,41 @@
+<ui-card title="יחידת זמן וביטולים">
+  <form class="general" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+    <fieldset class="general__unit">
+      <legend class="general__legend">יחידת זמן</legend>
+      <div class="segmented">
+        @for (option of unitOptions; track option.value) {
+          <label class="segmented__option" [class.segmented__option--selected]="unit() === option.value">
+            <input type="radio" formControlName="timeUnitMinutes" [value]="option.value" />
+            {{ option.label }}
+          </label>
+        }
+      </div>
+      <p class="hint">
+        פגישות מתחילות כל {{ unitLabel() }}, מתחילת כל טווח שעות. אורך כל סוג
+        פגישה הוא כפולה של יחידת הזמן.
+      </p>
+      @if (offGridMessage()) {
+        <p class="error" role="alert">{{ offGridMessage() }}</p>
+      }
+    </fieldset>
+
+    <ui-input
+      formControlName="cancellationWindow"
+      label="חלון ביטול (שעות:דקות)"
+      placeholder="לדוגמה: 24:00"
+      hint="עד כמה זמן לפני הפגישה לקוח יכול לבטל בעצמו."
+      [error]="cancellationWindowError()"
+    />
+
+    @if (saveError()) {
+      <p class="error" role="alert">{{ saveError() }}</p>
+    }
+    @if (saveSuccess()) {
+      <p class="success" role="status">נשמר.</p>
+    }
+
+    <div class="actions">
+      <ui-button type="submit" [loading]="submitting()" [disabled]="!!offGridMessage()">שמירה</ui-button>
+    </div>
+  </form>
+</ui-card>

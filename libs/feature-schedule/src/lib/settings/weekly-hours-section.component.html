@@ -1,0 +1,102 @@
+<ui-card title="שעות פעילות" subtitle="בימים ובשעות האלה אפשר לקבוע פגישות. הפסקה היא זמן ביום שבו לא קובעים.">
+  <form class="hours" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+    <ol class="hours__days" formArrayName="days">
+      @for (day of days.controls; track $index; let dayIndex = $index) {
+        <li class="hours__day" [formGroupName]="dayIndex" [class.hours__day--off]="!day.controls.working.value">
+          <label class="hours__toggle">
+            <input type="checkbox" formControlName="working" />
+            <span class="hours__name">{{ weekdayNames[dayIndex] }}</span>
+          </label>
+
+          @if (day.controls.working.value) {
+            <div class="hours__body">
+              <div class="hours__range">
+                <input
+                  class="hours__time"
+                  type="time"
+                  dir="ltr"
+                  step="300"
+                  formControlName="start"
+                  [attr.aria-label]="'שעת התחלה ביום ' + weekdayNames[dayIndex]"
+                />
+                <span aria-hidden="true">עד</span>
+                <input
+                  class="hours__time"
+                  type="time"
+                  dir="ltr"
+                  step="300"
+                  formControlName="end"
+                  [attr.aria-label]="'שעת סיום ביום ' + weekdayNames[dayIndex]"
+                />
+              </div>
+
+              @if (day.controls.breaks.length > 0) {
+                <ul class="hours__breaks" formArrayName="breaks">
+                  @for (range of day.controls.breaks.controls; track $index; let breakIndex = $index) {
+                    <li class="hours__break" [formGroupName]="breakIndex">
+                      <span class="hours__break-label">הפסקה</span>
+                      <input
+                        class="hours__time"
+                        type="time"
+                        dir="ltr"
+                        step="300"
+                        formControlName="start"
+                        [attr.aria-label]="'תחילת הפסקה ' + (breakIndex + 1) + ' ביום ' + weekdayNames[dayIndex]"
+                      />
+                      <span aria-hidden="true">עד</span>
+                      <input
+                        class="hours__time"
+                        type="time"
+                        dir="ltr"
+                        step="300"
+                        formControlName="end"
+                        [attr.aria-label]="'סוף הפסקה ' + (breakIndex + 1) + ' ביום ' + weekdayNames[dayIndex]"
+                      />
+                      <button
+                        class="hours__remove"
+                        type="button"
+                        [attr.aria-label]="'הסרת הפסקה ' + (breakIndex + 1) + ' ביום ' + weekdayNames[dayIndex]"
+                        (click)="onRemoveBreak(dayIndex, breakIndex)"
+                      >
+                        <ui-icon name="close" />
+                      </button>
+                    </li>
+                  }
+                </ul>
+              }
+
+              @if (day.controls.breaks.length < maxBreaks) {
+                <div>
+                  <ui-button variant="ghost" size="sm" (click)="onAddBreak(dayIndex)">הוספת הפסקה</ui-button>
+                </div>
+              }
+
+              @if (breakNotice()?.weekday === dayIndex) {
+                <p class="notice" role="status">{{ breakNotice()?.message }}</p>
+              }
+              @if (dayErrors()[dayIndex]) {
+                <p class="error" role="alert">{{ dayErrors()[dayIndex] }}</p>
+              }
+            </div>
+          } @else {
+            <span class="hours__off">לא עובדים</span>
+          }
+        </li>
+      }
+    </ol>
+
+    @if (saveError()) {
+      <p class="error" role="alert">{{ saveError() }}</p>
+    }
+    @if (saveSuccess() && !dirty()) {
+      <p class="success" role="status">שעות הפעילות נשמרו.</p>
+    }
+
+    <div class="actions">
+      <ui-button type="submit" [loading]="submitting()">שמירת שעות הפעילות</ui-button>
+      @if (dirty()) {
+        <span class="hint">יש שינויים שעוד לא נשמרו.</span>
+      }
+    </div>
+  </form>
+</ui-card>

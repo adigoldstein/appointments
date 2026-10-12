@@ -9,76 +9,31 @@ import {
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ActingContextStore } from '@app/shared/acting-context';
+import { ActingContextStore, OnboardingSkipService } from '@app/shared/acting-context';
 import {
-  APPOINTMENT_DURATION_MAX_MINUTES,
-  APPOINTMENT_DURATION_MIN_MINUTES,
   BUSINESS_NAME_MAX_LENGTH,
   BUSINESS_NAME_MIN_LENGTH,
-  CANCELLATION_WINDOW_MAX_MINUTES,
   CLIENT_LABEL_MAX_LENGTH,
   CLIENT_LABEL_MIN_LENGTH,
 } from '@app/shared/types';
-import { FieldErrorMessages, GENERIC_ERROR_MESSAGE, fieldErrors } from '@app/shared/utils';
+import { GENERIC_ERROR_MESSAGE, fieldErrors } from '@app/shared/utils';
 import { SessionStore } from '@app/shared/auth';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
 import { UiInputComponent } from '@app/ui/input';
-import { OnboardingSkipService } from '../onboarding-skip.service';
 import { ProviderSettingsService } from '../provider-settings.service';
 
-const HOURS_MINUTES_PATTERN = /^\d{1,4}:[0-5]\d$/;
-
-function parseHoursMinutes(value: string): number | null {
-  const trimmed = value.trim();
-
-  if (!HOURS_MINUTES_PATTERN.test(trimmed)) {
-    return null;
-  }
-
-  const [hoursPart, minutesPart] = trimmed.split(':');
-  return Number(hoursPart) * 60 + Number(minutesPart);
-}
-
-function formatHoursMinutes(totalMinutes: number): string {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  return `${hours}:${String(minutes).padStart(2, '0')}`;
-}
-
-function maxHoursMinutesValidator(maxMinutes: number): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const minutes = parseHoursMinutes(control.value ?? '');
-    return minutes !== null && minutes > maxMinutes ? { max: true } : null;
-  };
-}
-
-/** Only the rules whose shared default wouldn't explain the HH:MM format. */
-const CANCELLATION_WINDOW_ERROR_MESSAGES: FieldErrorMessages = {
-  pattern: 'יש להזין בפורמט שעות:דקות, לדוגמה 24:00.',
-  max: 'הערך לא יכול לעלות על 168:00 (7 ימים).',
-};
-
-
+/**
+ * The business details: onboarding the first time, "פרטי העסק" afterwards. Appointment settings
+ * (hours, meeting types, cancellation window) are their own page (ADR-0009); first-time onboarding
+ * continues straight there.
+ */
 @Component({
   selector: 'feature-provider-settings-page',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    UiButtonComponent,
-    UiCardComponent,
-    UiInputComponent,
-  ],
+  imports: [ReactiveFormsModule, UiButtonComponent, UiCardComponent, UiInputComponent],
   templateUrl: './provider-settings.page.html',
   styleUrl: './provider-settings.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -95,19 +50,23 @@ export class ProviderSettingsPageComponent implements OnInit {
 
   /** Set when an Admin is acting for this Provider; null when the Provider edits their own settings. */
   protected readonly actingProviderId = this.actingContext.providerIdForRequest;
-  protected readonly actingProviderName = computed(() => {
-    const provider = this.actingContext.actingProvider();
-    return provider ? `${provider.firstName} ${provider.lastName}` : null;
-  });
+  protected readonly actingProviderName = this.actingContext.actingProviderName;
 
   protected readonly isEditing = signal(false);
   readonly loading = signal(true);
-  readonly selectedDurations = signal<number[]>([]);
-  readonly durationsTouched = signal(false);
-  readonly durationInputError = signal<string | null>(null);
+  protected readonly loadFailed = signal(false);
   readonly submitting = signal(false);
   readonly submitError = signal<string | null>(null);
   readonly submitSuccess = signal(false);
+
+  protected readonly title = computed(() => {
+    if (this.isEditing()) {
+      return 'פרטי העסק';
+    }
+
+    const name = this.actingProviderName();
+    return name ? `הגדרת העסק של ${name}` : 'הגדרת העסק שלכם';
+  });
 
   readonly form = new FormGroup({
     businessName: new FormControl('', {
@@ -126,19 +85,19 @@ export class ProviderSettingsPageComponent implements OnInit {
         Validators.maxLength(CLIENT_LABEL_MAX_LENGTH),
       ],
     }),
-    cancellationWindow: new FormControl('24:00', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.pattern(HOURS_MINUTES_PATTERN),
-        maxHoursMinutesValidator(CANCELLATION_WINDOW_MAX_MINUTES),
-      ],
-    }),
   });
 
-  readonly durationInputControl = new FormControl('', { nonNullable: true });
+  private readonly errors = fieldErrors(this.form, this.submitted);
+  protected readonly businessNameError = this.errors('businessName');
+  protected readonly clientLabelError = this.errors('clientLabel');
 
   ngOnInit(): void {
+    this.load();
+  }
+
+  protected load(): void {
+    this.loading.set(true);
+    this.loadFailed.set(false);
     this.providerSettingsService
       .get(this.actingProviderId())
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -148,92 +107,26 @@ export class ProviderSettingsPageComponent implements OnInit {
           this.form.patchValue({
             businessName: settings.businessName,
             clientLabel: settings.clientLabel,
-            cancellationWindow: formatHoursMinutes(
-              settings.cancellationWindowMinutes,
-            ),
           });
-          this.selectedDurations.set(
-            [...settings.allowedDurationsMinutes].sort((a, b) => a - b),
-          );
           this.loading.set(false);
         },
-        error: () => {
-          // 404 means onboarding hasn't happened yet; keep the blank/default form.
+        error: (error: unknown) => {
           this.loading.set(false);
+
+          // Only a 404 means onboarding hasn't happened yet (keep the blank form). Anything else
+          // must not offer the create form to a Provider who may well be onboarded already.
+          if (!(error instanceof HttpErrorResponse && error.status === 404)) {
+            this.loadFailed.set(true);
+          }
         },
       });
   }
 
-  private readonly errors = fieldErrors(this.form, this.submitted);
-  protected readonly businessNameError = this.errors('businessName');
-  protected readonly clientLabelError = this.errors('clientLabel');
-  protected readonly cancellationWindowError = this.errors(
-    'cancellationWindow',
-    CANCELLATION_WINDOW_ERROR_MESSAGES,
-  );
-
-  protected readonly durationsError = computed(() => {
-    const inputError = this.durationInputError();
-
-    if (inputError) {
-      return inputError;
-    }
-
-    if (this.durationsTouched() && this.selectedDurations().length === 0) {
-      return 'יש להוסיף לפחות משך תור אחד.';
-    }
-
-    return null;
-  });
-
-  protected formatDuration(minutes: number): string {
-    return formatHoursMinutes(minutes);
-  }
-
-  protected addDuration(): void {
-    const minutes = parseHoursMinutes(this.durationInputControl.value);
-
-    if (minutes === null) {
-      this.durationInputError.set('יש להזין בפורמט שעות:דקות, לדוגמה 1:00.');
-      return;
-    }
-
-    if (minutes < APPOINTMENT_DURATION_MIN_MINUTES || minutes > APPOINTMENT_DURATION_MAX_MINUTES) {
-      this.durationInputError.set(
-        `המשך חייב להיות בין ${formatHoursMinutes(APPOINTMENT_DURATION_MIN_MINUTES)} ל-${formatHoursMinutes(APPOINTMENT_DURATION_MAX_MINUTES)}.`,
-      );
-      return;
-    }
-
-    if (this.selectedDurations().includes(minutes)) {
-      this.durationInputError.set('משך זה כבר נוסף.');
-      return;
-    }
-
-    this.selectedDurations.update((current) =>
-      [...current, minutes].sort((a, b) => a - b),
-    );
-    this.durationInputControl.setValue('');
-    this.durationInputError.set(null);
-    this.durationsTouched.set(true);
-  }
-
-  protected removeDuration(minutes: number): void {
-    this.selectedDurations.update((current) =>
-      current.filter((value) => value !== minutes),
-    );
-  }
-
   protected onSubmit(): void {
     this.submitted.set(true);
-    this.durationsTouched.set(true);
     this.form.markAllAsTouched();
 
-    if (
-      this.form.invalid ||
-      this.selectedDurations().length === 0 ||
-      this.submitting()
-    ) {
+    if (this.form.invalid || this.submitting()) {
       return;
     }
 
@@ -241,16 +134,7 @@ export class ProviderSettingsPageComponent implements OnInit {
     this.submitSuccess.set(false);
     this.submitting.set(true);
 
-    const { businessName, clientLabel, cancellationWindow } =
-      this.form.getRawValue();
-    const cancellationWindowMinutes =
-      parseHoursMinutes(cancellationWindow) ?? 0;
-    const payload = {
-      businessName,
-      clientLabel,
-      cancellationWindowMinutes,
-      allowedDurationsMinutes: this.selectedDurations(),
-    };
+    const payload = this.form.getRawValue();
     const wasEditing = this.isEditing();
     const providerId = this.actingProviderId();
     const request$ = wasEditing
@@ -272,21 +156,18 @@ export class ProviderSettingsPageComponent implements OnInit {
           return;
         }
 
-        this.navigateToProviderHome();
+        // Next comes what's needed before opening the calendar: hours and meeting types.
+        this.navigateInProviderArea('schedule-settings');
       },
-      error: (error: HttpErrorResponse) => {
+      error: (error: unknown) => {
         this.submitting.set(false);
-        this.submitError.set(
-          Array.isArray(error.error?.message)
-            ? error.error.message.join(' ')
-            : (error.error?.message ?? GENERIC_ERROR_MESSAGE),
-        );
+        this.submitError.set(toSubmitErrorMessage(error));
       },
     });
   }
 
   protected onCancel(): void {
-    this.navigateToProviderHome();
+    this.navigateInProviderArea();
   }
 
   /** Admin only: leave onboarding to the Provider's own first login (ADR-0004). */
@@ -298,10 +179,24 @@ export class ProviderSettingsPageComponent implements OnInit {
     }
 
     this.onboardingSkip.skip(providerId);
-    this.navigateToProviderHome();
+    this.navigateInProviderArea();
   }
 
-  private navigateToProviderHome(): void {
-    this.router.navigateByUrl(this.actingContext.providerBaseUrl() ?? '/provider');
+  private navigateInProviderArea(path = ''): void {
+    const base = this.actingContext.providerBaseUrl() ?? '/provider';
+    void this.router.navigateByUrl(path ? `${base}/${path}` : base);
   }
+}
+
+/** Backend messages stay English and never reach the user (ADR-0006). */
+function toSubmitErrorMessage(error: unknown): string {
+  if (error instanceof HttpErrorResponse && error.status === 400) {
+    return 'חלק מהפרטים אינם תקינים. בדקו את השדות ונסו שוב.';
+  }
+
+  if (error instanceof HttpErrorResponse && error.status === 403) {
+    return 'אין לך הרשאה לשנות את פרטי העסק האלה.';
+  }
+
+  return GENERIC_ERROR_MESSAGE;
 }

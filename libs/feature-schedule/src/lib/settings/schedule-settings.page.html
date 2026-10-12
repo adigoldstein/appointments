@@ -1,0 +1,46 @@
+<section class="page">
+  <header class="page__header">
+    <h1 class="page__title">הגדרות תורים</h1>
+    <p class="page__subtitle">
+      @if (actingProviderName()) {
+        עבור {{ actingProviderName() }}.
+      }
+      מתי עובדים ואילו פגישות מציעים. אחרי שיש שעות פעילות וסוג פגישה אחד לפחות אפשר לפתוח תורים.
+    </p>
+  </header>
+
+  @if (current(); as settings) {
+    <feature-schedule-general-section
+      [settings]="settings"
+      [meetingTypes]="settings.meetingTypes"
+      (saved)="onSettingsSaved($event)"
+    />
+    <feature-schedule-meeting-types-section
+      [meetingTypes]="settings.meetingTypes"
+      [timeUnitMinutes]="settings.timeUnitMinutes"
+      (changed)="onMeetingTypesChanged($event)"
+    />
+    <feature-schedule-weekly-hours-section
+      [weeklyWindows]="settings.weeklyWindows"
+      [timeUnitMinutes]="settings.timeUnitMinutes"
+      (saved)="onSettingsSaved($event)"
+    />
+  } @else if (notOnboarded()) {
+    <div class="page__message">
+      <p>קודם צריך להשלים את פרטי העסק.</p>
+      <a class="page__link" [routerLink]="businessDetailsUrl()">להשלמת פרטי העסק</a>
+    </div>
+  } @else if (settings.error()) {
+    <div class="page__message" role="alert">
+      <p>לא הצלחנו לטעון את ההגדרות.</p>
+      <ui-button variant="secondary" size="sm" (click)="onRetry()">נסו שוב</ui-button>
+    </div>
+  } @else {
+    <div class="page__skeleton" aria-hidden="true">
+      <span class="page__bar"></span>
+      <span class="page__bar"></span>
+      <span class="page__bar page__bar--tall"></span>
+    </div>
+    <p class="page__visually-hidden" role="status">טוען את ההגדרות…</p>
+  }
+</section>

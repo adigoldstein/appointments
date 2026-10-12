@@ -1,6 +1,6 @@
 # Plan: slot management (Epic 4)
 
-Status: **approved 2026-10-12**; steps 1-2 done.
+Status: **approved 2026-10-12**; steps 1-3 done.
 Builds on ADR-0009 (availability windows, meeting types, bookings as the only appointment rows), ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0007/0008 (libs, stores, contracts).
 
 ## Goal
@@ -107,4 +107,6 @@ The `ScheduleStore` and the refresh button arrive with the first screen that loa
 
 - **Time unit guidance**: recommend "unit = the shortest meeting type" on the settings screen, and warn when the unit is shorter than every type (a gap of one unit can then be unusable). ADR-0009 says every gap "is still bookable"; that holds only when a type of the unit's length exists. Fix the wording with this.
 - **More time units** (15, 45): one constant, the type, and a DB check (migration).
+- **Windows ending at midnight**: `HH:MM` stops at 23:59 and native time inputs can't express 24:00, so a day can't run until midnight. Fine for the POC.
+- **A shared `ui-segmented`** (the toggle used by the users list status filter and the time unit choice): extract it in the redesign audit.
 - **Backend lint**: the backend project has no Nx tags, so every `@app/shared/*` import fails `@nx/enforce-module-boundaries` (pre-existing). Tag it and allow it to depend on shared libs.

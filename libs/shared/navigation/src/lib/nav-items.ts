@@ -18,7 +18,8 @@ export const NAV_ITEMS_BY_AREA: Readonly<Record<Role, readonly NavItem[]>> = {
     { label: 'סקירה כללית', path: '' },
     { label: 'לקוחות', path: 'clients' },
     { label: 'הוספת לקוח', path: 'clients/new' },
-    { label: 'הגדרות', path: 'settings' },
+    { label: 'הגדרות תורים', path: 'schedule-settings' },
+    { label: 'פרטי העסק', path: 'settings' },
   ],
   [Role.CLIENT]: [{ label: 'סקירה כללית', path: '' }],
 };
