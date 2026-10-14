@@ -1,8 +1,10 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Check, Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../../auth/entities/user.entity';
 
 /** One stretch of a weekly working day (ADR-0009). Several per day; a break is the gap between two. */
 @Entity({ name: 'weekly_windows' })
+@Check('CHK_weekly_windows_weekday', '"weekday" BETWEEN 0 AND 6')
+@Check('CHK_weekly_windows_order', '"start_time" < "end_time"')
 export class WeeklyWindowEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -12,7 +14,7 @@ export class WeeklyWindowEntity {
   providerId: string;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'provider_id' })
+  @JoinColumn({ name: 'provider_id', foreignKeyConstraintName: 'FK_weekly_windows_provider_id' })
   provider: User;
 
   /** 0 = Sunday … 6 = Saturday. */

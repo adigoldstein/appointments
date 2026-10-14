@@ -13,10 +13,10 @@ export class ClientMeetingTypeEntity {
   meetingTypeId: string;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'client_id' })
+  @JoinColumn({ name: 'client_id', foreignKeyConstraintName: 'FK_client_meeting_types_client_id' })
   client: User;
 
   @ManyToOne(() => MeetingTypeEntity, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'meeting_type_id' })
+  @JoinColumn({ name: 'meeting_type_id', foreignKeyConstraintName: 'FK_client_meeting_types_meeting_type_id' })
   meetingType: MeetingTypeEntity;
 }

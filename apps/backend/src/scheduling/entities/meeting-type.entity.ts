@@ -1,4 +1,5 @@
 import {
+  Check,
   Column,
   CreateDateColumn,
   Entity,
@@ -12,6 +13,7 @@ import { User } from '../../auth/entities/user.entity';
 
 /** A kind of meeting a Provider offers (ADR-0009). Archived, never deleted, once it has appointments. */
 @Entity({ name: 'meeting_types' })
+@Check('CHK_meeting_types_length', '"length_minutes" > 0')
 export class MeetingTypeEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -21,7 +23,7 @@ export class MeetingTypeEntity {
   providerId: string;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'provider_id' })
+  @JoinColumn({ name: 'provider_id', foreignKeyConstraintName: 'FK_meeting_types_provider_id' })
   provider: User;
 
   @Column({ type: 'varchar', length: 60 })

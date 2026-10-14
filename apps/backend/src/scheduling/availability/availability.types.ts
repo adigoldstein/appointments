@@ -1,3 +1,5 @@
+import type { AppointmentEntity } from '../entities/appointment.entity';
+
 /** A stretch of one day in minutes since midnight, `[start, end)`. Israel time; no time zones here. */
 export interface MinuteRange {
   start: number;
@@ -29,4 +31,11 @@ export interface ExtraWindowRule {
   date: string;
   start: string;
   end: string;
+}
+
+/** A booked appointment in Israel wall-clock terms: its date and minutes since that midnight. */
+export interface LocalBooking {
+  appointment: AppointmentEntity;
+  date: string;
+  range: MinuteRange;
 }

@@ -58,7 +58,7 @@ export class User {
   })
 
   // 
-  @JoinColumn({ name: 'provider_id' })
+  @JoinColumn({ name: 'provider_id', foreignKeyConstraintName: 'FK_users_provider_id' })
   provider: User | null;
 
   @OneToMany(() => User, (user) => user.provider)

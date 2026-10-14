@@ -22,3 +22,14 @@ export const WEEKLY_WINDOWS_MAX_PER_DAY = 6;
 
 /** `HH:MM`, 00:00-23:59. */
 export const TIME_OF_DAY_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+/** How far ahead the calendar may be opened, in weeks (the Provider's opening limit). */
+export const MAX_OPEN_WEEKS_DEFAULT = 12;
+export const MAX_OPEN_WEEKS_MIN = 1;
+export const MAX_OPEN_WEEKS_MAX = 52;
+
+/** `YYYY-MM-DD`. Whether it's a real date is checked separately. */
+export const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+/** The longest range one schedule query may cover, in days. */
+export const SCHEDULE_RANGE_MAX_DAYS = 62;

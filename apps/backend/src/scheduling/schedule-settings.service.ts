@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource, EntityManager, IsNull } from 'typeorm';
+import { DataSource, EntityManager, IsNull, MoreThanOrEqual } from 'typeorm';
 import {
   MEETING_TYPES_MAX_COUNT,
   MeetingType,
@@ -12,6 +12,7 @@ import {
   ScheduleSettingsResponse,
   WEEKLY_WINDOWS_MAX_PER_DAY,
   WeeklyWindow,
+  toMinutes,
 } from '@app/shared/types';
 import { User } from '../auth/entities/user.entity';
 import { ProviderSettings } from '../provider-settings/entities/provider-settings.entity';
@@ -19,9 +20,14 @@ import { CreateMeetingTypeDto } from './dto/create-meeting-type.dto';
 import { ReplaceWeeklyWindowsDto } from './dto/replace-weekly-windows.dto';
 import { UpdateMeetingTypeDto } from './dto/update-meeting-type.dto';
 import { UpdateScheduleSettingsDto } from './dto/update-schedule-settings.dto';
+import { israelNow } from './availability/israel-time';
+import { overlapsOrTouches, weekdayOf } from './availability/free-times';
+import { AppointmentEntity } from './entities/appointment.entity';
 import { ClientMeetingTypeEntity } from './entities/client-meeting-type.entity';
+import { ExtraWindowEntity } from './entities/extra-window.entity';
 import { MeetingTypeEntity } from './entities/meeting-type.entity';
 import { WeeklyWindowEntity } from './entities/weekly-window.entity';
+import { requireSettings } from './provider-settings-access';
 
 /**
  * Appointment settings (ADR-0009): time unit, cancellation window, meeting types, weekly windows.
@@ -56,6 +62,10 @@ export class ScheduleSettingsService {
 
       settings.timeUnitMinutes = dto.timeUnitMinutes;
       settings.cancellationWindowMinutes = dto.cancellationWindowMinutes;
+
+      if (dto.maxOpenWeeks !== undefined) {
+        settings.maxOpenWeeks = dto.maxOpenWeeks;
+      }
       await manager.save(settings);
 
       return this.readSettings(manager, providerId);
@@ -121,12 +131,22 @@ export class ScheduleSettingsService {
   }
 
   /**
-   * Deleted outright while nothing refers to it. Once appointments exist (plan step 4), a type
-   * that has appointments is archived instead (ADR-0009).
+   * A type that has appointments (of any status) is archived: hidden for new bookings, kept on
+   * the existing ones (ADR-0009, decision 4). One that never had any is deleted.
    */
-  async removeMeetingType(providerId: string, meetingTypeId: string): Promise<void> {
-    const manager = this.dataSource.manager;
-    await manager.remove(await requireActiveMeetingType(manager, providerId, meetingTypeId));
+  removeMeetingType(providerId: string, meetingTypeId: string): Promise<void> {
+    return this.dataSource.transaction(async (manager) => {
+      await this.lockSettings(manager, providerId);
+      const meetingType = await requireActiveMeetingType(manager, providerId, meetingTypeId);
+      const inUse = await manager.exists(AppointmentEntity, { where: { meetingTypeId } });
+
+      if (inUse) {
+        meetingType.archivedAt = new Date();
+        await manager.save(meetingType);
+      } else {
+        await manager.remove(meetingType);
+      }
+    });
   }
 
   /** Replaces the whole week at once: what the settings screen edits is the week as a whole. */
@@ -135,6 +155,7 @@ export class ScheduleSettingsService {
 
     return this.dataSource.transaction(async (manager) => {
       await this.lockSettings(manager, providerId);
+      await assertApartFromExtraWindows(manager, providerId, dto.windows);
       await manager.delete(WeeklyWindowEntity, { providerId });
 
       if (dto.windows.length > 0) {
@@ -198,6 +219,8 @@ export class ScheduleSettingsService {
     return {
       timeUnitMinutes: settings.timeUnitMinutes,
       cancellationWindowMinutes: settings.cancellationWindowMinutes,
+      maxOpenWeeks: settings.maxOpenWeeks,
+      openUntil: settings.openUntil,
       meetingTypes: meetingTypes.map(toMeetingType),
       weeklyWindows: windows.map(toWeeklyWindow),
     };
@@ -206,24 +229,6 @@ export class ScheduleSettingsService {
   private lockSettings(manager: EntityManager, providerId: string): Promise<ProviderSettings> {
     return requireSettings(manager, providerId, true);
   }
-}
-
-/** The settings row exists once onboarding is done; scheduling needs it (the time unit lives there). */
-async function requireSettings(
-  manager: EntityManager,
-  providerId: string,
-  lock = false,
-): Promise<ProviderSettings> {
-  const settings = await manager.findOne(ProviderSettings, {
-    where: { providerId },
-    ...(lock ? { lock: { mode: 'pessimistic_write' as const } } : {}),
-  });
-
-  if (!settings) {
-    throw new NotFoundException('Provider settings not found; complete onboarding first');
-  }
-
-  return settings;
 }
 
 async function requireActiveMeetingType(
@@ -247,6 +252,36 @@ function activeMeetingTypes(manager: EntityManager, providerId: string): Promise
     where: { providerId, archivedAt: IsNull() },
     order: { lengthMinutes: 'ASC', name: 'ASC' },
   });
+}
+
+/**
+ * Extra windows keep their own grid (ADR-0009): new weekly hours may not overlap or touch an
+ * extra window from today on. Past ones don't matter any more.
+ */
+async function assertApartFromExtraWindows(
+  manager: EntityManager,
+  providerId: string,
+  windows: readonly WeeklyWindow[],
+): Promise<void> {
+  const extras = await manager.find(ExtraWindowEntity, {
+    where: { providerId, date: MoreThanOrEqual(israelNow().today) },
+    order: { date: 'ASC' },
+  });
+
+  for (const extra of extras) {
+    const extraRange = { start: toMinutes(extra.startTime), end: toMinutes(extra.endTime) };
+    const clash = windows.some(
+      (window) =>
+        window.weekday === weekdayOf(extra.date) &&
+        overlapsOrTouches(extraRange, { start: toMinutes(window.start), end: toMinutes(window.end) }),
+    );
+
+    if (clash) {
+      throw new BadRequestException(
+        `The weekly hours overlap or touch the extra window on ${extra.date}; delete or move it first`,
+      );
+    }
+  }
 }
 
 function assertFitsTimeUnit(lengthMinutes: number, timeUnitMinutes: number): void {

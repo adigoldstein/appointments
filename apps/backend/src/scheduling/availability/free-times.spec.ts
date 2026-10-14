@@ -1,6 +1,14 @@
 import { toMinutes, toTimeOfDay } from '@app/shared/types';
 import type { MinuteRange } from './availability.types';
-import { freeStartTimes, isOpenForBooking, mergeRanges, weekdayOf, windowsForDate } from './free-times';
+import {
+  freeStartTimes,
+  isOpenForBooking,
+  mergeRanges,
+  overlapsOrTouches,
+  weekdayOf,
+  windowsForDate,
+  windowsOnDate,
+} from './free-times';
 
 /** `'08:00-12:00'` → a minute range, to keep the cases readable. */
 const range = (text: string): MinuteRange => {
@@ -204,5 +212,24 @@ describe('isOpenForBooking', () => {
 
   it('is closed everywhere until a period was opened', () => {
     expect(isOpenForBooking('2026-10-12', '2026-10-12', null)).toBe(false);
+  });
+});
+
+describe('windowsOnDate', () => {
+  it('lists the windows of a date as stored, extra ones marked', () => {
+    const weekly = [{ weekday: 0, start: '14:00', end: '17:00' }];
+    const extra = [{ date: '2026-10-18', start: '19:00', end: '21:00' }];
+    expect(windowsOnDate('2026-10-18', weekly, extra)).toEqual([
+      { start: '14:00', end: '17:00', extra: false },
+      { start: '19:00', end: '21:00', extra: true },
+    ]);
+  });
+});
+
+describe('overlapsOrTouches', () => {
+  it('is true for overlapping and touching ranges, false for apart ones', () => {
+    expect(overlapsOrTouches(range('08:00-12:00'), range('11:00-13:00'))).toBe(true);
+    expect(overlapsOrTouches(range('08:00-12:00'), range('12:00-13:00'))).toBe(true);
+    expect(overlapsOrTouches(range('08:00-12:00'), range('12:30-13:00'))).toBe(false);
   });
 });

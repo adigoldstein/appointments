@@ -1,4 +1,4 @@
-import { toMinutes, type WeeklyWindow } from '@app/shared/types';
+import { toMinutes, type ScheduleWindow, type WeeklyWindow } from '@app/shared/types';
 import type { DayAvailabilityInput, ExtraWindowRule, MinuteRange } from './availability.types';
 
 /**
@@ -34,23 +34,39 @@ export function mergeRanges(ranges: readonly MinuteRange[]): MinuteRange[] {
   return merged;
 }
 
-/**
- * A date's windows, as stored: the weekly ones for its weekday plus the extra windows on that
- * date. Not merged; `freeStartTimes` does that.
- */
+/** A date's windows as stored and shown: the weekly ones for its weekday plus its extra windows, by start. */
+export function windowsOnDate(
+  date: string,
+  weekly: readonly WeeklyWindow[],
+  extra: readonly ExtraWindowRule[],
+): ScheduleWindow[] {
+  const weekday = weekdayOf(date);
+
+  return [
+    ...weekly
+      .filter((window) => window.weekday === weekday)
+      .map((window) => ({ start: window.start, end: window.end, extra: false })),
+    ...extra
+      .filter((window) => window.date === date)
+      .map((window) => ({ start: window.start, end: window.end, extra: true })),
+  ].sort((a, b) => a.start.localeCompare(b.start));
+}
+
+/** The same windows in minutes, for the calculation. Not merged; `freeStartTimes` does that. */
 export function windowsForDate(
   date: string,
   weekly: readonly WeeklyWindow[],
   extra: readonly ExtraWindowRule[],
 ): MinuteRange[] {
-  const weekday = weekdayOf(date);
+  return windowsOnDate(date, weekly, extra).map((window) => ({
+    start: toMinutes(window.start),
+    end: toMinutes(window.end),
+  }));
+}
 
-  return [
-    ...weekly.filter((window) => window.weekday === weekday),
-    ...extra.filter((window) => window.date === date),
-  ]
-    .map((window) => ({ start: toMinutes(window.start), end: toMinutes(window.end) }))
-    .sort((a, b) => a.start - b.start);
+/** Overlapping or touching: an extra window must stay apart from the weekly hours (ADR-0009). */
+export function overlapsOrTouches(a: MinuteRange, b: MinuteRange): boolean {
+  return a.start <= b.end && b.start <= a.end;
 }
 
 /**

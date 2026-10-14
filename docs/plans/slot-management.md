@@ -1,6 +1,6 @@
 # Plan: slot management (Epic 4)
 
-Status: **approved 2026-10-12**; steps 1-3 and 4a done.
+Status: **approved 2026-10-12**; steps 1-4 done.
 Builds on ADR-0009 (availability windows, meeting types, bookings as the only appointment rows), ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0007/0008 (libs, stores, contracts).
 
 ## Goal
@@ -104,6 +104,8 @@ The `ScheduleStore` and the refresh button arrive with the first screen that loa
 4. **Removing a meeting type that has appointments**: decided (2026-10-12), it is archived (hidden for new bookings, kept on existing ones). A type with no appointments is deleted.
 5. **Changing windows when the period is already open**: decided (2026-10-12). New bookings follow the new windows immediately. Booked appointments that fall outside the new windows are **cancelled**, not kept: before saving, the Provider sees them listed in a strong warning ("3 פגישות יבוטלו: ...") and confirms. The Client and the Provider are notified (in-app, Epic 7; until then the warning on save is the only signal). Cancelled = marked `CANCELLED` with an `AppointmentEvent`, as every cancel (ADR-0009).
 6. **Series dates that aren't open yet**: decided (2026-10-12). They can only be taken by a Provider booking beyond "open until", and that booking is warned about the series at the time (ADR-0009). When the period opens, such a date is skipped and shown in the opening preview (and, once Epic 7 exists, notified to the Client).
+
+7. **Deferrable views and resources** (decided 2026-10-14): use `@defer` where it buys something: in step 5 the opening dialog and the extra-window form load only when opened (`on interaction` / when open); in step 7 the home page sections below the fold load `on viewport`, with a skeleton `@placeholder`. Not `httpResource` (experimental in Angular 21); reads stay `rxResource` + the API services (also experimental, but already in use in three places and a small change if it moves).
 
 ## Open, later (raised 2026-10-12, deferred "if needed")
 

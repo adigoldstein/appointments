@@ -24,6 +24,10 @@ export interface WeeklyWindow {
 export interface ScheduleSettingsResponse {
   timeUnitMinutes: TimeUnitMinutes;
   cancellationWindowMinutes: number;
+  /** The opening limit: how many weeks ahead the calendar may be opened. */
+  maxOpenWeeks: number;
+  /** Last open date (`YYYY-MM-DD`); null until a period was opened. */
+  openUntil: string | null;
   /** Active types, shortest first. */
   meetingTypes: MeetingType[];
   /** By weekday, then start. */
@@ -34,6 +38,8 @@ export interface ScheduleSettingsResponse {
 export interface UpdateScheduleSettingsRequest {
   timeUnitMinutes: TimeUnitMinutes;
   cancellationWindowMinutes: number;
+  /** Optional: left unchanged when omitted. */
+  maxOpenWeeks?: number;
 }
 
 /** `POST /schedule/meeting-types` body. Backend: `CreateMeetingTypeDto implements CreateMeetingTypeRequest`. */

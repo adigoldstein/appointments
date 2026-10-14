@@ -73,6 +73,9 @@ A more detailed technical inventory (written for a reviewing tech lead) exists a
 ### UI language
 Hebrew only, RTL (ADR-0006): every user-visible string and every selectable value (e.g. city = `hebrewName`) is Hebrew. Exceptions: inherently-Latin values like emails and passwords, rendered `dir="ltr"`. Backend messages stay English and are mapped to Hebrew in the frontend — never show a raw backend `message` to the user.
 
+### Templates: deferrable views
+When writing a template, use `@defer` wherever it has real value (decided 2026-10-14): content that isn't needed right away, such as dialogs and forms opened on demand (`on interaction` / a `when` condition), sections below the fold (`on viewport`), or heavy components (charts, calendars). Give it a `@placeholder` in the app's skeleton style. Don't defer what's on screen immediately: routes are already lazy-loaded, and deferring visible content only adds a flicker.
+
 ### Config & validation conventions
 - Backend uses `@nestjs/config` with a custom `validate` function (fail-fast on boot if env vars are missing/malformed) rather than ad hoc `process.env` reads — extend `env.constants.ts` + `env.validation.ts` together when adding a new env var.
 - All backend input validation goes through DTOs (`class-validator`) plus a global `ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true })` set in `main.ts` — unrecognized body fields are rejected, so new DTO fields must be added explicitly.

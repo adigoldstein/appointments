@@ -26,7 +26,7 @@ export class RefreshToken {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id', foreignKeyConstraintName: 'FK_refresh_tokens_user_id' })
   user: User;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
