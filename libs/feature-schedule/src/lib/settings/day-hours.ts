@@ -1,6 +1,6 @@
 import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import type { BreakForm, BreakRange, DayForm, DayHours } from './schedule-settings.types';
-import { toMinutes } from './schedule-time';
+import { toMinutes } from '@app/shared/types';
 
 export function createBreakForm(range: BreakRange): BreakForm {
   return new FormGroup({

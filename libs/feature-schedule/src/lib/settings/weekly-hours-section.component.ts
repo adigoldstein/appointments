@@ -15,7 +15,7 @@ import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { map } from 'rxjs';
 import { ActingContextStore } from '@app/shared/acting-context';
 import { ScheduleApiService } from '@app/shared/schedule';
-import { ScheduleSettingsResponse, WeeklyWindow } from '@app/shared/types';
+import { ScheduleSettingsResponse, WeeklyWindow, toMinutes, toTimeOfDay } from '@app/shared/types';
 import { GENERIC_ERROR_MESSAGE } from '@app/shared/utils';
 import { UiButtonComponent } from '@app/ui/button';
 import { UiCardComponent } from '@app/ui/card';
@@ -23,7 +23,7 @@ import { UiIconComponent } from '@app/ui/icons';
 import { createBreakForm, createDayForm } from './day-hours';
 import { MAX_BREAKS_PER_DAY, WEEKDAY_NAMES } from './schedule-settings.constants';
 import type { DayForm, DayHours, DayNotice } from './schedule-settings.types';
-import { daysToWindows, toMinutes, toTimeOfDay, windowsToDays } from './schedule-time';
+import { daysToWindows, windowsToDays } from './schedule-time';
 
 /**
  * The working week as "hours + breaks" per day (ADR-0009: underneath, windows). The whole week is

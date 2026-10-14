@@ -6,5 +6,6 @@ export * from './lib/provider-settings';
 export * from './lib/provider-settings-rules';
 export * from './lib/schedule-settings';
 export * from './lib/schedule-settings-rules';
+export * from './lib/time-of-day';
 export * from './lib/user-list';
 export * from './lib/user-role';

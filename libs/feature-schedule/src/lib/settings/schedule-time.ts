@@ -6,19 +6,6 @@ import type { DayHours } from './schedule-settings.types';
 const DEFAULT_DAY_START = '09:00';
 const DEFAULT_DAY_END = '17:00';
 
-/** `HH:MM` → minutes since midnight. */
-export function toMinutes(time: string): number {
-  const [hours, minutes] = time.split(':').map(Number);
-  return hours * 60 + minutes;
-}
-
-/** Minutes since midnight → `HH:MM`. */
-export function toTimeOfDay(totalMinutes: number): string {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-}
-
 /** A meeting length in Hebrew: "חצי שעה", "שעה", "שעה וחצי", "שעתיים", "3 שעות"… */
 export function formatLength(totalMinutes: number): string {
   const hours = Math.floor(totalMinutes / 60);

@@ -12,7 +12,7 @@ ADR-0001 pre-created every bookable slot as an `Appointment` row that flips betw
 - **Time unit** per Provider (30 or 60 minutes). Every meeting length is a multiple of it, and meetings start only on its grid. This is what keeps the day free of unusable holes.
 - **Meeting types** per Provider: name and total length, a multiple of the time unit (e.g. "פגישה רגילה" 1 hour, "פגישת היכרות" 3 hours). No separate break: a Provider who wants 15 minutes to themselves ends a 1-hour meeting at :45. They replace `ProviderSettings.allowedDurationsMinutes`.
 - **Weekly windows**: weekday + start + end, several per day allowed. A break inside the day is the gap between two windows (e.g. Wed 08:00-14:00 and 14:45-18:00); the settings screen shows it as "working hours + a break".
-- **Extra windows**: a one-off window on a specific date (e.g. Sunday 10:00-13:00), not a series.
+- **Extra windows**: a one-off window on a specific date (e.g. Sunday 10:00-13:00), not a series. It must not overlap or touch that date's weekly windows (added 2026-10-12): it has its own grid, and merging it into a weekly window would move that day's grid off the existing bookings.
 - **Open until**: a date per Provider. Nothing after it can be booked. "Opening" a period moves it forward; a future daily job will move it automatically.
 
 **An appointment row exists only when something is booked**: Provider, Client, meeting type, start and end (start + length). Its status is `BOOKED` or `CANCELLED`. Cancelling marks the row and frees the time; the history stays in `AppointmentEvent`, as before.

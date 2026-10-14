@@ -1,6 +1,6 @@
 # Plan: slot management (Epic 4)
 
-Status: **approved 2026-10-12**; steps 1-3 done.
+Status: **approved 2026-10-12**; steps 1-3 and 4a done.
 Builds on ADR-0009 (availability windows, meeting types, bookings as the only appointment rows), ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0007/0008 (libs, stores, contracts).
 
 ## Goal
@@ -15,7 +15,7 @@ A Provider defines when they work and which kinds of meetings they hold, opens t
   - weekly working hours, with breaks inside the day ("הוספת הפסקה"); underneath, a day is one or more windows, and the grid restarts at each one (a break at 14:00-14:45 gives starts at 14:45, 15:45, ...);
   - cancellation window (moved here from onboarding).
 - **Onboarding** keeps only the business details: business name and Client label.
-- **Opening a period**: move "open until" forward, up to 3 months from today, with a preview first.
+- **Opening a period**: move "open until" forward, with a preview first. The dialog suggests one month past the current "open until" (or today), and any later date can be picked, up to the Provider's **opening limit**: a new setting "עד כמה זמן קדימה אפשר לפתוח", in weeks, default 12, allowed 1-52 (decided 2026-10-12). The backend enforces it too. The future automatic job will call the same "open until" logic; its own "keep N weeks open" number is a separate, later setting.
 - **Extra windows**: a one-off window on a specific date, any length (e.g. Sunday 10:00-13:00).
 - **Recurring appointments**: Client + meeting type + weekday + start time + start date (optional end date). Booked for every open date; added right away for dates already open. Before saving, every open date is checked and the taken ones are listed for confirmation ("14.1 and 28.1 are taken. Continue?"); the series is created without them. The same check serves the Client's own series booking in Epic 5.
 - **Weekly view**: windows, booked appointments, and what isn't open yet. Week navigation. On a phone: one day at a time.
@@ -69,7 +69,7 @@ Weekly view: a column per day (one day on a phone), hours down the side. Windows
 | Entities, migrations, free-time calculation, open period, recurring | backend: new `scheduling` module |
 | API shapes | `@app/shared/types` (`MeetingType`, `WeeklyWindow`, `ExtraWindow`, `Appointment`, `…Request`) |
 | Appointment settings page, weekly view, open-period dialog, extra window and recurring forms | new lib `feature-schedule`, mounted inside the Provider area (so Admin acting works with no extra routes) |
-| Home page | `feature-provider` overview page, using `feature-schedule` pieces |
+| Home page | `feature-provider` overview page. Pieces it shares with `feature-schedule` (e.g. a list of a day's appointments) live in a shared schedule-components lib, since one feature lib can't use another (lint rule; decided 2026-10-12) |
 | HTTP | new `ScheduleApiService` (stateless, like `UsersApiService`), announces changes |
 | Cache | `ScheduleStore` (Signal Store, app-wide) in a new `@app/shared/schedule` lib, used by both `feature-provider` and `feature-schedule` |
 
@@ -80,9 +80,11 @@ Weekly view: a column per day (one day on a phone), hours down the side. Windows
 1. **ADR-0009 accepted + CONTEXT.md vocabulary** (docs only). ADR-0001 marked replaced. ROADMAP Epics 4-6 and the deferred list aligned.
 2. **Backend: settings model.** Time unit, meeting types (lengths validated against it), weekly windows, cancellation window, migration from allowed durations, `client_meeting_types` defaults. CRUD endpoints, Admin with `providerId`.
 3. **Frontend: split settings.** Onboarding = business details. New "הגדרות תורים" page.
-4. **Backend: availability.** `appointments` table + exclusion constraint, extra windows, the free-time calculation, open period (preview + apply), "open until".
-5. **Frontend: weekly view** (read-only) + open-period dialog + extra window form.
-6. **Recurring appointments**, backend + frontend: the form (Client chosen by autocomplete inside the form), placing on open dates, the skipped report.
+4. **Backend: availability**, in two parts:
+   - **4a**: the free-time calculation as pure logic + Jest unit tests (no DB, no endpoints).
+   - **4b**: `appointments` table + exclusion constraint, extra windows, "open until" and the opening limit (`max_open_weeks`, default 12), endpoints for free times and opening a period (preview + apply), API tests.
+5. **Frontend: weekly view** (read-only) + open-period dialog + extra window form, and the opening-limit field in "הגדרות תורים".
+6. **Recurring appointments**, backend + frontend: the form (Client chosen by autocomplete inside the form), placing on open dates, the skipped report. Also decision 5 (shrinking hours cancels the bookings outside them, after a warning), with a minimal `AppointmentEvent` log: it needs bookings to exist, which starts here.
 7. **Provider home page**: "open until" card + upcoming appointments.
 
 The `ScheduleStore` and the refresh button arrive with the first screen that loads schedule data (step 5) and are reused in step 7.
