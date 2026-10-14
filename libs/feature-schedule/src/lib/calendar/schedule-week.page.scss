@@ -1,0 +1,155 @@
+:host {
+  container-type: inline-size;
+  display: block;
+  width: 100%;
+}
+
+.week {
+  display: grid;
+  gap: var(--space-5);
+  margin: 0 auto;
+  max-width: 72rem;
+}
+
+.week__header {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.week__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.week__subtitle,
+.week__updated {
+  // AA-safe secondary grey (see the redesign audit on --color-text-muted).
+  color: var(--color-appointment-blocked-text);
+}
+
+.week__subtitle {
+  margin: var(--space-2) 0 0;
+}
+
+.week__refresh {
+  align-items: center;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.week__updated {
+  font-size: var(--font-size-sm);
+}
+
+.week__nav {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.week__range {
+  font-weight: var(--font-weight-medium);
+  min-width: 12rem;
+  text-align: center;
+}
+
+.week__message {
+  align-items: center;
+  border: var(--border-width-thin) dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: var(--space-6);
+
+  p {
+    margin: 0;
+  }
+}
+
+.week__link {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}
+
+.week__skeleton {
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-lg);
+  height: 28rem;
+}
+
+// The phone layout: a day picker and one day's agenda.
+.week__phone {
+  display: none;
+  gap: var(--space-4);
+}
+
+.week__day-picker {
+  display: grid;
+  gap: var(--space-1);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.week__day-option {
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: grid;
+  justify-items: center;
+  padding: var(--space-2) 0;
+  position: relative;
+
+  input {
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+  }
+
+  &:has(input:focus-visible) {
+    outline: var(--outline-width-focus-visible) solid var(--color-focus-ring);
+  }
+}
+
+.week__day-option--selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.week__day-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.week__day-date {
+  font-size: var(--font-size-xs);
+}
+
+// Narrower than a readable 7-column grid: one day at a time.
+@container (max-width: 759px) {
+  .week__grid {
+    display: none;
+  }
+
+  .week__phone {
+    display: grid;
+  }
+}
+
+.week__visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

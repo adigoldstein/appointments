@@ -15,6 +15,8 @@ Sequenced by dependency; each epic is independently shippable once its dependenc
 5. **Client Booking** — free times for the Client's own Provider (only open dates, only the Client's meeting types), one-time (default) or series booking with the taken-dates check, Provider-books-for-client (may go beyond "open until", warned about series), per-Client meeting types screen, the Client's home page and "my appointments".
 6. **Cancellation** — cancel endpoint (marks `CANCELLED`, shared for Client and Provider actors), cancellation-window enforcement (Client only, Provider/Admin exempt), `AppointmentEvent` entity + migration, wiring booking/cancellation to write events.
 7. **In-App Notifications** — `notificationsLastViewedAt` cursor on `User` + migration, notification-feed endpoint (symmetric by role, cursor-based), mark-as-viewed endpoint, frontend inbox for both dashboards.
+8. **Meeting summaries & follow-ups** (added 2026-10-14) — an optional summary per appointment (free text, written after the meeting, editable) and follow-ups from it: a task text, an optional due date, and a status **open / closed**. Open follow-ups show on the Provider's home page (dashboard); a client's page lists their past meetings with summaries and follow-ups. Each appointment is its own row (ADR-0009), so both attach to it directly. Privacy (decided 2026-10-14): only the Provider sees summaries and follow-ups — not the Client, and not the Admin even when acting for the Provider; sharing a summary with the Client could come later as a toggle.
+9. **Pricing & payments** (added 2026-10-14) — prices: a default per meeting type, and each Client can have their own price, overriding the type's default (decided 2026-10-14). The price is copied onto each appointment when it's booked. Changing a Client's price applies from that moment on: past meetings keep theirs, and the Client's future booked meetings are updated to the new price (decided 2026-10-14). Then: mark as paid (date, optional method), each Client's debt (past unpaid meetings) on the client list and page, total debt on the home page, and an in-app payment request ("meeting on 14.10, ₪300, not paid yet", needs Epic 7). POC: paid / unpaid only (no partial payments), ₪ only. Later and separate: an income report (per month, per meeting type, paid vs owed), and payment requests by email / SMS / WhatsApp.
 
 ## Progress (2026-10-08)
 
@@ -29,6 +31,8 @@ Sequenced by dependency; each epic is independently shippable once its dependenc
 | 5. Client Booking | not started |
 | 6. Cancellation | not started |
 | 7. In-App Notifications | not started |
+| 8. Meeting summaries & follow-ups | planned (2026-10-14) |
+| 9. Pricing & payments | planned (2026-10-14) |
 
 **Waiting in line** (2026-10-08), before or alongside Epic 4:
 - **Client picker in the context bar**: keep, change or remove it; decides client-list plan step 7 ("עבודה בשמו", parked).
@@ -49,8 +53,7 @@ Sequenced by dependency; each epic is independently shippable once its dependenc
 ## Explicitly deferred (raised during planning, not designed in depth, not in slice 1)
 
 - ~~**Weekly recurring appointments**~~ — moved into Epic 4 (2026-10-12): recurring appointments are rules booked into each opened period (ADR-0009). What stays deferred is the **automatic daily job** that moves "open until" forward by itself; it will reuse the same "open period" logic.
-- **Appointment summaries/notes** — a Provider writing notes after an appointment. Needs a `COMPLETED` `AppointmentEvent` type and a summary entity keyed to that specific event (not to the `Appointment` row, since the row gets reused for future bookings).
-- **Billing** (updated 2026-10-12 for ADR-0009) — in layers, each usable on its own:
+- **Billing** — now Epic 9 (pricing & payments, above). The layers below are the original sketch; Epic 9 refines layers 1-3, and layer 4 plus an income report stay later:
   1. **Paid / not paid** on the Appointment row itself (`paidAt`, optional `amount`, `paymentMethod`), separate from `status` (a cancelled meeting can still be paid, a booked one unpaid). A "mark as paid" action and a badge in the views. One migration; small.
   2. **Prices**: per meeting type, with an optional per-Client override. Versioned shape if needed: `PriceRate { providerId, meetingTypeId, clientId (nullable), price, validFrom }`, "latest `validFrom` ≤ date wins".
   3. **Unpaid reminder** (in-app): one more notification type in Epic 7, sent by a scheduled backend job (the same infrastructure as the automatic "open until" job). Small once both exist.

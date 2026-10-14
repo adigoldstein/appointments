@@ -1,8 +1,9 @@
-import { DATE_PATTERN } from '@app/shared/types';
+import { DATE_PATTERN } from './schedule-settings-rules';
 
 /**
  * Calendar dates as `YYYY-MM-DD` strings: pure, no time zones (computed in UTC, where a day is
- * always 24 hours). Israel's "today" comes from israel-time.ts.
+ * always 24 hours). Shared by the backend's scheduling and the frontend calendar (ADR-0008),
+ * so both sides count days the same way. Israel's "today" needs a clock and lives with each side.
  */
 
 function toUtc(date: string): Date {
@@ -50,4 +51,14 @@ export function eachDate(from: string, to: string): string[] {
 
 export function earlierOf(a: string, b: string): string {
   return a < b ? a : b;
+}
+
+/** 0 = Sunday … 6 = Saturday, independent of the machine's time zone. */
+export function weekdayOf(date: string): number {
+  return toUtc(date).getUTCDay();
+}
+
+/** The Sunday that starts the date's week (Israeli weeks start on Sunday). */
+export function weekStartOf(date: string): string {
+  return addDays(date, -weekdayOf(date));
 }

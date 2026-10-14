@@ -17,6 +17,8 @@ const usersListPage = () =>
   import('@app/feature-users').then((m) => m.featureUsersListRoutes);
 const scheduleSettingsPage = () =>
   import('@app/feature-schedule').then((m) => m.featureScheduleSettingsRoutes);
+const scheduleWeekPage = () =>
+  import('@app/feature-schedule').then((m) => m.featureScheduleWeekRoutes);
 
 export const appRoutes: Route[] = [
   {
@@ -72,6 +74,13 @@ export const appRoutes: Route[] = [
             loadChildren: usersListPage,
           },
           {
+            path: 'provider/schedule',
+            canActivate: [requireProviderGuard, onboardingGuard],
+            // Re-check when an Admin switches Provider on this page (same URL).
+            runGuardsAndResolvers: 'always',
+            loadChildren: scheduleWeekPage,
+          },
+          {
             path: 'provider/schedule-settings',
             canActivate: [requireProviderGuard, onboardingGuard],
             // Re-check when an Admin switches Provider on this page (same URL).
@@ -111,6 +120,11 @@ export const appRoutes: Route[] = [
             loadChildren: userFormPage,
           },
           { path: 'clients', data: { mode: 'clients' }, loadChildren: usersListPage },
+          {
+            path: 'schedule',
+            canActivate: [onboardingGuard],
+            loadChildren: scheduleWeekPage,
+          },
           {
             path: 'schedule-settings',
             canActivate: [onboardingGuard],

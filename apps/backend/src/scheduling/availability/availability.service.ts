@@ -14,8 +14,15 @@ import {
   SCHEDULE_RANGE_MAX_DAYS,
   ScheduleDay,
   WeeklyWindow,
+  addDays,
+  addMonths,
+  daysBetween,
+  eachDate,
+  earlierOf,
+  isValidDate,
   toMinutes,
   toTimeOfDay,
+  weekdayOf,
 } from '@app/shared/types';
 import { ProviderSettings } from '../../provider-settings/entities/provider-settings.entity';
 import { CreateExtraWindowDto } from '../dto/create-extra-window.dto';
@@ -28,12 +35,10 @@ import { MeetingTypeEntity } from '../entities/meeting-type.entity';
 import { WeeklyWindowEntity } from '../entities/weekly-window.entity';
 import { requireSettings } from '../provider-settings-access';
 import type { ExtraWindowRule, LocalBooking, MinuteRange } from './availability.types';
-import { addDays, addMonths, daysBetween, eachDate, earlierOf, isValidDate } from './dates';
 import {
   freeStartTimes,
   isOpenForBooking,
   overlapsOrTouches,
-  weekdayOf,
   windowsForDate,
   windowsOnDate,
 } from './free-times';

@@ -1,0 +1,37 @@
+<section class="agenda" [class.agenda--past]="isPast()" [attr.aria-label]="weekdayName(day().date) + ' ' + shortDate(day().date)">
+  <header class="agenda__head">
+    <h2 class="agenda__title">{{ weekdayName(day().date) }}, {{ shortDate(day().date) }}</h2>
+    @if (day().date === today()) {
+      <span class="agenda__badge agenda__badge--today">היום</span>
+    } @else if (notOpenYet()) {
+      <span class="agenda__badge">עוד לא נפתח</span>
+    }
+  </header>
+
+  @if (day().windows.length === 0 && day().appointments.length === 0) {
+    <p class="agenda__empty">לא עובדים ביום הזה.</p>
+  } @else {
+    <ul class="agenda__hours">
+      @for (window of day().windows; track $index) {
+        <li class="agenda__hour" [class.agenda__hour--extra]="window.extra">
+          {{ window.extra ? 'חלון נוסף' : 'שעות פעילות' }}
+          <span dir="ltr">{{ timeRange(window.start, window.end) }}</span>
+        </li>
+      }
+    </ul>
+
+    @if (day().appointments.length === 0) {
+      <p class="agenda__empty">אין פגישות.</p>
+    } @else {
+      <ul class="agenda__appointments">
+        @for (appointment of day().appointments; track appointment.id) {
+          <li class="agenda__appointment">
+            <span class="agenda__time" dir="ltr">{{ timeRange(appointment.start, appointment.end) }}</span>
+            <span class="agenda__name">{{ appointment.client.name }}</span>
+            <span class="agenda__type">{{ appointment.meetingType.name }}</span>
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

@@ -1,4 +1,5 @@
 export * from './lib/auth-session';
+export * from './lib/calendar-dates';
 export * from './lib/create-user';
 export * from './lib/israel-locality';
 export * from './lib/password-rules';

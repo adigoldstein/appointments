@@ -13,6 +13,7 @@ import {
   WEEKLY_WINDOWS_MAX_PER_DAY,
   WeeklyWindow,
   toMinutes,
+  weekdayOf,
 } from '@app/shared/types';
 import { User } from '../auth/entities/user.entity';
 import { ProviderSettings } from '../provider-settings/entities/provider-settings.entity';
@@ -21,7 +22,7 @@ import { ReplaceWeeklyWindowsDto } from './dto/replace-weekly-windows.dto';
 import { UpdateMeetingTypeDto } from './dto/update-meeting-type.dto';
 import { UpdateScheduleSettingsDto } from './dto/update-schedule-settings.dto';
 import { israelNow } from './availability/israel-time';
-import { overlapsOrTouches, weekdayOf } from './availability/free-times';
+import { overlapsOrTouches } from './availability/free-times';
 import { AppointmentEntity } from './entities/appointment.entity';
 import { ClientMeetingTypeEntity } from './entities/client-meeting-type.entity';
 import { ExtraWindowEntity } from './entities/extra-window.entity';

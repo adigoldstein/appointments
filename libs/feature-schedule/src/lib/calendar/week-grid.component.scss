@@ -1,0 +1,162 @@
+:host {
+  display: block;
+  --hour-height: 3.5rem;
+}
+
+.grid {
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: grid;
+  grid-template-columns: 3.5rem repeat(7, minmax(0, 1fr));
+  overflow: hidden;
+}
+
+.grid__corner,
+.grid__head {
+  background: var(--color-surface-raised);
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+}
+
+.grid__head {
+  align-content: start;
+  display: grid;
+  gap: var(--space-half);
+  justify-items: center;
+  padding: var(--space-2) var(--space-1);
+  text-align: center;
+}
+
+.grid__weekday {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.grid__date {
+  color: var(--color-appointment-blocked-text);
+  font-size: var(--font-size-xs);
+}
+
+.grid__head--today .grid__weekday,
+.grid__head--today .grid__date {
+  color: var(--color-accent);
+}
+
+.grid__badge {
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-pill);
+  color: var(--color-appointment-blocked-text);
+  font-size: var(--font-size-xs);
+  padding: 0 var(--space-2);
+}
+
+.grid__badge--today {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+// The day columns and the hour labels share one height: the axis length.
+.grid__times,
+.grid__column {
+  height: calc(var(--hour-count) * var(--hour-height));
+  position: relative;
+}
+
+.grid__time {
+  color: var(--color-appointment-blocked-text);
+  font-size: var(--font-size-xs);
+  inset-inline: 0;
+  padding-inline: var(--space-2);
+  position: absolute;
+  text-align: center;
+  transform: translateY(-50%);
+
+  &:first-child {
+    transform: none;
+  }
+}
+
+// Outside working hours: muted, with a faint line every hour.
+.grid__column {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--hour-height) - 1px),
+      var(--color-border) calc(var(--hour-height) - 1px),
+      var(--color-border) var(--hour-height)
+    ),
+    var(--color-surface-muted);
+  border-inline-start: var(--border-width-thin) solid var(--color-border);
+}
+
+.grid__window {
+  background: var(--color-surface-raised);
+  inset-inline: 0;
+  position: absolute;
+}
+
+.grid__window--extra {
+  border: var(--border-width-thin) dashed var(--color-accent);
+}
+
+.grid__extra-label {
+  color: var(--color-accent);
+  font-size: var(--font-size-xs);
+  inset-inline-start: var(--space-1);
+  position: absolute;
+  top: var(--space-1);
+}
+
+.grid__appointment {
+  background: var(--color-accent-soft);
+  border-inline-start: 3px solid var(--color-appointment-available);
+  border-radius: var(--radius-sm);
+  display: grid;
+  align-content: start;
+  gap: var(--space-half);
+  inset-inline: var(--space-1);
+  overflow: hidden;
+  padding: var(--space-1) var(--space-2);
+  position: absolute;
+}
+
+.grid__appointment-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid__appointment-meta {
+  color: var(--color-appointment-blocked-text);
+  font-size: var(--font-size-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid__column--past {
+  opacity: 0.55;
+}
+
+// Hours exist but clients can't book yet: the working hours are hatched.
+.grid__column--not-open .grid__window {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--color-surface-raised) 0,
+    var(--color-surface-raised) 6px,
+    var(--color-surface-muted) 6px,
+    var(--color-surface-muted) 12px
+  );
+}
+
+.grid__visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

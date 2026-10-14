@@ -1,6 +1,6 @@
 # Plan: slot management (Epic 4)
 
-Status: **approved 2026-10-12**; steps 1-4 done.
+Status: **approved 2026-10-12**; steps 1-4 and 5a done.
 Builds on ADR-0009 (availability windows, meeting types, bookings as the only appointment rows), ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0007/0008 (libs, stores, contracts).
 
 ## Goal
@@ -83,7 +83,9 @@ Weekly view: a column per day (one day on a phone), hours down the side. Windows
 4. **Backend: availability**, in two parts:
    - **4a**: the free-time calculation as pure logic + Jest unit tests (no DB, no endpoints).
    - **4b**: `appointments` table + exclusion constraint, extra windows, "open until" and the opening limit (`max_open_weeks`, default 12), endpoints for free times and opening a period (preview + apply), API tests.
-5. **Frontend: weekly view** (read-only) + open-period dialog + extra window form, and the opening-limit field in "הגדרות תורים".
+5. **Frontend: weekly view**, in two parts:
+   - **5a**: the "יומן" page (grid on wide screens, day picker + agenda on narrow ones, week navigation), `ScheduleStore` and the "רענון" button.
+   - **5b**: the open-period dialog and the extra window form (`@defer`), deleting an extra window, the opening-limit field in "הגדרות תורים". Decided (2026-10-14): the dialog has a date picker (suggestion filled in, out-of-range dates not selectable) plus quick buttons "+1 week", "+2 weeks", "+1 month", "until the limit"; a live preview; no closing of an opened period for now (closed dates come later).
 6. **Recurring appointments**, backend + frontend: the form (Client chosen by autocomplete inside the form), placing on open dates, the skipped report. Also decision 5 (shrinking hours cancels the bookings outside them, after a warning), with a minimal `AppointmentEvent` log: it needs bookings to exist, which starts here.
 7. **Provider home page**: "open until" card + upcoming appointments.
 

@@ -5,7 +5,9 @@ import { API_BASE_URL } from '@app/shared/api';
 import {
   CreateMeetingTypeRequest,
   MeetingType,
+  OpeningResponse,
   ReplaceWeeklyWindowsRequest,
+  ScheduleDay,
   ScheduleSettingsResponse,
   UpdateMeetingTypeRequest,
   UpdateScheduleSettingsRequest,
@@ -82,6 +84,17 @@ export class ScheduleApiService {
         params: targetParams(providerId),
       })
       .pipe(this.announceChange());
+  }
+
+  /** The Provider's days (weekly view): windows, booked appointments, open or not. Both dates included. */
+  getDays(from: string, to: string, providerId: string | null): Observable<ScheduleDay[]> {
+    return this.http.get<ScheduleDay[]>(this.url('days'), {
+      params: targetParams(providerId).set('from', from).set('to', to),
+    });
+  }
+
+  getOpening(providerId: string | null): Observable<OpeningResponse> {
+    return this.http.get<OpeningResponse>(this.url('opening'), { params: targetParams(providerId) });
   }
 
   private url(path: string): string {

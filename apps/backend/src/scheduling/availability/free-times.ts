@@ -1,4 +1,4 @@
-import { toMinutes, type ScheduleWindow, type WeeklyWindow } from '@app/shared/types';
+import { toMinutes, weekdayOf, type ScheduleWindow, type WeeklyWindow } from '@app/shared/types';
 import type { DayAvailabilityInput, ExtraWindowRule, MinuteRange } from './availability.types';
 
 /**
@@ -6,12 +6,6 @@ import type { DayAvailabilityInput, ExtraWindowRule, MinuteRange } from './avail
  * Dates are `YYYY-MM-DD` and times are minutes since midnight, all Israel time; the caller
  * (the availability service, step 4b) supplies "today", "now" and the stored rules.
  */
-
-/** 0 = Sunday … 6 = Saturday for a `YYYY-MM-DD` date, independent of the server's time zone. */
-export function weekdayOf(date: string): number {
-  const [year, month, day] = date.split('-').map(Number);
-  return new Date(Date.UTC(year, month - 1, day)).getUTCDay();
-}
 
 /**
  * Sorted, with overlapping or touching ranges joined: a continuous stretch of work is one window.

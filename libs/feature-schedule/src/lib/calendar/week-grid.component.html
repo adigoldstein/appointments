@@ -1,0 +1,60 @@
+<div class="grid" [style.--hour-count]="hours().length">
+  <div class="grid__corner" aria-hidden="true"></div>
+  @for (day of days(); track day.date) {
+    <div class="grid__head" [class.grid__head--today]="day.date === today()" aria-hidden="true">
+      <span class="grid__weekday">{{ weekdayName(day.date) }}</span>
+      <span class="grid__date">{{ shortDate(day.date) }}</span>
+      @if (day.date === today()) {
+        <span class="grid__badge grid__badge--today">היום</span>
+      } @else if (notOpenYet(day)) {
+        <span class="grid__badge">עוד לא נפתח</span>
+      }
+    </div>
+  }
+
+  <div class="grid__times" aria-hidden="true">
+    @for (hour of hours(); track hour) {
+      <span class="grid__time" [style.top]="top(hourLabel(hour))">{{ hourLabel(hour) }}</span>
+    }
+  </div>
+
+  @for (day of days(); track day.date) {
+    <div
+      class="grid__column"
+      [class.grid__column--past]="day.date < today()"
+      [class.grid__column--not-open]="notOpenYet(day)"
+      role="group"
+      [attr.aria-label]="weekdayName(day.date) + ' ' + shortDate(day.date) + (day.date === today() ? ', היום' : notOpenYet(day) ? ', עוד לא נפתח' : '')"
+    >
+      @for (window of day.windows; track $index) {
+        <div
+          class="grid__window"
+          [class.grid__window--extra]="window.extra"
+          [style.top]="top(window.start)"
+          [style.height]="height(window.start, window.end)"
+        >
+          <span class="grid__visually-hidden">
+            {{ window.extra ? 'חלון נוסף' : 'שעות פעילות' }} {{ timeRange(window.start, window.end) }}
+          </span>
+          @if (window.extra) {
+            <span class="grid__extra-label" aria-hidden="true">חלון נוסף</span>
+          }
+        </div>
+      }
+
+      @for (appointment of day.appointments; track appointment.id) {
+        <div
+          class="grid__appointment"
+          [style.top]="top(appointment.start)"
+          [style.height]="height(appointment.start, appointment.end)"
+        >
+          <span class="grid__appointment-name">{{ appointment.client.name }}</span>
+          <span class="grid__appointment-meta">
+            <span dir="ltr">{{ timeRange(appointment.start, appointment.end) }}</span>
+            · {{ appointment.meetingType.name }}
+          </span>
+        </div>
+      }
+    </div>
+  }
+</div>

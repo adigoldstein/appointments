@@ -1,0 +1,78 @@
+<section class="week">
+  <header class="week__header">
+    <div>
+      <h1 class="week__title">יומן</h1>
+      <p class="week__subtitle">
+        @if (actingProviderName()) {
+          עבור {{ actingProviderName() }}.
+        }
+        @if (openUntilLabel()) {
+          {{ openUntilLabel() }}
+        }
+      </p>
+    </div>
+
+    <div class="week__refresh">
+      @if (updatedAt()) {
+        <span class="week__updated">עודכן ב-<span dir="ltr">{{ updatedAt() }}</span></span>
+      }
+      <ui-button variant="ghost" size="sm" [loading]="week.isLoading()" (click)="onRefresh()">
+        <ui-icon name="refresh" />
+        רענון
+      </ui-button>
+    </div>
+  </header>
+
+  <nav class="week__nav" aria-label="ניווט בין שבועות">
+    <ui-button variant="ghost" size="sm" (click)="onPreviousWeek()">
+      <ui-icon name="caret-right" />
+      השבוע הקודם
+    </ui-button>
+    <span class="week__range" aria-live="polite">{{ weekLabel() }}</span>
+    <ui-button variant="ghost" size="sm" (click)="onNextWeek()">
+      השבוע הבא
+      <ui-icon name="caret-left" />
+    </ui-button>
+    @if (!isCurrentWeek()) {
+      <ui-button variant="secondary" size="sm" (click)="onThisWeek()">השבוע</ui-button>
+    }
+  </nav>
+
+  @if (notOnboarded()) {
+    <div class="week__message">
+      <p>קודם צריך להשלים את פרטי העסק.</p>
+      <a class="week__link" [routerLink]="businessDetailsUrl()">להשלמת פרטי העסק</a>
+    </div>
+  } @else if (week.error()) {
+    <div class="week__message" role="alert">
+      <p>לא הצלחנו לטעון את היומן.</p>
+      <ui-button variant="secondary" size="sm" (click)="week.reload()">נסו שוב</ui-button>
+    </div>
+  } @else if (days().length === 0) {
+    <div class="week__skeleton" aria-hidden="true"></div>
+    <p class="week__visually-hidden" role="status">טוען את היומן…</p>
+  } @else {
+    <feature-schedule-week-grid class="week__grid" [days]="days()" [today]="today" />
+
+    <div class="week__phone">
+      <div class="week__day-picker" role="radiogroup" aria-label="בחירת יום">
+        @for (day of days(); track day.date) {
+          <label class="week__day-option" [class.week__day-option--selected]="day.date === selectedDate()">
+            <input
+              type="radio"
+              name="schedule-day"
+              [value]="day.date"
+              [checked]="day.date === selectedDate()"
+              (change)="selectedDate.set(day.date)"
+            />
+            <span class="week__day-name">{{ weekdayShortName(day.date) }}</span>
+            <span class="week__day-date">{{ shortDate(day.date) }}</span>
+          </label>
+        }
+      </div>
+      @if (selectedDay(); as day) {
+        <feature-schedule-day-agenda [day]="day" [today]="today" />
+      }
+    </div>
+  }
+</section>

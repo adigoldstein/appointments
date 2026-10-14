@@ -1,4 +1,4 @@
-import { addDays, addMonths, daysBetween, eachDate, isValidDate } from './dates';
+import { addDays, addMonths, daysBetween, eachDate, isValidDate, weekStartOf } from '@app/shared/types';
 import { fromIsraelTime, israelNow, toIsraelTime } from './israel-time';
 
 describe('dates', () => {
@@ -26,6 +26,12 @@ describe('dates', () => {
     expect(daysBetween('2026-10-14', '2027-01-06')).toBe(84);
     expect(daysBetween('2026-10-14', '2026-10-14')).toBe(0);
     expect(daysBetween('2026-10-14', '2026-10-13')).toBe(-1);
+  });
+
+  it('finds the Sunday that starts a week', () => {
+    expect(weekStartOf('2026-10-14')).toBe('2026-10-11');
+    expect(weekStartOf('2026-10-11')).toBe('2026-10-11');
+    expect(weekStartOf('2027-01-01')).toBe('2026-12-27');
   });
 
   it('lists every date in a range, both ends included', () => {

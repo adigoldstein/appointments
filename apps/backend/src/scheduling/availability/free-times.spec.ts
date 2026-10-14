@@ -1,11 +1,10 @@
-import { toMinutes, toTimeOfDay } from '@app/shared/types';
+import { toMinutes, toTimeOfDay, weekdayOf } from '@app/shared/types';
 import type { MinuteRange } from './availability.types';
 import {
   freeStartTimes,
   isOpenForBooking,
   mergeRanges,
   overlapsOrTouches,
-  weekdayOf,
   windowsForDate,
   windowsOnDate,
 } from './free-times';
