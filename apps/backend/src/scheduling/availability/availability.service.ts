@@ -333,7 +333,7 @@ async function loadExtraWindows(
   const rows = await manager.find(ExtraWindowEntity, {
     where: { providerId, date: Between(from, to) },
   });
-  return rows.map((row) => ({ date: row.date, start: hhmm(row.startTime), end: hhmm(row.endTime) }));
+  return rows.map((row) => ({ id: row.id, date: row.date, start: hhmm(row.startTime), end: hhmm(row.endTime) }));
 }
 
 /** `BOOKED` appointments that touch the range (from its first midnight to the midnight after it). */

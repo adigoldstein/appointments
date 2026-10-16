@@ -23,6 +23,8 @@ import { ActingContextStore } from '@app/shared/acting-context';
 import { ScheduleApiService } from '@app/shared/schedule';
 import {
   CANCELLATION_WINDOW_MAX_MINUTES,
+  MAX_OPEN_WEEKS_MAX,
+  MAX_OPEN_WEEKS_MIN,
   MeetingType,
   ScheduleSettingsResponse,
   TIME_UNIT_OPTIONS_MINUTES,
@@ -50,7 +52,17 @@ const CANCELLATION_WINDOW_ERROR_MESSAGES: FieldErrorMessages = {
   max: 'הערך לא יכול לעלות על 168:00 (7 ימים).',
 };
 
-/** Time unit + cancellation window. Saved on their own; meeting types and hours save separately. */
+/** The opening limit's own wording: the shared defaults don't cover min / max numbers. */
+const MAX_OPEN_WEEKS_ERROR_MESSAGES: FieldErrorMessages = {
+  min: `לפחות ${MAX_OPEN_WEEKS_MIN} שבוע.`,
+  max: `לכל היותר ${MAX_OPEN_WEEKS_MAX} שבועות.`,
+  pattern: 'יש להזין מספר שלם של שבועות.',
+};
+
+/**
+ * Time unit, cancellation window and the opening limit. Saved on their own; meeting types and
+ * hours save separately.
+ */
 @Component({
   selector: 'feature-schedule-general-section',
   standalone: true,
@@ -84,6 +96,15 @@ export class GeneralSectionComponent implements OnInit {
         maxCancellationWindow,
       ],
     }),
+    maxOpenWeeks: new FormControl('12', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+        Validators.min(MAX_OPEN_WEEKS_MIN),
+        Validators.max(MAX_OPEN_WEEKS_MAX),
+      ],
+    }),
   });
 
   protected readonly unit = toSignal(this.form.controls.timeUnitMinutes.valueChanges, {
@@ -108,16 +129,19 @@ export class GeneralSectionComponent implements OnInit {
   protected readonly submitting = signal(false);
   protected readonly saveError = signal<string | null>(null);
   protected readonly saveSuccess = signal(false);
-  protected readonly cancellationWindowError = fieldErrors(this.form, this.submitted)(
+  private readonly errors = fieldErrors(this.form, this.submitted);
+  protected readonly cancellationWindowError = this.errors(
     'cancellationWindow',
     CANCELLATION_WINDOW_ERROR_MESSAGES,
   );
+  protected readonly maxOpenWeeksError = this.errors('maxOpenWeeks', MAX_OPEN_WEEKS_ERROR_MESSAGES);
 
   ngOnInit(): void {
     const settings = this.settings();
     this.form.reset({
       timeUnitMinutes: settings.timeUnitMinutes,
       cancellationWindow: formatHoursMinutes(settings.cancellationWindowMinutes),
+      maxOpenWeeks: String(settings.maxOpenWeeks),
     });
   }
 
@@ -130,13 +154,14 @@ export class GeneralSectionComponent implements OnInit {
       return;
     }
 
-    const { timeUnitMinutes, cancellationWindow } = this.form.getRawValue();
+    const { timeUnitMinutes, cancellationWindow, maxOpenWeeks } = this.form.getRawValue();
     this.submitting.set(true);
     this.scheduleApi
       .updateSettings(
         {
           timeUnitMinutes,
           cancellationWindowMinutes: parseHoursMinutes(cancellationWindow) ?? 0,
+          maxOpenWeeks: Number(maxOpenWeeks),
         },
         this.actingContext.providerIdForRequest(),
       )

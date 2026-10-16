@@ -3,8 +3,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { API_BASE_URL } from '@app/shared/api';
 import {
+  CreateExtraWindowRequest,
   CreateMeetingTypeRequest,
+  ExtraWindow,
   MeetingType,
+  OpeningPreviewResponse,
   OpeningResponse,
   ReplaceWeeklyWindowsRequest,
   ScheduleDay,
@@ -95,6 +98,32 @@ export class ScheduleApiService {
 
   getOpening(providerId: string | null): Observable<OpeningResponse> {
     return this.http.get<OpeningResponse>(this.url('opening'), { params: targetParams(providerId) });
+  }
+
+  /** What opening up to `until` would do; nothing is saved. */
+  previewOpening(until: string, providerId: string | null): Observable<OpeningPreviewResponse> {
+    return this.http.post<OpeningPreviewResponse>(this.url('opening/preview'), { until }, {
+      params: targetParams(providerId),
+    });
+  }
+
+  /** Moves "open until" forward to `until`. */
+  openPeriod(until: string, providerId: string | null): Observable<OpeningResponse> {
+    return this.http
+      .post<OpeningResponse>(this.url('opening'), { until }, { params: targetParams(providerId) })
+      .pipe(this.announceChange());
+  }
+
+  createExtraWindow(payload: CreateExtraWindowRequest, providerId: string | null): Observable<ExtraWindow> {
+    return this.http
+      .post<ExtraWindow>(this.url('extra-windows'), payload, { params: targetParams(providerId) })
+      .pipe(this.announceChange());
+  }
+
+  deleteExtraWindow(extraWindowId: string, providerId: string | null): Observable<void> {
+    return this.http
+      .delete<void>(this.url('extra-windows/' + extraWindowId), { params: targetParams(providerId) })
+      .pipe(this.announceChange());
   }
 
   private url(path: string): string {

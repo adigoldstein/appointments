@@ -83,6 +83,8 @@ export interface ScheduleWindow {
   start: string;
   end: string;
   extra: boolean;
+  /** Set on extra windows only, so the calendar can delete them. */
+  extraWindowId?: string;
 }
 
 /** `GET /schedule/days`: one date of the Provider's weekly view. */

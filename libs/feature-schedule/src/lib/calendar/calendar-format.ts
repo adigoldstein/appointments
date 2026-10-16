@@ -1,4 +1,5 @@
-import { toMinutes } from '@app/shared/types';
+import { toMinutes, type ScheduleWindow } from '@app/shared/types';
+import type { ExtraWindowTarget } from './calendar.types';
 
 /**
  * Hebrew labels for the calendar. Dates are `YYYY-MM-DD` read as UTC midnight and formatted in
@@ -51,6 +52,21 @@ export const clockTime = (epochMs: number): string => clock.format(new Date(epoc
 /** "09:00–10:00", shown left to right in RTL text by the caller (dir="ltr"). */
 export const timeRange = (start: string, end: string): string => `${start}–${end}`;
 
+/**
+ * The same range for a plain-text Hebrew sentence (no element to put dir="ltr" on): Unicode
+ * isolates (LRI … PDI) keep it reading 10:00–13:00 instead of being reordered to 13:00–10:00.
+ */
+export const isolatedTimeRange = (start: string, end: string): string => `\u2066${start}–${end}\u2069`;
+
+/** "שבוע אחד", "שבועיים", "12 שבועות". */
+export function weeksLabel(weeks: number): string {
+  if (weeks === 1) {
+    return 'שבוע אחד';
+  }
+
+  return weeks === 2 ? 'שבועיים' : `${weeks} שבועות`;
+}
+
 /** Whole hours covering every window and appointment of the week; 08:00–18:00 when there are none. */
 export function hourAxis(times: readonly { start: string; end: string }[]): number[] {
   if (times.length === 0) {
@@ -60,4 +76,11 @@ export function hourAxis(times: readonly { start: string; end: string }[]): numb
   const first = Math.floor(Math.min(...times.map((time) => toMinutes(time.start))) / 60);
   const last = Math.ceil(Math.max(...times.map((time) => toMinutes(time.end))) / 60);
   return Array.from({ length: Math.max(last - first, 1) }, (_, index) => first + index);
+}
+
+/** An extra window on today or later can be removed from the calendar; the target to confirm. */
+export function removableExtraWindow(date: string, today: string, window: ScheduleWindow): ExtraWindowTarget | null {
+  return window.extraWindowId && date >= today
+    ? { id: window.extraWindowId, date, start: window.start, end: window.end }
+    : null;
 }

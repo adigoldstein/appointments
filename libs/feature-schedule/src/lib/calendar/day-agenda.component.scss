@@ -64,6 +64,18 @@
   padding: var(--space-1) var(--space-3);
 }
 
+.agenda__remove {
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  margin-inline-start: var(--space-1);
+  padding: 0;
+  vertical-align: middle;
+}
+
 .agenda__hour--extra {
   border-color: var(--color-accent);
   border-style: dashed;

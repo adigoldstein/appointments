@@ -16,6 +16,16 @@
         <li class="agenda__hour" [class.agenda__hour--extra]="window.extra">
           {{ window.extra ? 'חלון נוסף' : 'שעות פעילות' }}
           <span dir="ltr">{{ timeRange(window.start, window.end) }}</span>
+          @if (removable(day().date, window); as target) {
+            <button
+              class="agenda__remove"
+              type="button"
+              [attr.aria-label]="'הסרת החלון הנוסף ' + isolatedTimeRange(window.start, window.end)"
+              (click)="removeExtraWindow.emit(target)"
+            >
+              <ui-icon name="close" size="0.875rem" />
+            </button>
+          }
         </li>
       }
     </ul>

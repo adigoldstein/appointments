@@ -42,7 +42,12 @@ export function windowsOnDate(
       .map((window) => ({ start: window.start, end: window.end, extra: false })),
     ...extra
       .filter((window) => window.date === date)
-      .map((window) => ({ start: window.start, end: window.end, extra: true })),
+      .map((window) => ({
+        start: window.start,
+        end: window.end,
+        extra: true,
+        ...(window.id ? { extraWindowId: window.id } : {}),
+      })),
   ].sort((a, b) => a.start.localeCompare(b.start));
 }
 

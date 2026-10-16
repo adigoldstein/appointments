@@ -1,0 +1,121 @@
+.opening {
+  display: grid;
+  gap: var(--space-4);
+  min-width: min(28rem, 100%);
+}
+
+.opening__current,
+.opening__preview,
+.opening__notice,
+.opening__error {
+  margin: 0;
+}
+
+.opening__current,
+.opening__hint {
+  // AA-safe secondary grey (see the redesign audit on --color-text-muted).
+  color: var(--color-appointment-blocked-text);
+}
+
+.opening__shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.opening__shortcut {
+  background: var(--color-surface-raised);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: var(--space-half);
+  padding: var(--space-2) var(--space-3);
+  text-align: start;
+}
+
+.opening__shortcut--selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.opening__shortcut-date {
+  font-size: var(--font-size-xs);
+}
+
+.opening__field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.opening__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.opening__date {
+  background: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font: inherit;
+  justify-self: start;
+  padding: var(--space-2) var(--space-3);
+}
+
+.opening__hint {
+  font-size: var(--font-size-sm);
+
+  a {
+    color: var(--color-accent);
+  }
+}
+
+.opening__preview {
+  background: var(--color-pastel-blue-bg);
+  border-radius: var(--radius-sm);
+  color: var(--color-pastel-blue-text);
+  min-height: 1.5em;
+  padding: var(--space-3);
+}
+
+// "טעינה מחדש" inside the preview line: a text button, not a block.
+.opening__reload {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  padding: 0;
+  text-decoration: underline;
+}
+
+.opening__notice,
+.opening__error {
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.opening__notice {
+  background: var(--color-pastel-yellow-bg);
+  color: var(--color-pastel-yellow-text);
+
+  a {
+    color: inherit;
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.opening__error {
+  background: var(--color-pastel-red-bg);
+  color: var(--color-pastel-red-text);
+}
+
+.opening__actions {
+  display: flex;
+  gap: var(--space-3);
+}

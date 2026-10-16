@@ -1,4 +1,4 @@
-<ui-card title="יחידת זמן וביטולים">
+<ui-card title="יחידת זמן, ביטולים ופתיחה">
   <form class="general" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
     <fieldset class="general__unit">
       <legend class="general__legend">יחידת זמן</legend>
@@ -25,6 +25,14 @@
       placeholder="לדוגמה: 24:00"
       hint="עד כמה זמן לפני הפגישה לקוח יכול לבטל בעצמו."
       [error]="cancellationWindowError()"
+    />
+
+    <ui-input
+      formControlName="maxOpenWeeks"
+      type="number"
+      label="עד כמה שבועות קדימה אפשר לפתוח תורים"
+      hint="כשפותחים תורים ביומן, אפשר לבחור תאריך עד מספר השבועות הזה מהיום."
+      [error]="maxOpenWeeksError()"
     />
 
     @if (saveError()) {

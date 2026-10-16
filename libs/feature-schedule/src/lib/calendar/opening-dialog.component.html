@@ -1,0 +1,80 @@
+<ui-modal [open]="true" title="פתיחת תורים" (close)="closed.emit()">
+  <div class="opening">
+    <p class="opening__current">
+      @if (openNow(); as openUntil) {
+        פתוח להזמנות כרגע עד {{ shortDate(openUntil) }}.
+      } @else {
+        עוד אין תורים פתוחים להזמנה.
+      }
+    </p>
+
+    @if (canOpen()) {
+      <div class="opening__shortcuts" role="group" aria-label="פתיחה מהירה">
+        @for (shortcut of shortcuts(); track shortcut.until) {
+          <button
+            type="button"
+            class="opening__shortcut"
+            [class.opening__shortcut--selected]="selected() === shortcut.until"
+            [attr.aria-pressed]="selected() === shortcut.until"
+            (click)="onShortcut(shortcut.until)"
+          >
+            {{ shortcut.label }}
+            <span class="opening__shortcut-date">עד {{ shortDate(shortcut.until) }}</span>
+          </button>
+        }
+      </div>
+
+      <label class="opening__field">
+        <span class="opening__label">פתיחה עד</span>
+        <input
+          class="opening__date"
+          type="date"
+          dir="ltr"
+          [min]="from()"
+          [max]="latest()"
+          [value]="selected()"
+          (input)="onDateInput($event)"
+        />
+        <span class="opening__hint">
+          אפשר לבחור עד {{ shortDate(latest()) }}, {{ weeksLabel(opening().maxOpenWeeks) }} קדימה. את המגבלה אפשר לשנות
+          ב<a [routerLink]="settingsUrl()" (click)="closed.emit()">הגדרות תורים</a>.
+        </span>
+      </label>
+
+      <p class="opening__preview" role="status">
+        @if (!selectedIsValid()) {
+          בחרו תאריך בין {{ shortDate(from()) }} ל-{{ shortDate(latest()) }}.
+        } @else if (preview.hasValue()) {
+          @if (preview.value().workingDays === 0) {
+            אין שעות פעילות בטווח הזה, כך שלא ייפתחו ימים להזמנה.
+          } @else {
+            ייפתחו {{ preview.value().workingDays === 1 ? 'יום עבודה אחד' : preview.value().workingDays + ' ימי עבודה' }},
+            מ-{{ shortDate(preview.value().from) }} עד {{ shortDate(preview.value().until) }}.
+          }
+        } @else if (previewFailed()) {
+          לא הצלחנו לבדוק מה ייפתח. ייתכן שהתורים כבר נפתחו בינתיים.
+          <button type="button" class="opening__reload" (click)="stale.emit()">טעינה מחדש</button>
+        } @else if (preview.isLoading()) {
+          בודקים מה ייפתח…
+        }
+      </p>
+
+      @if (error()) {
+        <p class="opening__error" role="alert">{{ error() }}</p>
+      }
+
+      <div class="opening__actions">
+        <ui-button [loading]="submitting()" [disabled]="!selectedIsValid() || previewFailed()" (click)="onOpen()">פתיחה</ui-button>
+        <ui-button variant="ghost" (click)="closed.emit()">ביטול</ui-button>
+      </div>
+    } @else {
+      <p class="opening__notice">
+        הגעתם למגבלה: אפשר לפתוח עד {{ shortDate(latest()) }}, {{ weeksLabel(opening().maxOpenWeeks) }} קדימה, וזה כבר פתוח.
+        את המגבלה אפשר לשנות ב<a [routerLink]="settingsUrl()" (click)="closed.emit()">הגדרות תורים</a>.
+      </p>
+      <div class="opening__actions">
+        <ui-button variant="ghost" (click)="closed.emit()">סגירה</ui-button>
+      </div>
+    }
+  </div>
+</ui-modal>

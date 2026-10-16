@@ -107,6 +107,27 @@
   top: var(--space-1);
 }
 
+// Above the appointment blocks: an appointment at the window's start would otherwise cover it.
+.grid__remove {
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  z-index: 1;
+  background: var(--color-surface-raised);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-appointment-blocked-text);
+  cursor: pointer;
+  display: inline-flex;
+  inset-inline-end: var(--space-1);
+  padding: var(--space-1);
+  position: absolute;
+  top: var(--space-1);
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
 .grid__appointment {
   background: var(--color-accent-soft);
   border-inline-start: 3px solid var(--color-appointment-available);

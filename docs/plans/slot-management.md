@@ -1,6 +1,6 @@
 # Plan: slot management (Epic 4)
 
-Status: **approved 2026-10-12**; steps 1-4 and 5a done.
+Status: **approved 2026-10-12**; steps 1-5 done.
 Builds on ADR-0009 (availability windows, meeting types, bookings as the only appointment rows), ADR-0004/0005 (acting on behalf), ADR-0006 (Hebrew-only), ADR-0007/0008 (libs, stores, contracts).
 
 ## Goal

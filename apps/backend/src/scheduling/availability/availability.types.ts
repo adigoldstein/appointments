@@ -28,6 +28,8 @@ export interface DayAvailabilityInput {
  * that date's weekly windows (enforced when it's created, 4b): it has its own grid.
  */
 export interface ExtraWindowRule {
+  /** The stored row's id, when the rule comes from the database. */
+  id?: string;
   date: string;
   start: string;
   end: string;

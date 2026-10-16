@@ -1,0 +1,32 @@
+<ui-modal [open]="true" title="חלון נוסף" (close)="closed.emit()">
+  <form class="extra" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+    <p class="extra__intro">שעות פעילות חד-פעמיות בתאריך מסוים, למשל ביום שבדרך כלל לא עובדים בו.</p>
+
+    <label class="extra__field">
+      <span class="extra__label">תאריך</span>
+      <input class="extra__input" type="date" dir="ltr" formControlName="date" [min]="today()" />
+    </label>
+
+    <div class="extra__times">
+      <label class="extra__field">
+        <span class="extra__label">משעה</span>
+        <input class="extra__input" type="time" dir="ltr" step="300" formControlName="start" />
+      </label>
+      <label class="extra__field">
+        <span class="extra__label">עד שעה</span>
+        <input class="extra__input" type="time" dir="ltr" step="300" formControlName="end" />
+      </label>
+    </div>
+
+    @if (submitted() && problem()) {
+      <p class="extra__error" role="alert">{{ problem() }}</p>
+    } @else if (serverError()) {
+      <p class="extra__error" role="alert">{{ serverError() }}</p>
+    }
+
+    <div class="extra__actions">
+      <ui-button type="submit" [loading]="submitting()">הוספה</ui-button>
+      <ui-button variant="ghost" (click)="closed.emit()">ביטול</ui-button>
+    </div>
+  </form>
+</ui-modal>

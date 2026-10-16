@@ -12,6 +12,11 @@
       </p>
     </div>
 
+    <div class="week__actions">
+      <ui-button (click)="onOpenOpeningDialog()" [disabled]="!openingInfo()">פתיחת תורים</ui-button>
+      <ui-button variant="secondary" (click)="onOpenExtraWindowDialog()">חלון נוסף</ui-button>
+    </div>
+
     <div class="week__refresh">
       @if (updatedAt()) {
         <span class="week__updated">עודכן ב-<span dir="ltr">{{ updatedAt() }}</span></span>
@@ -22,6 +27,10 @@
       </ui-button>
     </div>
   </header>
+
+  @if (statusMessage()) {
+    <p class="week__status" role="status">{{ statusMessage() }}</p>
+  }
 
   <nav class="week__nav" aria-label="ניווט בין שבועות">
     <ui-button variant="ghost" size="sm" (click)="onPreviousWeek()">
@@ -52,7 +61,12 @@
     <div class="week__skeleton" aria-hidden="true"></div>
     <p class="week__visually-hidden" role="status">טוען את היומן…</p>
   } @else {
-    <feature-schedule-week-grid class="week__grid" [days]="days()" [today]="today" />
+    <feature-schedule-week-grid
+      class="week__grid"
+      [days]="days()"
+      [today]="today()"
+      (removeExtraWindow)="onAskRemove($event)"
+    />
 
     <div class="week__phone">
       <div class="week__day-picker" role="radiogroup" aria-label="בחירת יום">
@@ -71,8 +85,49 @@
         }
       </div>
       @if (selectedDay(); as day) {
-        <feature-schedule-day-agenda [day]="day" [today]="today" />
+        <feature-schedule-day-agenda [day]="day" [today]="today()" (removeExtraWindow)="onAskRemove($event)" />
       }
     </div>
   }
 </section>
+
+<!-- Dialogs: their code downloads the first time one opens (CLAUDE.md, deferrable views). -->
+@defer (when openingDialogOpen()) {
+  @if (openingDialogOpen() && openingInfo(); as info) {
+    <feature-schedule-opening-dialog
+      [opening]="info"
+      [today]="today()"
+      (closed)="openingDialogOpen.set(false)"
+      (opened)="onOpened($event)"
+      (stale)="onOpeningStale()"
+    />
+  }
+}
+
+@defer (when extraWindowDialogOpen()) {
+  @if (extraWindowDialogOpen()) {
+    <feature-schedule-extra-window-dialog
+      [today]="today()"
+      (closed)="extraWindowDialogOpen.set(false)"
+      (created)="onExtraWindowCreated($event)"
+    />
+  }
+}
+
+<ui-modal [open]="removeTarget() !== null" title="הסרת חלון נוסף" (close)="onCancelRemove()">
+  @if (removeTarget(); as target) {
+    <div class="week__confirm">
+      <p>
+        להסיר את החלון הנוסף ב{{ weekdayShortName(target.date) }} {{ shortDate(target.date) }},
+        <span dir="ltr">{{ timeRange(target.start, target.end) }}</span>?
+      </p>
+      @if (removeError()) {
+        <p class="week__error" role="alert">{{ removeError() }}</p>
+      }
+      <div class="week__confirm-actions">
+        <ui-button [loading]="removing()" (click)="onConfirmRemove()">הסרה</ui-button>
+        <ui-button variant="ghost" [disabled]="removing()" (click)="onCancelRemove()">ביטול</ui-button>
+      </div>
+    </div>
+  }
+</ui-modal>
